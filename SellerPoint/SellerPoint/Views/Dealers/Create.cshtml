@@ -1,0 +1,100 @@
+﻿@model SellerPoint.Models.Dealer
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h4>New Dealer</h4>
+<hr />
+@*<div class="row">
+    <div class="col-md-4">*@
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group row">
+                <label asp-for="Name" class="col-sm-2 form-control-label">Ware Name</label>
+                <div class="col-sm-10">
+                    <input asp-for="Name" class="form-control" name="Name" placeholder="Enter Name"></>
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="StreetAddress" class="col-sm-2 form-control-label">Ware Street Address</label>
+                <div class="col-sm-10">
+                    <input asp-for="StreetAddress" class="form-control" name="StreetAddress" placeholder="Enter Street Address"></>
+                    <span asp-validation-for="StreetAddress" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Area" class="col-sm-2 form-control-label">Ware Area</label>
+                <div class="col-sm-10">
+                    <input asp-for="Area" class="form-control" name="Area" placeholder="Enter Area"></>
+                    <span asp-validation-for="Area" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Thana" class="col-sm-2 form-control-label">Ware Thana</label>
+                <div class="col-sm-10">
+                    <input asp-for="Thana" class="form-control" name="Thana" placeholder="Enter Thana"></>
+                    <span asp-validation-for="Thana" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="District" class="col-sm-2 form-control-label">Ware District</label>
+                <div class="col-sm-10">
+                    <input asp-for="District" class="form-control" name="District" placeholder="Enter District"></>
+                    <span asp-validation-for="District" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="PostCode" class="col-sm-2 form-control-label">Ware PostCode</label>
+                <div class="col-sm-10">
+                    <input asp-for="PostCode" class="form-control" name="PostCode" placeholder="Enter PostCode"></>
+                    <span asp-validation-for="PostCode" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Country" class="col-sm-2 form-control-label">Ware Country</label>
+                <div class="col-sm-10">
+                    <input asp-for="Country" class="form-control" name="Country" placeholder="Enter Country"></>
+                    <span asp-validation-for="Country" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Phone" class="col-sm-2 form-control-label">Ware Phone</label>
+                <div class="col-sm-10">
+                    <input asp-for="Phone" class="form-control" name="Phone" placeholder="Enter Phone"></>
+                    <span asp-validation-for="Phone" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Remarks" class="col-sm-2 form-control-label">Ware Remarks</label>
+                <div class="col-sm-10">
+                    <input asp-for="Remarks" class="form-control" name="Remarks" placeholder="Enter Remarks"></>
+                    <span asp-validation-for="Remarks" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="CompanyName" class="col-sm-2 form-control-label">Ware Company Name</label>
+                <div class="col-sm-10">
+                    <input asp-for="CompanyName" class="form-control" name="CompanyName" placeholder="Enter Company Name"></>
+                    <span asp-validation-for="CompanyName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="ContactPersonName" class="col-sm-2 form-control-label">Ware Contact Person Name</label>
+                <div class="col-sm-10">
+                    <input asp-for="ContactPersonName" class="form-control" name="ContactPersonName" placeholder="Enter Contact Person Name"></>
+                    <span asp-validation-for="ContactPersonName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-info" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

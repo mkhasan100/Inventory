@@ -1,0 +1,121 @@
+﻿@model SellerPoint.Models.Purchase
+
+@{
+    ViewData["Title"] = "Create";
+}
+<h4>New Purchase</h4>
+<hr />
+@*<div class="row">*@
+    @*<div class="col-md-4">*@
+    <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group row">
+            <label asp-for="AccountHeadId" class="col-sm-2 form-control-label">Account Head</label>
+            <div class="col-sm-10">
+                @*<input asp-for="AccountHeadId" class="form-control" />*@
+                @Html.DropDownListFor(model => model.AccountHeadId, new SelectList(@ViewBag.AccountHeadList, "Id", "Name"), "Select Account Head", new { @class = "form-control" })
+                <span asp-validation-for="AccountHeadId" class="text-danger"></span>
+            </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="WarehouseId" class="col-sm-2 form-control-label">Warehouse</label>
+                <div class="col-sm-10">
+                    @*<input asp-for="WarehouseId" class="form-control" name="WarehouseId" placeholder="Enter Warehouse"></>*@
+                    @Html.DropDownListFor(model => model.WarehouseId, new SelectList(@ViewBag.WarehouseList, "Id", "Name"), "Select Warehouse", new { @class = "form-control" })
+                    <span asp-validation-for="WarehouseId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="WalletsId" class="col-sm-2 form-control-label">Wallets</label>
+                <div class="col-sm-10">
+                    <input asp-for="WalletsId" class="form-control" name="WalletsId" placeholder="Enter WalletsId"></>
+                    <span asp-validation-for="WalletsId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="SupplierId" class="col-sm-2 form-control-label">Supplier</label>
+                <div class="col-sm-10">
+                    <input asp-for="SupplierId" class="form-control" name="SupplierId" placeholder="Enter Supplier Id"></>
+                    <span asp-validation-for="SupplierId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="PurchaseOrderDate" class="col-sm-2 form-control-label">Purchase Order Date</label>
+                <div class="col-sm-10">
+                    <input asp-for="PurchaseOrderDate" class="form-control" name="PurchaseOrderDate" placeholder="Enter Purchase Order Date"></>
+                    <span asp-validation-for="PurchaseOrderDate" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="OrderNumber" class="col-sm-2 form-control-label">Order Number</label>
+                <div class="col-sm-10">
+                    <input asp-for="OrderNumber" class="form-control" name="OrderNumber" placeholder="Enter Order Number"></>
+                    <span asp-validation-for="OrderNumber" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="OrderReferenceNumber" class="col-sm-2 form-control-label">Order Reference Number</label>
+                <div class="col-sm-10">
+                    <input asp-for="OrderReferenceNumber" class="form-control" name="OrderReferenceNumber" placeholder="Enter Order Reference Number"></>
+                    <span asp-validation-for="OrderReferenceNumber" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="ProductAmount" class="col-sm-2 form-control-label">Product Amount</label>
+                <div class="col-sm-10">
+                    <input asp-for="ProductAmount" class="form-control" name="ProductAmount" placeholder="Enter Product Amount"></>
+                    <span asp-validation-for="ProductAmount" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="OtherAmount" class="col-sm-2 form-control-label">Other Amount</label>
+                <div class="col-sm-10">
+                    <input asp-for="OtherAmount" class="form-control" name="OtherAmount" placeholder="Enter Other Amount"></>
+                    <span asp-validation-for="OtherAmount" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Discount" class="col-sm-2 form-control-label">Discount</label>
+                <div class="col-sm-10">
+                    <input asp-for="Discount" class="form-control" name="Discount" placeholder="Enter Discount"></>
+                    <span asp-validation-for="Discount" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Total" class="col-sm-2 form-control-label">Total</label>
+                <div class="col-sm-10">
+                    <input asp-for="Total" class="form-control" name="Total" placeholder="Enter Total"></>
+                    <span asp-validation-for="Total" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="ShippingProvider" class="col-sm-2 form-control-label">Shipping Provider</label>
+                <div class="col-sm-10">
+                    <input asp-for="ShippingProvider" class="form-control" name="ShippingProvider" placeholder="Enter Shipping Provider"></>
+                    <span asp-validation-for="ShippingProvider" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="ShippingTrackingNumber" class="col-sm-2 form-control-label">Shipping Tracking Number</label>
+                <div class="col-sm-10">
+                    <input asp-for="ShippingTrackingNumber" class="form-control" name="ShippingTrackingNumber" placeholder="Enter Shipping Tracking Number"></>
+                    <span asp-validation-for="ShippingTrackingNumber" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Remarks" class="col-sm-2 form-control-label">Remarks</label>
+                <div class="col-sm-10">
+                    <input asp-for="Remarks" class="form-control" name="Remarks" placeholder="Enter Remarks"></>
+                    <span asp-validation-for="Remarks" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-info" />
+            </div>
+</form>
+   
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -9,6 +9,7 @@ namespace SellerPoint.Models
     public class Wallet
     {
         [Key]
+        public int Id { get; set; }
         public string WareHouse { get; set; }
         public string Title { get; set; }
         public string AccountNumber { get; set; }

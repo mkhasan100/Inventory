@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "U4Tu2NQI3k0ltveuW/I5a7+qxuj1+A93Rq/G0Xrs2vzYanHwAbWyQJP4j3o+TRvQ4BYrczNUNZGaTQ1kNs7Pdg==",
+  "dgSpecHash": "X7+EeUrogMXah5MxL+c2Zy75FTiIX8BtGL16QNL16zfd5qiTFfqd9AibmXYiOvoHRkhcpXli5L8LfsfS5XGGlQ==",
   "success": true,
-  "projectFilePath": "G:\\DotNet\\DotNetCore\\SellerPoint\\SellerPoint\\SellerPoint.csproj",
+  "projectFilePath": "G:\\DotNet\\DotNetCore\\Inventory\\SellerPoint\\SellerPoint\\SellerPoint.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Hasan\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\Hasan\\.nuget\\packages\\microsoft.aspnetcore.razor\\2.2.0\\microsoft.aspnetcore.razor.2.2.0.nupkg.sha512",

@@ -588,21 +588,6 @@ namespace SellerPoint.Migrations
 
                     b.ToTable("Warehouse");
                 });
-
-            modelBuilder.Entity("SellerPoint.Models.test", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("test");
-                });
 #pragma warning restore 612, 618
         }
     }

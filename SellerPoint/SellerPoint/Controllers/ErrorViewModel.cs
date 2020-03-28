@@ -1,0 +1,7 @@
+﻿namespace SellerPoint.Controllers
+{
+    internal class ErrorViewModel
+    {
+        public string RequestId { get; set; }
+    }
+}

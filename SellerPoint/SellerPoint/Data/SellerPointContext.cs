@@ -15,13 +15,9 @@ namespace SellerPoint.Data
         }
 
         public DbSet<SellerPoint.Models.MyShop> MyShop { get; set; }
-
         public DbSet<SellerPoint.Models.Config> Config { get; set; }
-
         public DbSet<SellerPoint.Models.User> User { get; set; }
-
         public DbSet<SellerPoint.Models.EmployeeInfo> EI { get; set; }
-        public DbSet<SellerPoint.Models.test> tests { get; set; }
         public DbSet<SellerPoint.Models.Brand> Brand { get; set; }
         public DbSet<SellerPoint.Models.Customer> Customer { get; set; }
         public DbSet<SellerPoint.Models.ProductGroup> ProductGroup { get; set; }

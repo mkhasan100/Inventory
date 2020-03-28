@@ -1,0 +1,154 @@
+﻿@model SellerPoint.Models.MyShop
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h4>My Shop SellerPoint</h4>
+<hr />
+@*<div class="row">*@
+    @*<div class="col-md-4">*@
+<form asp-action="Create">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group row">
+        <label class="col-sm-2 form-control-label">Street Address</label>
+        <div class="col-sm-10">
+            <textarea class="form-control" rows="4" id="houseNo" name="StreetAddress" placeholder="Enter Street Address"></textarea>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label asp-for="Area" class="col-sm-2 form-control-label">Area</label>
+        <div class="col-sm-10">
+            <input asp-for="Area" class="form-control" name="Area" placeholder="Enter Area"></>
+            <span asp-validation-for="Area" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label asp-for="Thana" class="col-sm-2 form-control-label">Thana</label>
+        <div class="col-sm-10">
+            <input asp-for="Thana" class="form-control" name="Thana" placeholder="Enter Thana" />
+            <span asp-validation-for="Thana" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label asp-for="PostCode" class="col-sm-2 form-control-label">Post Code</label>
+        <div class="col-sm-10">
+            <input asp-for="PostCode" class="form-control" name="PostCode" placeholder="Enter Post Code" />
+            <span asp-validation-for="PostCode" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label asp-for="District" class="col-sm-2 form-control-label">District</label>
+        <div class="col-sm-10">
+            <input asp-for="District" class="form-control" name="District" placeholder="Enter District" />
+            <span asp-validation-for="District" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label asp-for="Country" class="col-sm-2 form-control-label">Country</label>
+        <div class="col-sm-10">
+            <input asp-for="Country" class="form-control" name="Country" placeholder="Enter Country" />
+            <span asp-validation-for="Country" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label asp-for="Phone" class="col-sm-2 form-control-label">Phone</label>
+        <div class="col-sm-10">
+            <input asp-for="Phone" class="form-control" name="Phone" placeholder="Enter Phone Number" />
+            <span asp-validation-for="Phone" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label asp-for="Website" class="col-sm-2 form-control-label">Website</label>
+        <div class="col-sm-10">
+            <input asp-for="Website" class="form-control" name="Website" placeholder="Enter Website Address" />
+            <span asp-validation-for="Website" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label asp-for="Facebook" class="col-sm-2 form-control-label">Facebook</label>
+        <div class="col-sm-10">
+            <input asp-for="Facebook" class="form-control" name="Facebook" placeholder="Enter Facebook URL" />
+            <span asp-validation-for="Facebook" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label asp-for="Email" class="col-sm-2 form-control-label">Email</label>
+        <div class="col-sm-10">
+            <input asp-for="Email" class="form-control" name="Email" placeholder="Enter Email" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label asp-for="ContactPerson" class="col-sm-2 form-control-label">Contact Person</label>
+        <div class="col-sm-10">
+            <input asp-for="ContactPerson" class="form-control" name="ContactPerson" placeholder="Enter Contact Person" />
+            <span asp-validation-for="ContactPerson" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label asp-for="ContactPersonPhone" class="col-sm-2 form-control-label">Contact Person Phone</label>
+        <div class="col-sm-10">
+            <input asp-for="ContactPersonPhone" class="form-control" name="ContactPersonPhone" placeholder="Enter Contact Person Phone" />
+            <span asp-validation-for="ContactPersonPhone" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label asp-for="About" class="col-sm-2 form-control-label">About</label>
+        <div class="col-sm-10">
+            <input asp-for="About" class="form-control" name="About" placeholder="Enter About" />
+            <span asp-validation-for="About" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label asp-for="LogoURL" class="col-sm-2 form-control-label">Logo URL</label>
+        <div class="col-sm-10">
+            <input asp-for="LogoURL" class="form-control" name="LogoURL" placeholder="Enter Logo URL" />
+            <span asp-validation-for="LogoURL" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label asp-for="Remarks" class="col-sm-2 form-control-label">Remarks</label>
+        <div class="col-sm-10">
+            <input asp-for="Remarks" class="form-control" name="Remarks" placeholder="Enter Remarks" />
+            <span asp-validation-for="Remarks" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label asp-for="ExpireDate" class="col-sm-2 form-control-label">Expire Date</label>
+        <div class="col-sm-10">
+            <input asp-for="ExpireDate" class="form-control" name="ExpireDate" placeholder="" />
+            <span asp-validation-for="ExpireDate" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label asp-for="DeliveryCharge" class="col-sm-2 form-control-label">Delivery Charge</label>
+        <div class="col-sm-10">
+            <input asp-for="DeliveryCharge" class="form-control" name="DeliveryCharge" placeholder="" />
+            <span asp-validation-for="DeliveryCharge" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label asp-for="RecieptName" class="col-sm-2 form-control-label">Reciept Name</label>
+        <div class="col-sm-10">
+            <input asp-for="RecieptName" class="form-control" name="RecieptName" placeholder="" />
+            <span asp-validation-for="RecieptName" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label asp-for="ChalanName" class="col-sm-2 form-control-label">Chalan Name</label>
+        <div class="col-sm-10">
+            <input asp-for="ChalanName" class="form-control" name="ChalanName" placeholder="Enter Chalan Name" />
+            <span asp-validation-for="ChalanName" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-info" />
+    </div>
+</form>
+    @* </div> *@
+@*</div>*@
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

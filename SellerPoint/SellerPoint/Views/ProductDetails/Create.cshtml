@@ -1,0 +1,142 @@
+﻿@model SellerPoint.Models.ProductDetail
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+<h4>Product Detail</h4>
+<hr />
+@*<div class="row">
+    <div class="col-md-4">*@
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group row">
+                <label asp-for="Category" class="col-sm-2 form-control-label">Category</label>
+                <div class="col-sm-10">
+                    <input asp-for="Category" class="form-control" name="Category" placeholder="Enter Category"></>
+                    <span asp-validation-for="Category" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Brand" class="col-sm-2 form-control-label">Brand</label>
+                <div class="col-sm-10">
+                    <input asp-for="Brand" class="form-control" name="Brand" placeholder="Enter Brand"></>
+                    <span asp-validation-for="Brand" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Name" class="col-sm-2 form-control-label">Name</label>
+                <div class="col-sm-10">
+                    <input asp-for="Name" class="form-control" name="Name" placeholder="Enter Name"></>
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Model" class="col-sm-2 form-control-label">Model</label>
+                <div class="col-sm-10">
+                    <input asp-for="Model" class="form-control" name="Model" placeholder="Enter Model"></>
+                    <span asp-validation-for="Model" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Year" class="col-sm-2 form-control-label">Year</label>
+                <div class="col-sm-10">
+                    <input asp-for="Year" class="form-control" name="Year" placeholder="Enter Year"></>
+                    <span asp-validation-for="Year" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="ProductCode" class="col-sm-2 form-control-label">Product Code</label>
+                <div class="col-sm-10">
+                    <input asp-for="ProductCode" class="form-control" name="ProductCode" placeholder="Enter Product Code"></>
+                    <span asp-validation-for="ProductCode" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="BarCode" class="col-sm-2 form-control-label">Bar Code</label>
+                <div class="col-sm-10">
+                    <input asp-for="BarCode" class="form-control" name="BarCode" placeholder="Enter Bar Code"></>
+                    <span asp-validation-for="BarCode" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="SalePrice" class="col-sm-2 form-control-label">Sale Price</label>
+                <div class="col-sm-10">
+                    <input asp-for="SalePrice" class="form-control" name="SalePrice" placeholder="Enter Sale Price"></>
+                    <span asp-validation-for="SalePrice" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="DealerPrice" class="col-sm-2 form-control-label">Dealer Price</label>
+                <div class="col-sm-10">
+                    <input asp-for="DealerPrice" class="form-control" name="DealerPrice" placeholder="Enter Dealer Price"></>
+                    <span asp-validation-for="DealerPrice" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="CostPrice" class="col-sm-2 form-control-label">Cost Price</label>
+                <div class="col-sm-10">
+                    <input asp-for="CostPrice" class="form-control" name="CostPrice" placeholder="Enter Cost Price"></>
+                    <span asp-validation-for="CostPrice" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Type" class="col-sm-2 form-control-label">Type</label>
+                <div class="col-sm-10">
+                    <input asp-for="Type" class="form-control" name="Type" placeholder="Enter Type"></>
+                    <span asp-validation-for="Type" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Color" class="col-sm-2 form-control-label">Color</label>
+                <div class="col-sm-10">
+                    <input asp-for="Color" class="form-control" name="Color" placeholder="Enter Color"></>
+                    <span asp-validation-for="Color" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="MinimumStockToNotify" class="col-sm-2 form-control-label">Minimum Stock To Notify</label>
+                <div class="col-sm-10">
+                    <input asp-for="MinimumStockToNotify" class="form-control" name="MinimumStockToNotify" placeholder="Enter Minimum Stock To Notify"></>
+                    <span asp-validation-for="MinimumStockToNotify" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="StartingInventory" class="col-sm-2 form-control-label">Starting Inventory</label>
+                <div class="col-sm-10">
+                    <input asp-for="StartingInventory" class="form-control" name="StartingInventory" placeholder="Enter Starting Inventory"></>
+                    <span asp-validation-for="StartingInventory" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Purchased" class="col-sm-2 form-control-label">Purchased</label>
+                <div class="col-sm-10">
+                    <input asp-for="Purchased" class="form-control" name="Purchased" placeholder="Enter Purchased"></>
+                    <span asp-validation-for="Purchased" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Sold" class="col-sm-2 form-control-label">Sold</label>
+                <div class="col-sm-10">
+                    <input asp-for="Sold" class="form-control" name="Sold" placeholder="Enter Sold"></>
+                    <span asp-validation-for="Sold" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="OnHand" class="col-sm-2 form-control-label">On Hand</label>
+                <div class="col-sm-10">
+                    <input asp-for="OnHand" class="form-control" name="OnHand" placeholder="Enter On Hand"></>
+                    <span asp-validation-for="OnHand" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-info" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

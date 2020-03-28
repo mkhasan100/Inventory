@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "G:\\DotNet\\DotNetCore\\SellerPoint\\SellerPoint\\SellerPoint.csproj": {}
+    "G:\\DotNet\\DotNetCore\\Inventory\\SellerPoint\\SellerPoint\\SellerPoint.csproj": {}
   },
   "projects": {
-    "G:\\DotNet\\DotNetCore\\SellerPoint\\SellerPoint\\SellerPoint.csproj": {
+    "G:\\DotNet\\DotNetCore\\Inventory\\SellerPoint\\SellerPoint\\SellerPoint.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "G:\\DotNet\\DotNetCore\\SellerPoint\\SellerPoint\\SellerPoint.csproj",
+        "projectUniqueName": "G:\\DotNet\\DotNetCore\\Inventory\\SellerPoint\\SellerPoint\\SellerPoint.csproj",
         "projectName": "SellerPoint",
-        "projectPath": "G:\\DotNet\\DotNetCore\\SellerPoint\\SellerPoint\\SellerPoint.csproj",
+        "projectPath": "G:\\DotNet\\DotNetCore\\Inventory\\SellerPoint\\SellerPoint\\SellerPoint.csproj",
         "packagesPath": "C:\\Users\\Hasan\\.nuget\\packages\\",
-        "outputPath": "G:\\DotNet\\DotNetCore\\SellerPoint\\SellerPoint\\obj\\",
+        "outputPath": "G:\\DotNet\\DotNetCore\\Inventory\\SellerPoint\\SellerPoint\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Hasan\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -1,0 +1,113 @@
+﻿@model IEnumerable<SellerPoint.Models.Purchase>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AccountHeadId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WarehouseId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WalletsId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SupplierId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PurchaseOrderDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderReferenceNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OtherAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Discount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Total)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShippingProvider)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShippingTrackingNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Remarks)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccountHeadId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WarehouseId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WalletsId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SupplierId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PurchaseOrderDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderReferenceNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OtherAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Discount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Total)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShippingProvider)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShippingTrackingNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Remarks)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
