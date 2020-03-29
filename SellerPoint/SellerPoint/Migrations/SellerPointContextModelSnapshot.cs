@@ -346,27 +346,37 @@ namespace SellerPoint.Migrations
 
             modelBuilder.Entity("SellerPoint.Models.ProductCategory", b =>
                 {
-                    b.Property<string>("GroupName")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("GroupId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("GroupName");
+                    b.HasKey("Id");
 
                     b.ToTable("ProductCategory");
                 });
 
             modelBuilder.Entity("SellerPoint.Models.ProductDetail", b =>
                 {
-                    b.Property<string>("Category")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("BarCode")
                         .HasColumnType("int");
 
                     b.Property<string>("Brand")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Color")
                         .HasColumnType("nvarchar(max)");
@@ -410,17 +420,22 @@ namespace SellerPoint.Migrations
                     b.Property<string>("Year")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Category");
+                    b.HasKey("Id");
 
                     b.ToTable("ProductDetail");
                 });
 
             modelBuilder.Entity("SellerPoint.Models.ProductGroup", b =>
                 {
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.HasKey("Name");
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
 
                     b.ToTable("ProductGroup");
                 });
@@ -533,8 +548,10 @@ namespace SellerPoint.Migrations
 
             modelBuilder.Entity("SellerPoint.Models.Wallet", b =>
                 {
-                    b.Property<string>("WareHouse")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("AccountNumber")
                         .HasColumnType("nvarchar(max)");
@@ -557,7 +574,10 @@ namespace SellerPoint.Migrations
                     b.Property<string>("WalletType")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("WareHouse");
+                    b.Property<string>("WareHouse")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
 
                     b.ToTable("Wallet");
                 });

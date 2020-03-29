@@ -1,14 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace SellerPoint.Models
 {
+    [Serializable]
     public class ProductDetail
     {
         [Key]
+        public int Id { get; set; }
+        public int CategoryId { get; set; }
+        
+        [NotMapped]
         public string Category { get; set; }
         public string Brand { get; set; }
         public string Name { get; set; }

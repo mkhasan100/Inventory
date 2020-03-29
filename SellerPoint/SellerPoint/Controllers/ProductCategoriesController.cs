@@ -26,7 +26,7 @@ namespace SellerPoint.Controllers
         }
 
         // GET: ProductCategories/Details/5
-        public async Task<IActionResult> Details(string id)
+        public async Task<IActionResult> Details(int id)
         {
             if (id == null)
             {
@@ -34,7 +34,7 @@ namespace SellerPoint.Controllers
             }
 
             var productCategory = await _context.ProductCategory
-                .FirstOrDefaultAsync(m => m.GroupName == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (productCategory == null)
             {
                 return NotFound();
@@ -86,9 +86,9 @@ namespace SellerPoint.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("GroupName,Name")] ProductCategory productCategory)
+        public async Task<IActionResult> Edit(int id, [Bind("GroupName,Name")] ProductCategory productCategory)
         {
-            if (id != productCategory.GroupName)
+            if (id != productCategory.Id)
             {
                 return NotFound();
             }
@@ -102,7 +102,7 @@ namespace SellerPoint.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductCategoryExists(productCategory.GroupName))
+                    if (!ProductCategoryExists(productCategory.GroupId))
                     {
                         return NotFound();
                     }
@@ -117,7 +117,7 @@ namespace SellerPoint.Controllers
         }
 
         // GET: ProductCategories/Delete/5
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(int id)
         {
             if (id == null)
             {
@@ -125,7 +125,7 @@ namespace SellerPoint.Controllers
             }
 
             var productCategory = await _context.ProductCategory
-                .FirstOrDefaultAsync(m => m.GroupName == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (productCategory == null)
             {
                 return NotFound();
@@ -145,9 +145,9 @@ namespace SellerPoint.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ProductCategoryExists(string id)
+        private bool ProductCategoryExists(int id)
         {
-            return _context.ProductCategory.Any(e => e.GroupName == id);
+            return _context.ProductCategory.Any(e => e.Id == id);
         }
     }
 }
