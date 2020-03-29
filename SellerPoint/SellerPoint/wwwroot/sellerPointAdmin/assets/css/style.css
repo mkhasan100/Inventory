@@ -3247,9 +3247,9 @@ label {
 }
 
 .form-control {
-  font-size: 14px;
-  border: 1px solid #e9ecef;
-  height: calc(2.3rem + 2px);
+    font-size: 14px;
+    border: 1px solid #d7d1cc;
+    height: calc(2.3rem + 2px);
 }
 
 .form-control:focus {
