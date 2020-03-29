@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SellerPoint.Migrations
 {
-    public partial class init : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -287,19 +287,6 @@ namespace SellerPoint.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "test",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_test", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "User",
                 columns: table => new
                 {
@@ -320,7 +307,9 @@ namespace SellerPoint.Migrations
                 name: "Wallet",
                 columns: table => new
                 {
-                    WareHouse = table.Column<string>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    WareHouse = table.Column<string>(nullable: true),
                     Title = table.Column<string>(nullable: true),
                     AccountNumber = table.Column<string>(nullable: true),
                     BankName = table.Column<string>(nullable: true),
@@ -331,7 +320,7 @@ namespace SellerPoint.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Wallet", x => x.WareHouse);
+                    table.PrimaryKey("PK_Wallet", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -398,9 +387,6 @@ namespace SellerPoint.Migrations
 
             migrationBuilder.DropTable(
                 name: "Supplier");
-
-            migrationBuilder.DropTable(
-                name: "test");
 
             migrationBuilder.DropTable(
                 name: "User");

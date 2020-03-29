@@ -1,20 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "G:\\DotNet\\DotNetCore\\Inventory\\SellerPoint\\SellerPoint\\SellerPoint.csproj": {}
+    "G:\\Projects\\.Net\\.Net Core\\Inventory\\SellerPoint\\SellerPoint\\SellerPoint.csproj": {}
   },
   "projects": {
-    "G:\\DotNet\\DotNetCore\\Inventory\\SellerPoint\\SellerPoint\\SellerPoint.csproj": {
+    "G:\\Projects\\.Net\\.Net Core\\Inventory\\SellerPoint\\SellerPoint\\SellerPoint.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "G:\\DotNet\\DotNetCore\\Inventory\\SellerPoint\\SellerPoint\\SellerPoint.csproj",
+        "projectUniqueName": "G:\\Projects\\.Net\\.Net Core\\Inventory\\SellerPoint\\SellerPoint\\SellerPoint.csproj",
         "projectName": "SellerPoint",
-        "projectPath": "G:\\DotNet\\DotNetCore\\Inventory\\SellerPoint\\SellerPoint\\SellerPoint.csproj",
-        "packagesPath": "C:\\Users\\Hasan\\.nuget\\packages\\",
-        "outputPath": "G:\\DotNet\\DotNetCore\\Inventory\\SellerPoint\\SellerPoint\\obj\\",
+        "projectPath": "G:\\Projects\\.Net\\.Net Core\\Inventory\\SellerPoint\\SellerPoint\\SellerPoint.csproj",
+        "packagesPath": "C:\\Users\\Abdullah\\.nuget\\packages\\",
+        "outputPath": "G:\\Projects\\.Net\\.Net Core\\Inventory\\SellerPoint\\SellerPoint\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Hasan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Abdullah\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -79,7 +82,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
         }
       }
     }

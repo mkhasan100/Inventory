@@ -161,5 +161,17 @@ namespace SellerPoint.Controllers
 
         }
 
+
+        public JsonResult GetProducts(string ProductName)
+        {
+            ProductName = ProductName.ToUpper();
+            var Dealers = _context.ProductDetail
+                .Where(a => a.Name.ToUpper().Contains(ProductName))
+                .Select(a => new { a.Name,a.DealerPrice });
+
+            return Json(Dealers);
+
+        }
+
     }
 }
