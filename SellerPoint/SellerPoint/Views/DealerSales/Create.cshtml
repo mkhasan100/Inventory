@@ -140,11 +140,26 @@
             })
 
 
-            $(".addtocart").click(function () {
+            $('#tblProduct').on('click', '.addtocart', function(e){
+   $(this).closest('tr').find('td').each(function() {
+       var textval = $(this).text(); // this will be the text of each <td>
+       alert(textval);
+   });
+});
 
-                alert('you clicked add to cart');
-                return false;
-            })
+
+//            $('#tblProduct').on('click', '.addtocart', function(e){
+//  alert('button clicked', this);
+//});
+
+   //         var table = $('#tblProduct');
+   //$(table).on( 'click', 'button', function () {
+   //     var tr = $(this).closest('tr');
+   //    console.log(tr);
+   //   });
+
+
+         
 
         })
 
