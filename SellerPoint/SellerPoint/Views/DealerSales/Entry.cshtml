@@ -71,16 +71,16 @@
                     <tbody>
                         <!-- ngRepeat: p in vm.model.saleDetails track by $index -->
                         @*<tr>
-                            <td>Total</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>0</td>
-                            <td></td>
-                        </tr>*@
+                                <td>Total</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>0</td>
+                                <td></td>
+                            </tr>*@
                     </tbody>
                 </table>
             </div>
@@ -92,7 +92,7 @@
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="form-group">
         <label asp-for="UnitPrice" class="control-label"></label>
-        <input asp-for="UnitPrice" class="form-control" value="0"/>
+        <input asp-for="UnitPrice" class="form-control" value="0" />
         <span asp-validation-for="UnitPrice" class="text-danger"></span>
     </div>
     <div class="form-group">
@@ -140,70 +140,5 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
-
-
-
-    <script type="text/javascript">
-
-
-    $(document).ready(function () {
-        $("#DealerId").tokenInput("@Url.Action("GetDealers", "DealerSales")",
-
-            {
-                theme: 'facebook',
-                tokenLimit: 1,
-                preventDuplicates: true
-            });
-
-
-        $("#btnSearch").click(function () {
-            var productName = $("#ProductName").val();
-
-            $.ajax({
-                type: 'GET',
-                url: '/DealerSales/GetProducts?ProductName=' + productName,
-                contentType: 'json',
-                success: function (data) {
-                    var serial;
-                    //console.log(data);
-                    $("#tblProduct > tbody").html("");
-                    for (var i = 0; i < data.length; i++) {
-                        serial = parseInt(i) + 1;
-                        $("#tblProduct tbody").append('<tr><td>' + serial.toString() + '</td><td>' + data[i].name + '</td><td>' + data[i].dealerPrice + '</td><td>5</td><td><button type="submit" class="addtocart btn btn-primary" >Add to Cart</button></td></tr>');
-                    }
-                }
-            })
-        })
-
-
-        $('#tblProduct').on('click', '.addtocart', function (e) {
-            //$("#cart-table > tbody").html("");
-            $("#cart-table tbody").append('<tr>');
-            var i = 0;
-            var unitPrice = 0;
-            $(this).closest('tr').find('td').each(function () {
-                var textval = $(this).text(); // this will be the text of each <td>
-
-                //alert(textval);
-                if (i == 1 || i==2) {
-                    $("#cart-table tbody").append('<td>' + textval + '</td>');
-
-                    if (i == 2) {
-                        unitPrice = textval;
-                    }
-                }
-                i++;
-            });
-
-            var existingUnitPrice = $("#UnitPrice").val();
-
-            existingUnitPrice = parseInt(existingUnitPrice) + parseInt(unitPrice);
-
-            $("#UnitPrice").val(existingUnitPrice);
-
-            $("#cart-table tbody").append('<td><button class="btn btn-danger  mdi mdi-minus" ></button></td><td><input type="text" value="1" class="form-control col-md-3"></td><td><button class="btn btn-danger  mdi mdi-plus" ></button></td><td>' + unitPrice + '</td><td><select class="form-control"><option value="sale">Sale</option><option value="damage">Damage</option><option value="gift">Gift</option><option value="return">Return</option></select></td></tr>');
-        });
-    })
-
-    </script>
+  
 }

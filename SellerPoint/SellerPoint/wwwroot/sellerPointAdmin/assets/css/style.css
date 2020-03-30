@@ -7338,3 +7338,10 @@ tr:first-child > td > .fc-day-grid-event {
   text-shadow: white 1px 1px, #44a2d2 2px 2px, #44a2d2 3px 3px;
 }
 /*# sourceMappingURL=style.css.map */
+
+
+.biz-boxed {
+    border: 1px solid #d8e2e7;
+    padding: 10px;
+    margin-top: 5px;
+}

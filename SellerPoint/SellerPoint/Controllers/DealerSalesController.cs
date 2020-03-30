@@ -43,6 +43,13 @@ namespace SellerPoint.Controllers
             return View(dealerSale);
         }
 
+
+
+        public IActionResult Entry()
+        {
+            return View();
+        }
+
         // GET: DealerSales/Create
         public IActionResult Create()
         {
