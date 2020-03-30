@@ -8,8 +8,8 @@
 
 <h4>DealerSale</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
+@*<div class="row">
+    <div class="col-md-4">*@
 
         <div class="form-group">
             <label asp-for="DealerId" class="control-label"></label>
@@ -89,79 +89,58 @@
                     <span asp-validation-for="Remarks" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-primary" />
+                    <input type="submit" value="Save" class="btn btn-info" />
                 </div>
             </form>
-        </div>
-    </div>
+   
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
+
+
+
 <script type="text/javascript">
 
-        $(document).ready(function () {
 
-            $("#DealerId").tokenInput("@Url.Action("GetDealers", "DealerSales")",
-                            {
-                                theme: 'facebook',
-                                tokenLimit: 1,
-                                preventDuplicates: true
-                            });
+    $(document).ready(function () {
+        $("#DealerId").tokenInput("@Url.Action("GetDealers", "DealerSales")",
+
+            {
+                theme: 'facebook',
+                tokenLimit: 1,
+                preventDuplicates: true
+            });
 
 
+        $("#btnSearch").click(function () {
+            var productName = $("#ProductName").val();
 
-            $("#btnSearch").click(function () {
-
-                var productName = $("#ProductName").val();
-
-                
-
-                $.ajax({
-                    type: 'GET',
-                    url: '/DealerSales/GetProducts?ProductName=' + productName,
-                    contentType: 'json',
-                    success: function (data) {
-                        var serial;
-                        //console.log(data);
-                        $("#tblProduct > tbody").html("");
-                        for (var i = 0; i < data.length; i++) {                            
-                            serial = parseInt(i) + 1;
-                            $("#tblProduct tbody").append('<tr><td>' + serial.toString() + '</td><td>' + data[i].name + '</td><td>' + data[i].dealerPrice + '</td><td>5</td><td><button type="submit" class="addtocart btn btn-primary" >Add to Cart</button></td></tr>');
-                        }
+            $.ajax({
+                type: 'GET',
+                url: '/DealerSales/GetProducts?ProductName=' + productName,
+                contentType: 'json',
+                success: function (data) {
+                    var serial;
+                    //console.log(data);
+                    $("#tblProduct > tbody").html("");
+                    for (var i = 0; i < data.length; i++) {                            
+                        serial = parseInt(i) + 1;
+                        $("#tblProduct tbody").append('<tr><td>' + serial.toString() + '</td><td>' + data[i].name + '</td><td>' + data[i].dealerPrice + '</td><td>5</td><td><button type="submit" class="addtocart btn btn-primary" >Add to Cart</button></td></tr>');
                     }
-
-                })
-
+                }
             })
-
-
-            $('#tblProduct').on('click', '.addtocart', function(e){
-   $(this).closest('tr').find('td').each(function() {
-       var textval = $(this).text(); // this will be the text of each <td>
-       alert(textval);
-   });
-});
-
-
-//            $('#tblProduct').on('click', '.addtocart', function(e){
-//  alert('button clicked', this);
-//});
-
-   //         var table = $('#tblProduct');
-   //$(table).on( 'click', 'button', function () {
-   //     var tr = $(this).closest('tr');
-   //    console.log(tr);
-   //   });
-
-
-         
-
         })
+
+
+        $('#tblProduct').on('click', '.addtocart', function (e) {
+            $(this).closest('tr').find('td').each(function () {
+                var textval = $(this).text(); // this will be the text of each <td>
+                alert(textval);
+            });
+        });
+    })
 
 </script>
 }

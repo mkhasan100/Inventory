@@ -3250,6 +3250,7 @@ label {
     font-size: 14px;
     border: 1px solid #d7d1cc;
     height: calc(2.3rem + 2px);
+    margin-right: 13px;
 }
 
 .form-control:focus {
