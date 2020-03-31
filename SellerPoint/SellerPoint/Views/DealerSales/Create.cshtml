@@ -72,6 +72,9 @@
                             <th>Sale Type</th>
                         </tr>
                     </thead>
+                    <tbody>
+
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -137,7 +140,8 @@
     <script type="text/javascript">
 
 
-    $(document).ready(function () {
+        $(document).ready(function () {
+
         $("#DealerId").tokenInput("@Url.Action("GetDealers", "DealerSales")",
 
             {
@@ -154,30 +158,34 @@
                 type: 'GET',
                 url: '/DealerSales/GetProducts?ProductName=' + productName,
                 contentType: 'json',
-                success: function (data) {
+                success: function (result) {
                     var serial;
-                    //console.log(data);
+                    console.log(result);
                     $("#tblProduct > tbody").html("");
-                    for (var i = 0; i < data.length; i++) {
+                  
+                    for (var i = 0; i < result.length; i++) {
                         serial = parseInt(i) + 1;
-                        $("#tblProduct tbody").append('<tr><td>' + serial.toString() + '</td><td>' + data[i].name + '</td><td>' + data[i].dealerPrice + '</td><td>5</td><td><button type="submit" class="addtocart btn btn-primary" >Add to Cart</button></td></tr>');
+                        $("#tblProduct tbody").append('<tr><td>' + serial.toString() + '</td><td>' + result[i].name + '</td><td>' + result[i].dealerPrice + '</td><td>5</td><td><button type="submit" class="addtocart btn btn-primary" >Add to Cart</button></td></tr>');
                     }
                 }
             })
-        })
+        });
 
 
         $('#tblProduct').on('click', '.addtocart', function (e) {
+
             //$("#cart-table > tbody").html("");
-            $("#cart-table tbody").append('<tr>');
+            //$("#cart-table tbody").append('<tr>');
             var i = 0;
             var unitPrice = 0;
+            var trInitial = '';
             $(this).closest('tr').find('td').each(function () {
                 var textval = $(this).text(); // this will be the text of each <td>
 
                 //alert(textval);
                 if (i == 1 || i==2) {
-                    $("#cart-table tbody").append('<td>' + textval + '</td>');
+                    //$("#cart-table tbody").append('<td>' + textval + '</td>');
+                    trInitial += '<td>' + textval + '</td>';
 
                     if (i == 2) {
                         unitPrice = textval;
@@ -193,8 +201,91 @@
 
             $("#UnitPrice").val(existingUnitPrice);
 
-            $("#cart-table tbody").append('<td><button class="btn btn-danger  mdi mdi-minus" ></button></td><td><input type="text" value="1" class="form-control"></td><td><button class="btn btn-danger  mdi mdi-plus" ></button></td><td>' + unitPrice + '</td><td><select class="form-control"><option value="sale">Sale</option><option value="damage">Damage</option><option value="gift">Gift</option><option value="return">Return</option></select></td></tr>');
+            $("#cart-table tbody").append('<tr>' + trInitial + ' <td><button id="btnMinusQty" type="submit" class=" btn btn-danger  mdi mdi-minus" ></button></td><td><input type="text" value="1" class="qty form-control" id="txtQty"></td><td><button id="btnAddQty" class="btn btn-danger  mdi mdi-plus" type="submit" ></button></td><td>' + unitPrice + '</td><td><select class="form-control"><option value="sale">Sale</option><option value="damage">Damage</option><option value="gift">Gift</option><option value="return">Return</option></select></td></tr>');
         });
+
+
+
+
+
+
+
+            $('#cart-table').on('click', '#btnMinusQty', function (e) {
+                var quantity = $(this).closest('tr').find('td').find('input[id=txtQty]').val();              
+
+                quantity = parseInt(quantity) - 1;
+
+                if (quantity==0) {
+                    alert("Please add quantity greater than 0");
+                    e.preventDefault();
+                    return false;
+                }
+
+                $(this).closest('tr').find('td').find('input[id=txtQty]').val(quantity);   
+
+                var i = 0;
+                var unitPrice = 0;
+                var price = 0;
+
+                $(this).closest('tr').find('td').each(function () {
+
+                     if (i == 1) {
+
+
+                        unitPrice = $(this).text(); 
+                        
+                    }
+
+                    if (i == 5) {
+
+                        price = parseInt(quantity) * parseInt(unitPrice);
+
+                        $(this).text(price); 
+                        
+                    }
+
+                    i++;
+                });
+
+              });
+
+              $('#cart-table').on('click', '#btnAddQty', function (e) {
+
+                  var quantity = $(this).closest('tr').find('td').find('input[id=txtQty]').val();              
+
+                quantity = parseInt(quantity) + 1;
+
+                $(this).closest('tr').find('td').find('input[id=txtQty]').val(quantity);   
+
+                var i = 0;
+                var unitPrice = 0;
+                var price = 0;
+
+                $(this).closest('tr').find('td').each(function () {
+
+                     if (i == 1) {
+
+
+                        unitPrice = $(this).text(); 
+                        
+                    }
+
+                    if (i == 5) {
+
+                        price = parseInt(quantity) * parseInt(unitPrice);
+
+                        $(this).text(price); 
+                        
+                    }
+
+                    i++;
+                });      
+
+
+            });
+
+
+
     })
 
     </script>
