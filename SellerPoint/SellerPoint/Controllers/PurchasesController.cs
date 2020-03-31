@@ -47,7 +47,7 @@ namespace SellerPoint.Controllers
         public IActionResult Create()
         {
             ViewBag.AccountHeadList = _context.AccountHead.ToList();
-            ViewBag.WarehouseList = _context.Warehouse.ToList();
+            ViewBag.WareHouseList = _context.Warehouse.ToList();
             return View();
         }
 

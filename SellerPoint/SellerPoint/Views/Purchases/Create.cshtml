@@ -13,7 +13,7 @@
             <label asp-for="AccountHeadId" class="col-sm-2 form-control-label">Account Head</label>
             <div class="col-sm-10">
                 @*<input asp-for="AccountHeadId" class="form-control" />*@
-                @Html.DropDownListFor(model => model.AccountHeadId, new SelectList(@ViewBag.AccountHeadList, "Id", "Name"), "Select Account Head", new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.AccountHeadId, new SelectList(ViewBag.AccountHeadList, "Id", "Name"), "Select Account Head", new {@class="form-control" })
                 <span asp-validation-for="AccountHeadId" class="text-danger"></span>
             </div>
             </div>

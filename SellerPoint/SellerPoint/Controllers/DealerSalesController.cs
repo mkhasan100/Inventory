@@ -177,8 +177,6 @@ namespace SellerPoint.Controllers
                 .Select(a => new { a.Name,a.DealerPrice });
 
             return Json(Dealers);
-
         }
-
     }
 }
