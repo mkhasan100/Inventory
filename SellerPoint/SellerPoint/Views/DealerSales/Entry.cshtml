@@ -119,14 +119,13 @@
                 url: '/DealerSales/GetProducts?ProductName=' + productName,
                 contentType: 'json',
                 success: function (data) {
-                    $("#tblProduct > tbody ").html("")
                     var serial;
+                    $("#tblProduct > tbody ").html("");
                     console.log(data);
                     for (var i = 0; i < data.length; i++) {
                         serial = parseInt(i) + 1;
                         $("#tblProduct tbody").append(
-                            '<tr><td>' + serial.toString() + '</td><td>'
-                            + data[i].name + '</td><td>' + data[i].dealerPrice + '</td><td>5</td><td><button type="submit" class="addtocart btn btn-primary" >Add to Cart</button></td></tr>');
+                            '<tr><td>' + serial.toString() + '</td><td>'+ data[i].name + '</td><td>' + data[i].dealerPrice + '</td><td>5</td><td><button type="submit" class="addtocart btn btn-primary" >Add to Cart</button></td></tr>');
                     }
                 }
             })
@@ -142,7 +141,7 @@
 
 
 
-    });
+    })
 
     </script>
 
