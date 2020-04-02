@@ -28,23 +28,29 @@
         </span>
     </div>
 </div>
-<div class="form-group">
-    <div class="table-responsive">
-        <table id="tblProduct" class="table table-bordered table-hover">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                    <th>Phone</th>
-                    <!--<th>Membership No</th>-->
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- ngRepeat: c in vm.dealers track by $index -->
-            </tbody>
-        </table>
-    </div>
+
+    <div class="panel-body">
+        <div class="form-group">
+            <div class="table-responsive">
+                <table id="tblProduct" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            @*<th>#</th>*@
+                            <th>Name</th>
+                            <th>Unit Price</th>
+                            @*<th></th>*@
+                            <th></th>
+                            <th>Quantity</th>
+                            <th></th>
+                            <th>Total</th>
+                            <th>Sale Type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 </div>
 <form asp-action="Create">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -98,38 +104,70 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
+    @*<script type="text/javascript">
+
+        $(document).ready(function () {*@
+
+            @*$("#btnSearch").click(function () {
+
+                var productName = $("#ProductName").val();
+                $.ajax({
+                    type: 'GET',
+                    url: '/DealerSales/GetProducts?ProductNameAndDetail=' + productName,
+                    contentType: 'json',
+                    success: function (DBTableData) {
+                        console.log(DBTableData);
+                        var serialNo;
+                        $("#tblProduct > tbody").html("");
+                        for (var i = 0; i < DBTableData.length; i++) {
+                            serialNo = parseInt(i) + 1;
+                            $("#tblProduct tbody").append(
+                                '<tr><td>' + serialNo.toString()
+                                + '</td><td>' + DBTableData[i].name
+                                + '</td><td>' + DBTableData[i].dealerPrice
+                                + '</td><td>5</td><td><button type="submit" class="addtocart btn btn-primary" >Add to Cart</button></td></tr>');
+                        }
+                    }
+                })
+            })
+
+        });
+
+    </script>*@
+
 
     <script type="text/javascript">
 
-    //To Invoke DealerSale Controller With Database Table in Search opthion
-    $(document).ready(function () {
-            @* $("#ProductName").tokenInput("@Url.Action("GetProducts", "DealerSales")",
-            {
-                theme: 'facebook',
-                tokenLimit: 1,
-                preventDuplicates: true
-            });*@
 
 
-        $("#btnSearch").click(function () {
-            var productName = $("#ProductName").val();
+        $(document).ready(function () {
 
-            $.ajax({
-                type: 'GET',
-                url: '/DealerSales/GetProducts?ProductName=' + productName,
-                contentType: 'json',
-                success: function (data) {
-                    var serial;
-                    $("#tblProduct > tbody ").html("");
-                    console.log(data);
-                    for (var i = 0; i < data.length; i++) {
-                        serial = parseInt(i) + 1;
-                        $("#tblProduct tbody").append(
-                            '<tr><td>' + serial.toString() + '</td><td>'+ data[i].name + '</td><td>' + data[i].dealerPrice + '</td><td>5</td><td><button type="submit" class="addtocart btn btn-primary" >Add to Cart</button></td></tr>');
+
+            //To Invoke DealerSale Controller With Database Table in Search option
+            $("#btnSearch").click(function () {
+
+                alert('test');
+                var productName = $("#ProductName").val();
+                $.ajax({
+                    type: 'GET',
+                    url: '/DealerSales/GetProducts?ProductNameAndDetail=' + productName,
+                    contentType: 'json',
+                    success: function (DBTableData) {
+                        var serialNo;
+                        $("#tblProduct > tbody").html("");
+                        for (var i = 0; i < DBTableData.length; i++) {
+                            serialNo = parseInt(i) + 1;
+                            $("#tblProduct tbody").append(
+                                '<tr><td>' + serialNo.toString()
+                                + '</td><td>' + DBTableData[i].name
+                                + '</td><td>' + DBTableData[i].dealerPrice
+                                + '</td><td>5</td><td><button type="submit" class="addtocart btn btn-primary" >Add to Cart</button></td></tr>');
+                        }
                     }
-                }
-            })
-        })
+                })
+            });
+
+        });
 
 
 
@@ -141,7 +179,62 @@
 
 
 
-    })
+
+
+
+
+
+
+
+        //    $('#tblProduct').on('click', '.addtocart', function (e) {
+                
+        //        var i = 0;
+        //        var unitPrice = 0;
+        //        var trInitial = '';
+
+
+
+        //        $(this).closest('tr').find('td').each(function () {
+        //            var textval = $(this).text(); // this will be the text of each <td>
+
+
+
+        //            if (i == 1 || i == 2) {
+        //                //$("#cart-table tbody").append('<td>' + textval + '</td>');
+        //                trInitial += '<td>' + textval + '</td>';
+
+        //                if (i == 2) {
+        //                    unitPrice = textval;
+        //                }
+        //            }
+        //            i++;
+        //        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //})
 
     </script>
 
