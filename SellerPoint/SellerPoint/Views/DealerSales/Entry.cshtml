@@ -172,51 +172,52 @@
                     var unitPrice = 0;
                     var trInitial = '';
                     $(this).closest('tr').find('td').each(function () {
-                        var nameUnitPrice = $(this).text();
+                        var columnVal = $(this).text();
+                        //alert('i: ' + i + ' td value: ' + columnVal);
                         if (i == 1 || i == 2) {
-                            trInitial += '<td>' + nameUnitPrice + '</td>';
+                            trInitial += '<td>' + columnVal + '</td>';
+                            if (i == 2) {
+                                unitPrice = columnVal;
+                            }
                         }
                         i++;
                     });
                     $("#cart-table tbody").append(
-                        '<tr>' + trInitial + '<td><button id="btnMinusQty" type = "submit" class= " btn btn-danger  mdi mdi-minus" ></button ></td >'
+                        '<tr>' + trInitial + '<td><button id="btnMinusQty" type = "submit" class= "btn-add-minus btn btn-danger  mdi mdi-minus" ></button ></td >'
                         +'<td><input type="text" value="1" class="quantity-input form-control" /*id="txtQty"*/></td>'
-                        +'<td><button id="btnAddQty" class="btn btn-danger  mdi mdi-plus" type="submit" ></button></td>'
+                        +'<td><button id="btnAddQty" class="btn-add-minus btn btn-danger  mdi mdi-plus" type="submit" ></button></td>'
                         +'<td>' + unitPrice + '</td>'
                         +'<td><select class="form-control">'
                             +'<option value="sale">Sale</option>'
                             +'<option value="damage">Damage</option>'
                             +'<option value="gift">Gift</option>'
                             +'<option value="return">Return</option>'
-                       + '</select></td></tr>');
+                        + '</select></td></tr>');
                 });
 
 
 
                
-
-                $("#cart-table").on("click", function () {
-                    alert('testing');
-
-                    var $button = $(this),
-                        $input = $button.closest('td').find("input.quantity-input");
-                    var oldValue = $input.val(),
-                        newVal;
-
-                    if ($.trim($button.text()) == "+") {
-
+                //To show increment or decrement value with button
+                $("#cart-table").on("click",".btn-add-minus", function () {
+                    var $button = $(this),                        
+                        $input = $button.closest('tr').find("input.quantity-input");
+                    var oldValue = $input.val();
+                    var newVal;
+                    var buttonId = $button.attr("id");
+                    if (buttonId == "btnAddQty") {
                         newVal = parseFloat(oldValue) + 1;
-                    } else {
+                    }
+                    else if (buttonId=="btnMinusQty")
+                    { 
                         // Don't allow decrementing below zero
                         if (oldValue > 0) {
                             newVal = parseFloat(oldValue) - 1;
                         } else {
-                            newVal = 0;
+                            newVal = oldValue;
                         }
                     }
-
                     $input.val(newVal);
-
                 });
 
 
