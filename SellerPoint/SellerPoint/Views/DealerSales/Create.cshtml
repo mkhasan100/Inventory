@@ -205,82 +205,52 @@
 
 
 
-
-
-
             $('#cart-table').on('click', '#btnMinusQty', function (e) {
                 var quantity = $(this).closest('tr').find('td').find('input[id=txtQty]').val();              
-
                 quantity = parseInt(quantity) - 1;
-
                 if (quantity==0) {
                     alert("Please add quantity greater than 0");
                     e.preventDefault();
                     return false;
                 }
-
                 $(this).closest('tr').find('td').find('input[id=txtQty]').val(quantity);   
-
                 var i = 0;
                 var unitPrice = 0;
                 var price = 0;
-
                 $(this).closest('tr').find('td').each(function () {
-
                      if (i == 1) {
-
-
                         unitPrice = $(this).text(); 
-                        
                     }
-
                     if (i == 5) {
-
                         price = parseInt(quantity) * parseInt(unitPrice);
-
-                        $(this).text(price); 
-                        
+                        $(this).text(price);  
                     }
-
                     i++;
                 });
-
               });
 
+
+
               $('#cart-table').on('click', '#btnAddQty', function (e) {
-
-                  var quantity = $(this).closest('tr').find('td').find('input[id=txtQty]').val();              
-
+                  var quantity = $(this).closest('tr').find('td').find('input[id=txtQty]').val();
                 quantity = parseInt(quantity) + 1;
-
                 $(this).closest('tr').find('td').find('input[id=txtQty]').val(quantity);   
-
                 var i = 0;
                 var unitPrice = 0;
                 var price = 0;
-
                 $(this).closest('tr').find('td').each(function () {
-
                      if (i == 1) {
-
-
                         unitPrice = $(this).text(); 
-                        
                     }
-
                     if (i == 5) {
-
                         price = parseInt(quantity) * parseInt(unitPrice);
-
                         $(this).text(price); 
-                        
                     }
-
                     i++;
-                });      
+                });     
+              });
 
 
-            });
 
 
 

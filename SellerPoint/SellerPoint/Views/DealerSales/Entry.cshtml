@@ -193,11 +193,15 @@
                             +'<option value="gift">Gift</option>'
                             +'<option value="return">Return</option>'
                         + '</select></td></tr>');
+                    //To Add UnitPrice with Existing Unit Price
+                    var existingUnitPrice = $("#UnitPrice").val();
+                    existingUnitPrice = parseInt(existingUnitPrice) + parseInt(unitPrice);
+                    $("#UnitPrice").val(existingUnitPrice);
                 });
 
 
 
-               
+
                 //To show increment or decrement value with button
                 $("#cart-table").on("click",".btn-add-minus", function () {
                     var $button = $(this),                        
