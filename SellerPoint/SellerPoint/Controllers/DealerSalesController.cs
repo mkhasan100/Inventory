@@ -20,9 +20,25 @@ namespace SellerPoint.Controllers
         }
 
         // GET: DealerSales
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.DealerSale.ToListAsync());
+            var DealerSaleList = _context.DealerSale.AsEnumerable()
+                                         .Join(_context.Warehouse, d => d.WarehouseId, w => w.Id, (d, w) => new { d, w })
+                                         .Select(s => new DealerSale
+                                         {
+                                             DealerId = s.d.DealerId,
+                                             ProductId = s.d.ProductId,
+                                             UnitPrice = s.d.UnitPrice,
+                                             DiscountPercent = s.d.DiscountPercent,
+                                             Discount = s.d.Discount,
+                                             payableTotal = s.d.payableTotal,
+                                             Paid=s.d.Paid,
+                                             Due = s.d.Due,
+                                             WareHouseName = s.w.Name,
+                                             Remarks = s.d.Remarks
+                                         }).ToList();
+            
+                return View(DealerSaleList);
         }
 
         // GET: DealerSales/Details/5
@@ -53,6 +69,7 @@ namespace SellerPoint.Controllers
         // GET: DealerSales/Create
         public IActionResult Create()
         {
+            ViewBag.WareHouseList = _context.Warehouse.ToList();
             return View();
         }
 
@@ -61,7 +78,7 @@ namespace SellerPoint.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,DealerId,ProductId,UnitPrice,Quantity,DiscountPercent,Discount,Paid,Due,WarehouseId,Remarks")] DealerSale dealerSale)
+        public async Task<IActionResult> Create(DealerSale dealerSale)
         {
             if (ModelState.IsValid)
             {

@@ -27,17 +27,22 @@ namespace SellerPoint.Models
         [NotMapped]
         [DisplayName("Product Total")]
         public decimal ProductTotal { get; set; }
-
+        [DisplayName("Product Total:")]
         public decimal UnitPrice { get; set; }
-        public int Quantity { get; set; }
         [DisplayName("Discount Percent")]
-        public float DiscountPercent { get; set; }
-
-        public float Discount { get; set; }
+        public float? DiscountPercent { get; set; }
+        public decimal? Discount { get; set; }
+        [DisplayName("Payable Total")]
+        public decimal payableTotal { get; set; }
+        
         public decimal  Paid { get; set; }
         public decimal Due { get; set; }
         [DisplayName("WareHouse")]
         public int WarehouseId { get; set; }
+
+        [NotMapped]
+        [DisplayName("WareHouse")]
+        public string WareHouseName { get; set; }
 
         public string Remarks { get; set; }
 
