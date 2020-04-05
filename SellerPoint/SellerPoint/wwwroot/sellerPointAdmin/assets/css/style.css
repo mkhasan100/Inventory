@@ -4062,9 +4062,10 @@ th {
 }
 
 .table thead tr th {
-  font-weight: 500;
-  color: #6c757d;
-  font-size: 13px;
+    font-weight: 500;
+    color: #6c757d;
+    font-size: 13px;
+    /*width: 2%;*/
 }
 
 .table td {
@@ -4097,7 +4098,7 @@ th {
 }
 
 /*== Table Responsive ==*/
-.table-rep-plugin .btn-toolbar {
+    .table-rep-plugin .btn-toolbar {
   display: block;
 }
 
