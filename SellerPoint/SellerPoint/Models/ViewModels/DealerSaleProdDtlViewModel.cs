@@ -9,6 +9,6 @@ namespace SellerPoint.Models.ViewModels
     {
         public DealerSale DealerSale { get; set; }
 
-        public List<DealerSaleProductDetail> DealerSaleProductDetails { get; set; }
+        public List<DealerSaleProductDetail> DealerSaleProductDetail { get; set; }
     }
 }

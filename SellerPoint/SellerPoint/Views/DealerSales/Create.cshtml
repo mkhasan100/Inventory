@@ -1,4 +1,4 @@
-﻿@model SellerPoint.Models.DealerSale
+﻿@model SellerPoint.Models.ViewModels.DealerSaleProdDtlViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -10,17 +10,17 @@
     <div class="col-md-4">*@
 
 <div class="form-group">
-    <label asp-for="DealerId" class="control-label"></label>
-    <input asp-for="DealerId" class="form-control" />
-    <span asp-validation-for="DealerId" class="text-danger"></span>
+    <label asp-for="DealerSale.DealerId" class="control-label"></label>
+    <input asp-for="DealerSale.DealerId" class="form-control" />
+    <span asp-validation-for="DealerSale.DealerId" class="text-danger"></span>
 </div>
 <table class="table">
 </table>
 <div class="form-group">
-    <label asp-for="ProductName" class="control-label"></label>
+    <label asp-for="DealerSale.ProductName" class="control-label"></label>
     <div class="input-group">
 
-        <input asp-for="ProductName" class="form-control" placeholder="Search Product Here" />
+        <input asp-for="DealerSale.ProductName" class="form-control" placeholder="Search Product Here" />
         <span class="input-group-btn">
             <button type="submit" class="btn btn-info pull-left" id="btnSearch">Search</button>
         </span>
@@ -39,7 +39,7 @@
                     <th>Name</th>
                     <th>Price</th>
                     <th>OnHand</th>
-                    <th></th>
+                    <th style="display:none">Product Id</th>
                     <th></th>
                 </tr>
             </thead>
@@ -48,76 +48,79 @@
         </table>
     </div>
 </div>
-<div class="panel biz-boxed">
-    <div class="panel-heading">
-        <h4 id="shopping-cart">My Shopping Cart:</h4>
-    </div>
-    <div class="panel-body">
-        <div class="form-group">
-            <div class="table-responsive">
-                <table id="cart-table" class="table table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            @*<th>#</th>*@
-                            <th>Name</th>
-                            <th>Unit Price</th>
-                            @*<th></th>*@
-                            <th></th>
-                            <th>Quantity</th>
-                            <th></th>
-                            <th>Total</th>
-                            <th>Sale Type</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
+<form asp-action="Create">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="panel biz-boxed">
+        <div class="panel-heading">
+            <h4 id="shopping-cart">My Shopping Cart:</h4>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                <div class="table-responsive">
+                    <table id="cart-table" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                @*<th>#</th>*@
+                                <th>Name</th>
+                                <th>Unit Price</th>
+                                @*<th></th>*@
+                                <th></th>
+                                <th>Quantity</th>
+                                <th></th>
+                                <th>Total</th>
+                                <th>Sale Type</th>
+                                <th style="display:none">Product Id</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<form asp-action="Create">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
     <div class="form-group">
-        <label asp-for="UnitPrice" class="control-label"></label>
-        <input type="number" asp-for="UnitPrice" readonly class="form-control" value="0" />
-        <span asp-validation-for="UnitPrice" class="text-danger"></span>
+        <label asp-for="DealerSale.UnitPrice" class="control-label"></label>
+        <input type="number" asp-for="DealerSale.UnitPrice" readonly class="form-control" value="0" />
+        <span asp-validation-for="DealerSale.UnitPrice" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="DiscountPercent" class="control-label"></label>
-        <input asp-for="DiscountPercent" class="form-control"/>
-        <span asp-validation-for="DiscountPercent" class="text-danger"></span>
+        <label asp-for="DealerSale.DiscountPercent" class="control-label"></label>
+        <input asp-for="DealerSale.DiscountPercent" class="form-control" />
+        <span asp-validation-for="DealerSale.DiscountPercent" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="Discount" class="control-label"></label>
-        <input asp-for="Discount" class="form-control"/>
-        <span asp-validation-for="Discount" class="text-danger"></span>
+        <label asp-for="DealerSale.Discount" class="control-label"></label>
+        <input asp-for="DealerSale.Discount" class="form-control" />
+        <span asp-validation-for="DealerSale.Discount" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="payableTotal" class="control-label"></label>
-        <input type="number" asp-for="payableTotal" readonly class="form-control" value="0"/>
-        <span asp-validation-for="payableTotal" class="text-danger"></span>
+        <label asp-for="DealerSale.payableTotal" class="control-label"></label>
+        <input type="number" asp-for="DealerSale.payableTotal" readonly class="form-control" value="0" />
+        <span asp-validation-for="DealerSale.payableTotal" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="Paid" class="control-label"></label>
-        <input asp-for="Paid" class="form-control"  value="0"/>
-        <span asp-validation-for="Paid" class="text-danger"></span>
+        <label asp-for="DealerSale.Paid" class="control-label"></label>
+        <input asp-for="DealerSale.Paid" class="form-control" value="0" />
+        <span asp-validation-for="DealerSale.Paid" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="Due" class="control-label" ></label>
-        <input type="number" asp-for="Due" readonly style="background-color:lightpink" class="form-control" value="0"/>
-        <span asp-validation-for="Due" class="text-danger"></span>
+        <label asp-for="DealerSale.Due" class="control-label"></label>
+        <input type="number" asp-for="DealerSale.Due" readonly style="background-color:lightpink" class="form-control" value="0" />
+        <span asp-validation-for="DealerSale.Due" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="WarehouseId" class="control-label"></label>
+        <label asp-for="DealerSale.WarehouseId" class="control-label"></label>
         @*<input asp-for="WarehouseId" class="form-control" />*@
-        @Html.DropDownListFor(model => model.WarehouseId, new SelectList(@ViewBag.WarehouseList, "Id", "Name"), "Select Warehouse", new { @class = "form-control" })
-        <span asp-validation-for="WarehouseId" class="text-danger"></span>
+        @Html.DropDownListFor(model => model.DealerSale.WarehouseId, new SelectList(@ViewBag.WarehouseList, "Id", "Name"), "Select Warehouse", new { @class = "form-control" })
+        <span asp-validation-for="DealerSale.WarehouseId" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="Remarks" class="control-label"></label>
-        <input asp-for="Remarks" class="form-control" />
-        <span asp-validation-for="Remarks" class="text-danger"></span>
+        <label asp-for="DealerSale.Remarks" class="control-label"></label>
+        <input asp-for="DealerSale.Remarks" class="form-control" />
+        <span asp-validation-for="DealerSale.Remarks" class="text-danger"></span>
     </div>
     <div class="form-group">
         <input type="submit" value="Save" class="btn btn-info" />
@@ -132,10 +135,22 @@
         $(document).ready(function () {
 
 
+            $("#DealerSale_DealerId").tokenInput("@Url.Action("GetDealers","DealerSales")",
+                {
+                    theme: 'facebook',
+                    tokeLimit: 1
+                });
+
+            $('#token-input-DealerSale_DealerId').blur(function () {
+                var selectedValues = $('#DealerSale_DealerId').tokenInput("get");
+                $("#DealerSale_DealerId").val(selectedValues);
+            });
+
+
 
             //To Invoke DealerSale Controller With Database Table in Search option
             $("#btnSearch").click(function () {
-                var productName = $("#ProductName").val();
+                var productName = $("#DealerSale_ProductName").val();
                 $.ajax({
                     type: 'GET',
                     url: '/DealerSales/GetProducts?ProductNameAndDetail=' + productName,
@@ -149,7 +164,9 @@
                                 '<tr><td>' + serialNo.toString()
                                 + '</td><td>' + DBTableData[i].name
                                 + '</td><td>' + DBTableData[i].dealerPrice
-                                + '</td><td>5</td><td><button type="submit" class="addtocart btn btn-primary" >Add to Cart</button></td></tr>');
+                                + '</td><td>5</td>'
+                                + '</td><td style="display:none">' + DBTableData[i].id
+                                +' </td><td> <button type="submit" class="addtocart btn btn-primary" >Add to Cart</button></td ></tr > ');
                         }
                     }
                 })
@@ -161,43 +178,139 @@
             $('#tblProduct').on('click', '.addtocart', function (e) {
                 var i = 0;
                 var unitPrice = 0;
-                var trInitial = '';
+                var ProductName = '';
+                var UnitPrice = '';
+                var productId = '';
+                var Total = '';
+
                 $(this).closest('tr').find('td').each(function () {
                     var columnVal = $(this).text();
                     //alert('i: ' + i + ' td value: ' + columnVal);
-                    if (i == 1 || i == 2) {
-                        trInitial += '<td>' + columnVal + '</td>';
-                        if (i == 2) {
-                            unitPrice = columnVal;
-                        }
+                    if (i == 1) {
+                        ProductName = columnVal;                     
+                    }
+
+                     if (i == 2) {
+                         UnitPrice = columnVal;
+                         Total = UnitPrice;    
+                    }
+
+                    if (i == 4) {
+                        productId = columnVal.trim();
                     }
                     i++;
                 });
-                $("#cart-table tbody").append(
-                    '<tr>' + trInitial + '<td><button id="btnMinusQty" type = "submit" class= "btn-add-minus btn btn-danger  mdi mdi-minus" ></button ></td >'
-                    + '<td><input type="text" value="1" class="quantity-input form-control" /*id="txtQty"*/></td>'
-                    + '<td><button id="btnAddQty" class="btn-add-minus btn btn-danger  mdi mdi-plus" type="submit" ></button></td>'
-                    + '<td>' + unitPrice + '</td>'
-                    + '<td><select class="form-control">'
-                    + '<option value="sale">Sale</option>'
-                    + '<option value="damage">Damage</option>'
-                    + '<option value="gift">Gift</option>'
-                    + '<option value="return">Return</option>'
-                    + '</select></td></tr>');
+
+                   var $table = $("#cart-table");
+
+                            var $trLast = $table.find("tr:last");
+
+                            var $trNew = $trLast.clone();
+                var firstInputName = $trNew.find(':input[type=text]:first').attr('name');
+
+                //alert(firstInputName);
+
+                if (firstInputName === undefined) {
+
+                    $("#cart-table tbody").append(
+
+                        "<tr>"
+                        + "<td><input type='text'  name='DealerSaleProductDetail[0].ProductName' readonly style='border:none;background:#fff' value='" + ProductName + "' /></td>"
+                        + "<td><input type='text'  name='DealerSaleProductDetail[0].UnitPrice' readonly style='border:none;background:#fff' class='unit_price' value='" + UnitPrice + "' /></td>"
+                        + "<td><button id='btnMinusQty' class= 'btn-add-minus btn btn-danger  mdi mdi-minus' type='button' ></button ></td >"
+                        + "<td><input type='text' name='DealerSaleProductDetail[0].Quantity' value='1' class='quantity-input form-control'></td>"
+                        + "<td><button id='btnAddQty' class='btn-add-minus btn btn-danger  mdi mdi-plus' type='button' ></button></td>"
+                        + "<td><input type='text'  name='DealerSaleProductDetail[0].Total' readonly style='border:none;background:#fff' value='" + Total + "' /></td>"
+                        + "<td><select class='form-control'>"
+                        + "<option value='sale'>Sale</option>"
+                        + "<option value='damage'>Damage</option>"
+                        + "<option value='gift'>Gift</option>"
+                        + "<option value='return'>Return</option>"
+                        + "</select></td>"
+                        + "<td style='display:none'><input type='text'  name='DealerSaleProductDetail[0].ProductId' readonly style='border:none;background:#f1efef;' value='" + productId + "' /></td><td><a href='#' class='remove btn btn-danger' >Remove</a></td></tr>");
+
+                    //$("#cart-table tbody").append(
+                    //    "<tr>"+ trInitial + "<td><button id='btnMinusQty' type = 'submit' class= 'btn-add-minus btn btn-danger  mdi mdi-minus' ></button ></td >"
+                    //    + "<td><input type='text' name='DealerSaleProductDetail[0].Quantity' value='1' class='quantity-input form-control'></td>"
+                    //    + "<td><input type='text'  name='DealerSaleProductDetail[0].ProductId' value='" + productId + "' /></td></tr>");
+
+                }
+                else {
+
+                   
+
+                    var suffix = $trNew.find(':input[type=text]:first').attr('name').match(/\d+/);
+
+                     //alert(suffix);
+
+                                $trNew.find("td:last").html('<a href="#" class="remove btn btn-danger" >Remove</a>');
+
+                                $.each($trNew.find(':input[type=text]'), function (i, val) {
+                                    // Replaced Name
+                                    var oldN = $(this).attr('name');
+                                    var newN = oldN.replace('[' + suffix + ']', '[' + (parseInt(suffix) + 1) + ']');
+                                    $(this).attr('name', newN);
+
+                                      if ($(this).attr('name').match('ProductName')) {
+                                        $(this).attr('value', ProductName);
+                                    };
+
+                                    if ($(this).attr('name').match('ProductId')) {
+                                        $(this).attr('value', productId);
+                                    };
+
+                                    if ($(this).attr('name').match('Quantity')) {
+                                        $(this).attr('value', '1');
+                                    };
+
+
+                                    if ($(this).attr('name').match('UnitPrice')) {
+                                        $(this).attr('value', UnitPrice);
+                                    };
+
+
+                                      if ($(this).attr('name').match('Total')) {
+                                        $(this).attr('value', Total);
+                                    };
+
+
+                                    // If you have another Type then replace with default value
+                                    $(this).removeClass("input-validation-error");
+
+                                });
+                                $trLast.after($trNew);
+                            }
+
+                           
+
+                    
+
+
+                $(document).on('click', 'a.remove', function (e) {
+                    e.preventDefault();
+                    $(this).parent().parent().remove();
+                });
+
+
+            
+
+              
+
+
                 //To Add UnitPrice with Existing Unit Price
-                var existingUnitPrice = $("#UnitPrice").val();
-                existingUnitPrice = parseInt(existingUnitPrice) + parseInt(unitPrice);
-                $("#UnitPrice").val(existingUnitPrice);
+                var existingUnitPrice = $("#DealerSale_UnitPrice").val();
+                existingUnitPrice = parseInt(existingUnitPrice) + parseInt(Total);
+                $("#DealerSale_UnitPrice").val(existingUnitPrice);
 
                 //To Add Payable Total with Existing Unit Price
-                var existingUnitPrice = $("#payableTotal").val();
-                existingUnitPrice = parseInt(existingUnitPrice) + parseInt(unitPrice);
-                $("#payableTotal").val(existingUnitPrice);
+                var existingUnitPrice = $("#DealerSale_payableTotal").val();
+                existingUnitPrice = parseInt(existingUnitPrice) + parseInt(Total);
+                $("#DealerSale_payableTotal").val(existingUnitPrice);
 
                 //To Add Due Total with Existing Unit Price
-                var existingUnitPrice = $("#Due").val();
-                existingUnitPrice = parseInt(existingUnitPrice) + parseInt(unitPrice);
-                $("#Due").val(existingUnitPrice);
+                var existingUnitPrice = $("#DealerSale_Due").val();
+                existingUnitPrice = parseInt(existingUnitPrice) + parseInt(Total);
+                $("#DealerSale_Due").val(existingUnitPrice);
             });
 
 
@@ -205,10 +318,11 @@
             //To show increment or decrement value with button
             $("#cart-table").on("click", ".btn-add-minus", function () {
                 var $button = $(this),
-                    $input = $button.closest('tr').find("input.quantity-input");
+                    $input = $button.closest('tr').find("input.quantity-input"),
+                    unitPrice = $button.closest('tr').find("input.unit_price").val();
                 var oldQty = $input.val();
                 var newQty;
-                var unitPrice = 0;
+                //var unitPrice = 0;
                 var total = 0;
                 var buttonId = $button.attr("id");
                 if (buttonId == "btnAddQty") {
@@ -227,9 +341,9 @@
                 //To show total value with quantity
                 var i = 0;
                 $(this).closest('tr').find('td').each(function () {                   
-                    if (i == 1) {
-                        unitPrice = $(this).text();
-                    }
+                    //if (i == 1) {
+                    //    unitPrice = $(this).find('input[id=]').text();
+                    //}
                     if (i == 5) {
                         total = parseInt(newQty) * parseInt(unitPrice);
                         $(this).text(total);
@@ -237,65 +351,65 @@
                     i++;
                 });
                 //To show total Unit Price
-                var UnitPrice = $("#UnitPrice").val(); 
+                var UnitPrice = $("#DealerSale_UnitPrice").val(); 
                 var ProductTotal = parseInt(UnitPrice) + (parseInt(newQty) - parseInt(oldQty)) * parseInt(unitPrice) ;
-                $("#UnitPrice").val(ProductTotal); 
+                $("#DealerSale_UnitPrice").val(ProductTotal); 
             });
 
 
             //To Show TotalPayable from discount amount
-            $('#Discount').blur(function () {
-                var productTotal = $('#UnitPrice').val();
-                var discount = $('#Discount').val();
+            $('#DealerSale_Discount').blur(function () {
+                var productTotal = $('#DealerSale_UnitPrice').val();
+                var discount = $('#DealerSale_Discount').val();
                 if (discount != '' && productTotal != '') {
-                    $('#payableTotal').val((parseInt(productTotal)) - (parseInt(discount)));
-                    $('#Due').val((parseInt(productTotal)) - (parseInt(discount)));
+                    $('#DealerSale_payableTotal').val((parseInt(productTotal)) - (parseInt(discount)));
+                    $('#DealerSale_Due').val((parseInt(productTotal)) - (parseInt(discount)));
                 } else {
-                    $('#payableTotal').val(parseInt(productTotal));
+                    $('#DealerSale_payableTotal').val(parseInt(productTotal));
                 }
-                var PayableTotal = $('#payableTotal').val();
-                var discount = $('#Discount').val();
+                var PayableTotal = $('#DealerSale_payableTotal').val();
+                var discount = $('#DealerSale_Discount').val();
                 var perc;
                 perc = ((discount / productTotal) * 100).toFixed(0);
-                $('#DiscountPercent').val(perc);
+                $('#DealerSale_DiscountPercent').val(perc);
                 //To Show Total due amount (After percentage or Befour percentage)
-                var PaidAmount = $('#Paid').val();
+                var PaidAmount = $('#DealerSale_Paid').val();
                 if (PaidAmount != '') {
                     var Due = parseInt(PayableTotal) - parseInt(PaidAmount);
-                    $('#Due').val(Due);
+                    $('#DealerSale_Due').val(Due);
                 }
             });
 
 
             //To Show TotalPayable from discount Percentage
-            $('#DiscountPercent').blur(function () {
-                var productTotal = $('#UnitPrice').val();
-                var DiscountPercent = $('#DiscountPercent').val();
+            $('#DealerSale_DiscountPercent').blur(function () {
+                var productTotal = $('#DealerSale_UnitPrice').val();
+                var DiscountPercent = $('#DealerSale_DiscountPercent').val();
                 var discount;
                 discount = parseInt(productTotal) * parseInt(DiscountPercent) / 100;
-                $('#Discount').val(discount);
+                $('#DealerSale_Discount').val(discount);
                 if (discount != '' && productTotal != '') {
-                    $('#payableTotal').val((parseInt(productTotal)) - (parseInt(discount)));
-                    $('#Due').val((parseInt(productTotal)) - (parseInt(discount)));
+                    $('#DealerSale_payableTotal').val((parseInt(productTotal)) - (parseInt(discount)));
+                    $('#DealerSale_Due').val((parseInt(productTotal)) - (parseInt(discount)));
                 } else {
-                    $('#payableTotal').val(parseInt(productTotal));
+                    $('#DealerSale_payableTotal').val(parseInt(productTotal));
                 }
                 //To Show Total due amount (After percentage or Befour percentage)
-                var PayableTotal = $('#payableTotal').val();
-                var PaidAmounts = $('#Paid').val();
+                var PayableTotal = $('#DealerSale_payableTotal').val();
+                var PaidAmounts = $('#DealerSale_Paid').val();
                 if (PaidAmounts != '') {
                     var DueAmount = parseInt(PayableTotal) - parseInt(PaidAmounts);
-                    $('#Due').val(DueAmount);
+                    $('#DealerSale_Due').val(DueAmount);
                 }
             });
 
             //To show due amount if there is Paid amount
-            $('#Paid').blur(function () {
-                var PayableTotal = $('#payableTotal').val();
-                var PaidAmounts = $('#Paid').val();
+            $('#DealerSale_Paid').blur(function () {
+                var PayableTotal = $('#DealerSale_payableTotal').val();
+                var PaidAmounts = $('#DealerSale_Paid').val();
                 if (PayableTotal != '' && PaidAmounts != '') {
                     var Due = parseInt(PayableTotal) - parseInt(PaidAmounts);
-                    $('#Due').val(Due);
+                    $('#DealerSale_Due').val(Due);
                 }
             });
 

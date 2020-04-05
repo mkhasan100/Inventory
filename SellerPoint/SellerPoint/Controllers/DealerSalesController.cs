@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SellerPoint.Data;
 using SellerPoint.Models;
+using SellerPoint.Models.ViewModels;
 
 namespace SellerPoint.Controllers
 {
@@ -78,15 +79,27 @@ namespace SellerPoint.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(DealerSale dealerSale)
+        public async Task<IActionResult> Create(DealerSaleProdDtlViewModel dealerSaleProdDtlViewModel)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(dealerSale);
-                await _context.SaveChangesAsync();
+                _context.Add(dealerSaleProdDtlViewModel.DealerSale);
+
+
+                foreach (var item in dealerSaleProdDtlViewModel.DealerSaleProductDetail)
+                {
+                    item.DealerSaleId = dealerSaleProdDtlViewModel.DealerSale.Id;
+
+                    _context.Add(item);
+                }
+
+
+                _context.SaveChanges();
+
+
                 return RedirectToAction(nameof(Index));
             }
-            return View(dealerSale);
+            return View();
         }
 
         // GET: DealerSales/Edit/5
@@ -179,7 +192,7 @@ namespace SellerPoint.Controllers
             q = q.ToUpper();
             var Dealers = _context.Dealer
                 .Where(a => a.Name.ToUpper().Contains(q))
-                .Select(a => new { id = a.Id, name = a.Name });
+                .Select(a => new { DealerSale_DealerId = a.Id, name = a.Name });
 
             return Json(Dealers);
 
@@ -191,7 +204,7 @@ namespace SellerPoint.Controllers
             ProductNameAndDetail = ProductNameAndDetail.ToUpper();
             var Product = _context.ProductDetail
                 .Where(a => a.Name.ToUpper().Contains(ProductNameAndDetail))
-                .Select(a => new { a.Name, a.DealerPrice });
+                .Select(a => new { a.Id, a.Name, a.DealerPrice });
             return Json(Product);
         }
     }
