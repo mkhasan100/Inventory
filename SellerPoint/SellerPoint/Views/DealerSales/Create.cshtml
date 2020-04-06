@@ -10,9 +10,10 @@
     <div class="col-md-4">*@
 
 <div class="form-group">
-    <label asp-for="DealerSale.DealerId" class="control-label"></label>
-    <input asp-for="DealerSale.DealerId" class="form-control" />
-    <span asp-validation-for="DealerSale.DealerId" class="text-danger"></span>
+    <label asp-for="DealerSale.DealerName" class="control-label"></label>
+    <input asp-for="DealerSale.DealerName" class="form-control" />
+   
+    <span asp-validation-for="DealerSale.DealerName" class="text-danger"></span>
 </div>
 <table class="table">
 </table>
@@ -49,6 +50,7 @@
 </div>
 <form asp-action="Create">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input asp-for="DealerSale.DealerId" type="hidden" />
     <div class="panel biz-boxed">
         <div class="panel-heading">
             <h4 id="shopping-cart">My Shopping Cart:</h4>
@@ -124,10 +126,10 @@
             <input asp-for="DealerSale.Remarks" class="form-control" />
             <span asp-validation-for="DealerSale.Remarks" class="text-danger"></span>
         </div>
-        </div>
-        <div class="form-group pt-3">
-            <input type="submit" value="Save" class="btn btn-info" />
-        </div>
+    </div>
+    <div class="form-group pt-3">
+        <input type="submit" value="Save" class="btn btn-info" />
+    </div>
 </form>
 
 @section Scripts {
@@ -139,15 +141,21 @@
 
 
             //Token Input
-            $("#DealerSale_DealerId").tokenInput("@Url.Action("GetDealers","DealerSales")",
+            $("#DealerSale_DealerName").tokenInput("@Url.Action("GetDealers","DealerSales")",
                 {
                     theme: 'facebook',
-                    tokeLimit: 1
+                    tokeLimit: 1,
+                    preventDuplicates: true
                 });
-            $('#token-input-DealerSale_DealerId').blur(function () {
-                var selectedValues = $('#DealerSale_DealerId').tokenInput("get");
-                $("#DealerSale_DealerId").val(selectedValues);
-            });
+
+            $("#token-input-DealerSale_DealerName").blur(function () {
+                var selectedValues = $("#DealerSale_DealerName").tokenInput("get");
+                console.log(selectedValues);
+                $("#DealerSale_DealerId").val(selectedValues[0].id);
+            })
+
+
+          
 
 
             //To Invoke DealerSale Controller With Database Table in Search option
@@ -178,7 +186,7 @@
             //To show add-to-cart to My-Shopping cart
             $('#tblProduct').on('click', '.addtocart', function (e) {
                 var i = 0;
-                var unitPrice = 0;
+                var quantity = 1;
                 var ProductName = '';
                 var UnitPrice = '';
                 var productId = '';
@@ -207,29 +215,40 @@
                 if (firstInputName === undefined) {
                     $("#cart-table tbody").append(
                         "<tr>"
-                        + "<td><input type='text'  name='DealerSaleProductDetail[0].ProductName' readonly style='border:none;background:#fff' value='" + ProductName + "' /></td>"
-                        + "<td><input type='text'  name='DealerSaleProductDetail[0].UnitPrice' readonly style='border:none;background:#fff' class='unit_price' value='" + UnitPrice + "' /></td>"
+                        + "<td><input type='text'  name='DealerSaleProductDetail[0].ProductName'  style='border:none;background:#fff' value='" + ProductName + "' /></td>"
+                        + "<td><input type='text'  name='DealerSaleProductDetail[0].UnitPrice'  style='border:none;background:#fff' class='unit_price' value='" + UnitPrice + "' /></td>"
+                          //+ "<td><input type='text'  name='DealerSaleProductDetail[0].Quantity' value='" + quantity.toString() + "' class='quantity-input form-control'/></td>"
                         + "<td><button id='btnMinusQty' class= 'btn-add-minus btn btn-danger  mdi mdi-minus' type='button' ></button ></td >"
-                        + "<td><input type='text' name='DealerSaleProductDetail[0].Quantity' value='1' class='quantity-input form-control'></td>"
+                        
+                        + "<td><input type='text' id='DealerSaleProductDetail[0].Quantity'  name='DealerSaleProductDetail[0].Quantity' value='1'  class='quantity-input form-control'/></td>"
                         + "<td><button id='btnAddQty' class='btn-add-minus btn btn-danger  mdi mdi-plus' type='button' ></button></td>"
-                        + "<td><input type='text'  name='DealerSaleProductDetail[0].Total' readonly style='border:none;background:#fff' value='" + Total + "' /></td>"
+                        + "<td><input type='text'  name='DealerSaleProductDetail[0].Total'  style='border:none;background:#fff' value='" + Total + "' /></td>"
                         + "<td><select class='form-control'>"
                         + "<option value='sale'>Sale</option>"
                         + "<option value='damage'>Damage</option>"
                         + "<option value='gift'>Gift</option>"
                         + "<option value='return'>Return</option>"
                         + "</select></td>"
-                        + "<td style='display:none'><input type='text'  name='DealerSaleProductDetail[0].ProductId' readonly style='border:none;background:#f1efef;' value='" + productId + "' /></td><td><a href='#' class='remove btn btn-danger' >Remove</a></td></tr>");
+                        + "<td style='display:none'><input type='text'  name='DealerSaleProductDetail[0].ProductId'  style='border:none;background:#f1efef;' value='" + productId + "' /></td><td><a href='#' class='remove btn btn-danger' >Remove</a></td></tr>");
                 }
                 else {
+
                     var suffix = $trNew.find(':input[type=text]:first').attr('name').match(/\d+/);
+
                     $trNew.find("td:last").html('<a href="#" class="remove btn btn-danger" >Remove</a>');
+
                     $.each($trNew.find(':input[type=text]'), function (i, val) {
                         // Replaced Name
                         var oldN = $(this).attr('name');
+
+                       
+
+                        //alert(oldValue);
                         var newN = oldN.replace('[' + suffix + ']', '[' + (parseInt(suffix) + 1) + ']');
+
                         $(this).attr('name', newN);
 
+                     
                         if ($(this).attr('name').match('ProductName')) {
                             $(this).attr('value', ProductName);
                         };
@@ -238,8 +257,10 @@
                             $(this).attr('value', productId);
                         };
 
-                        if ($(this).attr('name').match('Quantity')) {
-                            $(this).attr('value', '1');
+                      
+
+                         if ($(this).attr('name').match('Quantity')) {
+                            $(this).attr('value', "1");
                         };
 
 
@@ -249,12 +270,13 @@
 
 
                         if ($(this).attr('name').match('Total')) {
-                            $(this).attr('value', Total);
+                            $(this).attr('value', UnitPrice.toString());
                         };
 
-                        // If you have another Type then replace with default value
+                         //If you have another Type then replace with default value
                         $(this).removeClass("input-validation-error");
                     });
+
                     $trLast.after($trNew);
                 }
 

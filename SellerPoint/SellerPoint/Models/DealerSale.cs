@@ -17,6 +17,10 @@ namespace SellerPoint.Models
         [DisplayName("Dealer")]
         public int DealerId { get; set; }
 
+        [DisplayName("Dealer")]
+        [NotMapped]
+        public string DealerName { get; set; }
+
         [DisplayName("Product")]
         public int ProductId { get; set; }
 

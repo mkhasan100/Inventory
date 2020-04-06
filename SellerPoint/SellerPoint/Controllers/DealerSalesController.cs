@@ -24,19 +24,21 @@ namespace SellerPoint.Controllers
         public IActionResult Index()
         {
             var DealerSaleList = _context.DealerSale.AsEnumerable()
-                                         .Join(_context.Warehouse, d => d.WarehouseId, w => w.Id, (d, w) => new { d, w })
+                                         .Join(_context.Warehouse, ds => ds.WarehouseId, w => w.Id, (ds, w) => new { ds, w })
+                                         .Join(_context.Dealer, dsw=>dsw.ds.DealerId, d=>d.Id,(dsw,d)=>new { dsw , d })
                                          .Select(s => new DealerSale
                                          {
-                                             DealerId = s.d.DealerId,
-                                             ProductId = s.d.ProductId,
-                                             UnitPrice = s.d.UnitPrice,
-                                             DiscountPercent = s.d.DiscountPercent,
-                                             Discount = s.d.Discount,
-                                             payableTotal = s.d.payableTotal,
-                                             Paid=s.d.Paid,
-                                             Due = s.d.Due,
-                                             WareHouseName = s.w.Name,
-                                             Remarks = s.d.Remarks
+                                             DealerName = s.d.Name,
+                                             ProductName = 
+                                             string.Join(", ", _context.DealerSaleProductDetails.AsEnumerable().Join(_context.ProductDetail,dspd=>dspd.ProductId,pd=>pd.Id,(dspd,pd)=>new { dspd,pd}).Where(w=>w.dspd.DealerSaleId == s.dsw.ds.Id).Select(s=>s.pd.Name)),
+                                             UnitPrice = s.dsw.ds.UnitPrice,
+                                             DiscountPercent = s.dsw.ds.DiscountPercent,
+                                             Discount = s.dsw.ds.Discount,
+                                             payableTotal = s.dsw.ds.payableTotal,
+                                             Paid= s.dsw.ds.Paid,
+                                             Due = s.dsw.ds.Due,
+                                             WareHouseName = s.dsw.w.Name,
+                                             Remarks = s.dsw.ds.Remarks
                                          }).ToList();
             
                 return View(DealerSaleList);
@@ -84,11 +86,13 @@ namespace SellerPoint.Controllers
             if (ModelState.IsValid)
             {
                 _context.Add(dealerSaleProdDtlViewModel.DealerSale);
+                _context.SaveChanges();
 
+                int DealerSaleId = dealerSaleProdDtlViewModel.DealerSale.Id;
 
                 foreach (var item in dealerSaleProdDtlViewModel.DealerSaleProductDetail)
                 {
-                    item.DealerSaleId = dealerSaleProdDtlViewModel.DealerSale.Id;
+                    item.DealerSaleId = DealerSaleId;
 
                     _context.Add(item);
                 }
@@ -192,7 +196,7 @@ namespace SellerPoint.Controllers
             q = q.ToUpper();
             var Dealers = _context.Dealer
                 .Where(a => a.Name.ToUpper().Contains(q))
-                .Select(a => new { DealerSale_DealerId = a.Id, name = a.Name });
+                .Select(a => new { id = a.Id, name = a.Name });
 
             return Json(Dealers);
 
