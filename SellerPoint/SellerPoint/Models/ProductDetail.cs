@@ -21,10 +21,10 @@ namespace SellerPoint.Models
         public string Model { get; set; }
         public string Year { get; set; }
         public string ProductCode { get; set; }
-        public int BarCode { get; set; }
+        public string BarCode { get; set; }
         public string SalePrice { get; set; }
-        public string DealerPrice { get; set; }
-        public string CostPrice { get; set; }
+        public int DealerPrice { get; set; }
+        public int CostPrice { get; set; }
         public string Type { get; set; }
         public string Color { get; set; }
         public string MinimumStockToNotify { get; set; }

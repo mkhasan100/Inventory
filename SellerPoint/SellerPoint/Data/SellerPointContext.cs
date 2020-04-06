@@ -38,7 +38,6 @@ namespace SellerPoint.Data
         public DbSet<SellerPoint.Models.Courier> Courier { get; set; }
         public DbSet<SellerPoint.Models.Purchase> Purchase { get; set; }
         public DbSet<SellerPoint.Models.DealerSale> DealerSale { get; set; }
-
         public DbSet<DealerSaleProductDetail> DealerSaleProductDetails { get; set; }
     }
 }
