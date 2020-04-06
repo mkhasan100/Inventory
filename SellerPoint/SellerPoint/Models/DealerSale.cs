@@ -31,15 +31,28 @@ namespace SellerPoint.Models
         [NotMapped]
         [DisplayName("Product Total")]
         public decimal ProductTotal { get; set; }
+
+
         [DisplayName("Product Total:")]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal UnitPrice { get; set; }
+
         [DisplayName("Discount Percent")]
         public float? DiscountPercent { get; set; }
+
+        [Column(TypeName = "decimal(18,2)")]
         public decimal? Discount { get; set; }
+
+
         [DisplayName("Payable Total")]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal payableTotal { get; set; }
-        
+
+
+        [Column(TypeName = "decimal(18,2)")]
         public decimal  Paid { get; set; }
+
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Due { get; set; }
         [DisplayName("WareHouse")]
         public int WarehouseId { get; set; }

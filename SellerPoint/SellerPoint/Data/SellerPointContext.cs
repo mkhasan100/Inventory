@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using SellerPoint.Extensions;
 using SellerPoint.Models;
 
 namespace SellerPoint.Data
@@ -12,6 +13,11 @@ namespace SellerPoint.Data
         public SellerPointContext (DbContextOptions<SellerPointContext> options)
             : base(options)
         {
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Seed();
         }
 
         public DbSet<SellerPoint.Models.MyShop> MyShop { get; set; }

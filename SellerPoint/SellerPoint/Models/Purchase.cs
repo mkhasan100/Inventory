@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -28,13 +29,23 @@ namespace SellerPoint.Models
        
         [DisplayName("Order Reference Number")]
         public int OrderReferenceNumber { get; set; }
+
+
         [DisplayName("Product Amount")]
+        [Column(TypeName = "decimal(18,2)")]
         public Decimal ProductAmount { get; set; }
+
         [DisplayName("Other Amount")]
+        [Column(TypeName = "decimal(18,2)")]
         public Decimal OtherAmount { get; set; }
-        
+
+        [Column(TypeName = "decimal(18,2)")]
         public Decimal Discount { get; set; }
+
+        [Column(TypeName = "decimal(18,2)")]
         public Decimal Total { get; set; }
+
+
         [DisplayName("Shipping Provider")]
         public string ShippingProvider { get; set; }
         [DisplayName("Shipping Tracking Number")]
