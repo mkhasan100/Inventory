@@ -66,7 +66,12 @@ namespace SellerPoint.Controllers
         public IActionResult DealerSaleLists()
         {
             ViewBag.DealerSaleList = _context.Warehouse.ToList();
-            return View();
+            
+            var DealerSaleListViewModel = new DealerSaleListViewModel();
+
+            DealerSaleListViewModel.DealerSalesList = _context.DealerSale.ToList();
+
+            return View(DealerSaleListViewModel);
         }
 
 
@@ -92,6 +97,41 @@ namespace SellerPoint.Controllers
         {
             if (ModelState.IsValid)
             {
+                string OrderNo = string.Empty;
+                string SalesOrder = "0";
+                string SalesToken = "0";
+                string[] strOrderNo;
+
+                if (_context.DealerSale.ToList().Count() > 0)
+                {
+                    var orderNo = _context.DealerSale.OrderByDescending(m => m.Id).Where(w => w.OrderNo != null).Select(s => s.OrderNo).FirstOrDefault();
+
+                    if(orderNo!=null)
+                    {
+                        strOrderNo = orderNo.Split('-');  
+
+                        if (strOrderNo.Length > 0)
+                        {
+                            SalesOrder = strOrderNo[1];
+                            SalesToken = strOrderNo[3];
+                        }
+                    }
+
+                }
+                
+
+                
+                SalesOrder =Convert.ToString(Convert.ToInt16(SalesOrder) + 1);
+
+                SalesOrder = SalesOrder.PadLeft(8 - SalesOrder.Length, '0');
+
+                SalesToken = Convert.ToString(Convert.ToInt16(SalesToken) + 1);
+
+                SalesToken = SalesToken.PadLeft(10 - SalesToken.Length, '0');
+
+                OrderNo = "S-" + SalesOrder + "-" + DateTime.Now.ToString("ddMMyy") + "-" + SalesToken;
+
+                dealerSaleProdDtlViewModel.DealerSale.OrderNo = OrderNo;
                 _context.Add(dealerSaleProdDtlViewModel.DealerSale);
                 _context.SaveChanges();
 

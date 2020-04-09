@@ -13,6 +13,8 @@ namespace SellerPoint.Models
         [Key]
         public int Id { get; set; }
 
+        public string OrderNo { get; set; }
+
 
         [DisplayName("Dealer")]
         public int DealerId { get; set; }
