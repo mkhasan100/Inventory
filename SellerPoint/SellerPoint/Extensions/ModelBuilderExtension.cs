@@ -52,6 +52,21 @@ namespace SellerPoint.Extensions
                 new ProductDetail { Id = 5, CategoryId = 1, Name = "Motorolla", DealerPrice = 9000, BarCode = "1234" }
 
                 );
+
+            modelBuilder.Entity<Wallet>().HasData(
+                new Wallet { Id = 1, WareHouseId = 2, Title = "CatchMe", AccountNumber = "112233", WalletType = "Cash", Balance = "500" },
+                new Wallet { Id = 2, WareHouseId = 2, Title = "Badda", AccountNumber = "112233", WalletType = "Mobile", Balance = "1000" },
+                new Wallet { Id = 3, WareHouseId = 2, Title = "Badda", AccountNumber = "112233", WalletType = "Cash", Balance = "6000" },
+                new Wallet { Id = 4, WareHouseId = 1, Title = "Gulshan", AccountNumber = "112233", WalletType = "Mpbile", Balance = "3000" }                
+                );
+
+            modelBuilder.Entity<Supplier>().HasData(
+                new Supplier { Id = 1, Name = "Hasan", Address = "Islambag", Country = "Bangladesh", ContactPersonName = "01795818648" },
+                new Supplier { Id = 2, Name = "Jewel", Address = "Islambag", Country = "Bangladesh", ContactPersonName = "01795818648" },
+                new Supplier { Id = 3, Name = "Saad", Address = "Islambag", Country = "Bangladesh", ContactPersonName = "01795818648" },
+                new Supplier { Id = 4, Name = "Saif", Address = "Islambag", Country = "Bangladesh", ContactPersonName = "01795818648" }
+                
+                );
         }
     }
 }

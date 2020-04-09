@@ -63,9 +63,16 @@ namespace SellerPoint.Controllers
         }
 
 
+        public IActionResult DealerSaleLists()
+        {
+            ViewBag.DealerSaleList = _context.Warehouse.ToList();
+            return View();
+        }
+
 
         public IActionResult Entry()
         {
+            ViewBag.WareHouseList = _context.Warehouse.ToList();
             return View();
         }
 
@@ -211,5 +218,7 @@ namespace SellerPoint.Controllers
                 .Select(a => new { a.Id, a.Name, a.DealerPrice });
             return Json(Product);
         }
+
+        
     }
 }

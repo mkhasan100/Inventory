@@ -1,0 +1,96 @@
+﻿@model SellerPoint.Models.DealerSaleList
+
+@{
+    ViewData["Title"] = "DealerSaleList";
+}
+
+
+<h4>Dealer Sales List</h4>
+<hr />
+@*<div class="row">
+    <div class="col-md-4">*@
+<form asp-action="Create">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="form-group">
+                <label asp-for="SearchOrder" class="control-label"></label>
+                <input asp-for="SearchOrder" class="form-control" />
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-info pull-left" id="btnSearch">Search</button>
+                </span>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="form-group">
+                <label asp-for="WarehouseID" class="control-label"></label>
+                @*<input asp-for="WarehouseID" class="form-control" />*@
+                @Html.DropDownListFor(model => model.WarehouseID, new SelectList(@ViewBag.DealerSaleList, "Id", "Name"), "Select Warehouse", new { @class = "form-control" })
+                <span asp-validation-for="WarehouseID" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="form-group">
+                <label asp-for="FromDate" class="control-label"></label>
+                <input asp-for="FromDate" class="form-control" />
+                <span asp-validation-for="FromDate" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="form-group">
+                <label asp-for="ToDate" class="control-label"></label>
+                <input asp-for="ToDate" class="form-control" />
+                <span asp-validation-for="ToDate" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="panel biz-boxed">
+        <div class="panel-heading">
+            <h4 id="shopping-cart">Details:</h4>
+        </div>
+        <table id="table-edit" class="table table-bordered table-hover ">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>
+                        Date <span class="glyphicon glyphicon-sort"></span>
+                    </th>
+                    <th>Order Number</th>
+                    <th>State</th>
+                    <th>Total (Due)</th>
+                    <th>Dealer Name</th>
+                    
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>Total:</td>
+                        <td>#0</td>
+                        <td></td>
+
+                        <td>Completed</td>
+                        <td>@Html.DisplayFor(modelItem => item.payableTotal) (@Html.DisplayFor(modelItem => item.Due))</td>
+                        <td></td>
+                    </tr>
+                }
+                </tbody>                
+        </table>
+        </div>
+
+        <div class="form-group row pt-3">
+            <input type="submit" value="Export to CSV" class="ml-3 btn-info" />
+            <div class="ml-2">
+                <input type="submit" value="Excel" class="btn btn-info" />
+            </div>
+        </div>
+</form>
+    
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

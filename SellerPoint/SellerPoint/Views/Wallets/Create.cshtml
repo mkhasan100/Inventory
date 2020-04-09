@@ -43,7 +43,15 @@
             <div class="form-group row">
                 <label asp-for="WalletType" class="col-sm-2 form-control-label">Wallet Type</label>
                 <div class="col-sm-10">
-                    <input asp-for="WalletType" class="form-control" name="WalletType" placeholder="Enter Wallet Type"></>
+                    @*<input asp-for="WalletType" class="form-control" name="WalletType" placeholder="Enter Wallet Type"></>*@
+                    <select type="text" class="form-control" name="walletType" style="">
+                    <option value="?" selected="selected"></option>
+                    <option label="Cash" value="Cash">Cash</option>
+                    <option label="Bank" value="Bank">Bank</option>
+                    <option label="Mobile" value="Mobile">Mobile</option>
+                    <option label="Goods" value="Goods">Goods</option>
+                    <option label="Other" value="Other">Other</option>
+                    </select>
                     <span asp-validation-for="WalletType" class="text-danger"></span>
                 </div>
             </div>

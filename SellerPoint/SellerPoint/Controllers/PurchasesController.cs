@@ -48,6 +48,8 @@ namespace SellerPoint.Controllers
         {
             ViewBag.AccountHeadList = _context.AccountHead.ToList();
             ViewBag.WareHouseList = _context.Warehouse.ToList();
+            ViewBag.WalletList = _context.Wallet.ToList();
+            ViewBag.SupplierList = _context.Supplier.ToList();
             return View();
         }
 

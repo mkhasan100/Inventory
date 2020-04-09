@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,6 +11,8 @@ namespace SellerPoint.Models
     {
         [Key]
         public int Id { get; set; }
+        public int WareHouseId { get; set; }
+        [NotMapped]
         public string WareHouse { get; set; }
         public string Title { get; set; }
         public string AccountNumber { get; set; }

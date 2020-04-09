@@ -28,14 +28,16 @@
             <div class="form-group row">
                 <label asp-for="WalletsId" class="col-sm-2 form-control-label">Wallets</label>
                 <div class="col-sm-10">
-                    <input asp-for="WalletsId" class="form-control" name="WalletsId" placeholder="Enter WalletsId"></>
+                    @*<input asp-for="WalletsId" class="form-control" name="WalletsId" placeholder="Enter WalletsId"></>*@
+                    @Html.DropDownListFor(model => model.WalletsId, new SelectList(@ViewBag.WalletList, "Id", "Title"), "Select Wallets", new { @class = "form-control" })
                     <span asp-validation-for="WalletsId" class="text-danger"></span>
                 </div>
             </div>
             <div class="form-group row">
                 <label asp-for="SupplierId" class="col-sm-2 form-control-label">Supplier</label>
                 <div class="col-sm-10">
-                    <input asp-for="SupplierId" class="form-control" name="SupplierId" placeholder="Enter Supplier Id"></>
+                    @*<input asp-for="SupplierId" class="form-control" name="SupplierId" placeholder="Enter Supplier Id"></>*@
+                    @Html.DropDownListFor(model => model.SupplierId, new SelectList(@ViewBag.SupplierList, "Id", "Name"), "Select Supplier", new { @class = "form-control" })
                     <span asp-validation-for="SupplierId" class="text-danger"></span>
                 </div>
             </div>
