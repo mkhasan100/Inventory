@@ -102,32 +102,36 @@ namespace SellerPoint.Controllers
                 string SalesToken = "0";
                 string[] strOrderNo;
 
-                if (_context.DealerSale.ToList().Count() > 0)
-                {
-                    var orderNo = _context.DealerSale.OrderByDescending(m => m.Id).Where(w => w.OrderNo != null).Select(s => s.OrderNo).FirstOrDefault();
+                //if (_context.DealerSale.ToList().Count() > 0)
+                //{
+                //    var orderNo = _context.DealerSale.OrderByDescending(m => m.Id).Where(w => w.OrderNo != null).Select(s => s.OrderNo).FirstOrDefault();
 
-                    if(orderNo!=null)
-                    {
-                        strOrderNo = orderNo.Split('-');  
+                //    if(orderNo!=null)
+                //    {
+                //        strOrderNo = orderNo.Split('-');  
 
-                        if (strOrderNo.Length > 0)
-                        {
-                            SalesOrder = strOrderNo[1];
-                            SalesToken = strOrderNo[3];
-                        }
-                    }
+                //        if (strOrderNo.Length > 0)
+                //        {
+                //            SalesOrder = strOrderNo[1];
+                //            SalesToken = strOrderNo[3];
+                //        }
+                //    }
 
-                }
-                
+                //}
 
-                
-                SalesOrder =Convert.ToString(Convert.ToInt16(SalesOrder) + 1);
+
+
+                SalesOrder = Convert.ToString(Convert.ToInt16(SalesOrder) + 1);
 
                 SalesOrder = SalesOrder.PadLeft(8 - SalesOrder.Length, '0');
 
                 SalesToken = Convert.ToString(Convert.ToInt16(SalesToken) + 1);
 
                 SalesToken = SalesToken.PadLeft(10 - SalesToken.Length, '0');
+
+                //string ProductName = "Symphony";
+
+                //var firstChar = ProductName.ToUpper().Substring(0, 3);
 
                 OrderNo = "S-" + SalesOrder + "-" + DateTime.Now.ToString("ddMMyy") + "-" + SalesToken;
 
