@@ -66,5 +66,9 @@ namespace SellerPoint.Models
 
         public string Remarks { get; set; }
 
+        internal static object GenerateDummyDealerSaleList()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
