@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace SellerPoint.Models
 {
+    [Serializable]
     public class DealerSale
     {
         [Key]

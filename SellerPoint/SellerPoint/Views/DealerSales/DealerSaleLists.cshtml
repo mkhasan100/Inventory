@@ -60,7 +60,7 @@
                     <th>State</th>
                     <th>Total (Due)</th>
                     <th>Dealer Name</th>
-                    
+
 
                 </tr>
             </thead>
@@ -86,20 +86,37 @@
                     <td></td>
                     <td></td>
                 </tr>
-            </tbody>                
+            </tbody>
         </table>
-        </div>
-
+    </div>
+</form>
         <div class="form-group row pt-3">
             <input type="submit" value="Export to CSV" class="ml-3 btn-info" />
             <div class="ml-2">
-                <input type="submit" value="Excel" class="btn btn-info" />
+                <a href="/DealerSales/Export" class="btn btn-info">Export Excel</a>
+                @*<button id="btnExportExcel" type="button" value="Export Excel" class="btn btn-info"></button>*@                
             </div>
         </div>
-</form>
+
     
 
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        
+        @*<script type="text/javascript">
+            $(document).ready(function () {
+
+                $("btnExportExcel").click(function () {
+
+                    $.ajax({
+                        url: '/DealerSales/Export'
+                    });
+
+                });
+
+            })
+        </script>*@
+        
+        }
 }
