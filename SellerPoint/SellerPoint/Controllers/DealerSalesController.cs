@@ -102,22 +102,22 @@ namespace SellerPoint.Controllers
                 string SalesToken = "0";
                 string[] strOrderNo;
 
-                //if (_context.DealerSale.ToList().Count() > 0)
-                //{
-                //    var orderNo = _context.DealerSale.OrderByDescending(m => m.Id).Where(w => w.OrderNo != null).Select(s => s.OrderNo).FirstOrDefault();
+                if (_context.DealerSale.ToList().Count() > 0)
+                {
+                    var orderNo = _context.DealerSale.OrderByDescending(m => m.Id).Where(w => w.OrderNo != null).Select(s => s.OrderNo).FirstOrDefault();
 
-                //    if(orderNo!=null)
-                //    {
-                //        strOrderNo = orderNo.Split('-');  
+                    if (orderNo != null)
+                    {
+                        strOrderNo = orderNo.Split('-');
 
-                //        if (strOrderNo.Length > 0)
-                //        {
-                //            SalesOrder = strOrderNo[1];
-                //            SalesToken = strOrderNo[3];
-                //        }
-                //    }
+                        if (strOrderNo.Length > 0)
+                        {
+                            SalesOrder = strOrderNo[1];
+                            SalesToken = strOrderNo[3];
+                        }
+                    }
 
-                //}
+                }
 
 
 
