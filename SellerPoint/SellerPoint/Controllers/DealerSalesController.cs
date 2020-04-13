@@ -35,25 +35,31 @@ namespace SellerPoint.Controllers
         {
             var DealerSaleList = _context.DealerSale.AsEnumerable()
                                          .Join(_context.Warehouse, ds => ds.WarehouseId, w => w.Id, (ds, w) => new { ds, w })
-                                         .Join(_context.Dealer, dsw=>dsw.ds.DealerId, d=>d.Id,(dsw,d)=>new { dsw , d })
+                                         .Join(_context.Dealer, dsw => dsw.ds.DealerId, d => d.Id, (dsw, d) => new { dsw, d })
                                          .Select(s => new DealerSale
                                          {
                                              DealerName = s.d.Name,
-                                             ProductName = 
-                                             string.Join(", ", _context.DealerSaleProductDetails.AsEnumerable().Join(_context.ProductDetail,dspd=>dspd.ProductId,pd=>pd.Id,(dspd,pd)=>new { dspd,pd}).Where(w=>w.dspd.DealerSaleId == s.dsw.ds.Id).Select(s=>s.pd.Name)),
+                                             ProductName =
+                                             string.Join(", ", _context.DealerSaleProductDetails
+                                             .AsEnumerable()
+                                             .Join(_context.ProductDetail, dspd => dspd.ProductId, pd => pd.Id, (dspd, pd) => new { dspd, pd })
+                                             .Where(w => w.dspd.DealerSaleId == s.dsw.ds.Id)
+                                             .Select(s => s.pd.Name)),
                                              UnitPrice = s.dsw.ds.UnitPrice,
                                              DiscountPercent = s.dsw.ds.DiscountPercent,
                                              Discount = s.dsw.ds.Discount,
                                              payableTotal = s.dsw.ds.payableTotal,
-                                             Paid= s.dsw.ds.Paid,
+                                             Paid = s.dsw.ds.Paid,
                                              Due = s.dsw.ds.Due,
                                              WareHouseName = s.dsw.w.Name,
                                              Remarks = s.dsw.ds.Remarks
                                          }).ToList();
-            
-                return View(DealerSaleList);
+
+            return View(DealerSaleList);
         }
 
+
+   
         // GET: DealerSales/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -76,12 +82,75 @@ namespace SellerPoint.Controllers
         public IActionResult DealerSaleLists()
         {
             ViewBag.DealerSaleList = _context.Warehouse.ToList();
-            
             var DealerSaleListViewModel = new DealerSaleListViewModel();
+           // DealerSaleListViewModel.FromDate = DateTime.Now;
+           // DealerSaleListViewModel.ToDate = DateTime.Now;
 
-            DealerSaleListViewModel.DealerSalesList = _context.DealerSale.ToList();
+            var DealerSaleList = _context.DealerSale.AsEnumerable()
+                                        .Join(_context.Warehouse, ds => ds.WarehouseId, w => w.Id, (ds, w) => new { ds, w })
+                                        .Join(_context.Dealer, dsw => dsw.ds.DealerId, d => d.Id, (dsw, d) => new { dsw, d })
+                                        .Select(s => new DealerSale
+                                        {
+                                            DealerName = s.d.Name,
+                                            ProductName =
+                                            string.Join(", ", _context.DealerSaleProductDetails
+                                            .AsEnumerable()
+                                            .Join(_context.ProductDetail, dspd => dspd.ProductId, pd => pd.Id, (dspd, pd) => new { dspd, pd })
+                                            .Where(w => w.dspd.DealerSaleId == s.dsw.ds.Id)
+                                            .Select(s => s.pd.Name)),
+                                            UnitPrice = s.dsw.ds.UnitPrice,
+                                            DiscountPercent = s.dsw.ds.DiscountPercent,
+                                            Discount = s.dsw.ds.Discount,
+                                            payableTotal = s.dsw.ds.payableTotal,
+                                            Paid = s.dsw.ds.Paid,
+                                            Due = s.dsw.ds.Due,
+                                            WareHouseName = s.dsw.w.Name,
+                                            Remarks = s.dsw.ds.Remarks,
+                                            OrderNo = s.dsw.ds.OrderNo,
+                                            createDate = s.dsw.ds.createDate
+                                        }).ToList();
 
+            DealerSaleListViewModel.DealerSalesList = DealerSaleList;
             return View(DealerSaleListViewModel);
+        }
+
+
+        [HttpPost]
+        public IActionResult DealerSaleLists(DealerSaleListViewModel DealerSaleListViewModel)
+        {
+            int? orderId = DealerSaleListViewModel.OrderId ;
+            var DealerSaleList = _context.DealerSale.AsEnumerable()
+                                         .Join(_context.Warehouse, ds => ds.WarehouseId, w => w.Id, (ds, w) => new { ds, w })
+                                         .Join(_context.Dealer, dsw => dsw.ds.DealerId, d => d.Id, (dsw, d) => new { dsw, d })
+                                         .Select(s => new DealerSale
+                                         {
+                                             Id = s.dsw.ds.Id,
+                                             DealerName = s.d.Name,
+                                             ProductName =
+                                             string.Join(", ", _context.DealerSaleProductDetails
+                                             .AsEnumerable()
+                                             .Join(_context.ProductDetail, dspd => dspd.ProductId, pd => pd.Id, (dspd, pd) => new { dspd, pd })
+                                             .Where(w => w.dspd.DealerSaleId == s.dsw.ds.Id)
+                                             .Select(s => s.pd.Name)),
+                                             UnitPrice = s.dsw.ds.UnitPrice,
+                                             DiscountPercent = s.dsw.ds.DiscountPercent,
+                                             Discount = s.dsw.ds.Discount,
+                                             payableTotal = s.dsw.ds.payableTotal,
+                                             Paid = s.dsw.ds.Paid,
+                                             Due = s.dsw.ds.Due,
+                                             WareHouseName = s.dsw.w.Name,
+                                             Remarks = s.dsw.ds.Remarks,
+                                             OrderNo= s.dsw.ds.OrderNo,
+                                             createDate = s.dsw.ds.createDate
+                                         }).Where(w=>w.Id == orderId ).ToList();
+
+            ViewBag.DealerSaleList = _context.Warehouse.ToList();
+
+            var DlrSaleListViewModel = new DealerSaleListViewModel();
+            //DlrSaleListViewModel.FromDate =;
+            //DlrSaleListViewModel.ToDate = DateTime.Now;
+            DlrSaleListViewModel.DealerSalesList = DealerSaleList;
+            return View(DlrSaleListViewModel);
         }
 
 
@@ -91,12 +160,14 @@ namespace SellerPoint.Controllers
             return View();
         }
 
+
         // GET: DealerSales/Create
         public IActionResult Create()
         {
             ViewBag.WareHouseList = _context.Warehouse.ToList();
             return View();
         }
+
 
         // POST: DealerSales/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -111,11 +182,11 @@ namespace SellerPoint.Controllers
                 string SalesOrder = "0";
                 string SalesToken = "0";
                 string[] strOrderNo;
-
                 if (_context.DealerSale.ToList().Count() > 0)
                 {
-                    var orderNo = _context.DealerSale.OrderByDescending(m => m.Id).Where(w => w.OrderNo != null).Select(s => s.OrderNo).FirstOrDefault();
-
+                    var orderNo = _context.DealerSale.OrderByDescending(m => m.Id)
+                        .Where(w => w.OrderNo != null)
+                        .Select(s => s.OrderNo).FirstOrDefault();
                     if (orderNo != null)
                     {
                         strOrderNo = orderNo.Split('-');
@@ -126,46 +197,34 @@ namespace SellerPoint.Controllers
                             SalesToken = strOrderNo[3];
                         }
                     }
-
                 }
-
-
-
                 SalesOrder = Convert.ToString(Convert.ToInt16(SalesOrder) + 1);
-
                 SalesOrder = SalesOrder.PadLeft(8 - SalesOrder.Length, '0');
-
                 SalesToken = Convert.ToString(Convert.ToInt16(SalesToken) + 1);
-
                 SalesToken = SalesToken.PadLeft(10 - SalesToken.Length, '0');
-
                 //string ProductName = "Symphony";
-
                 //var firstChar = ProductName.ToUpper().Substring(0, 3);
-
                 OrderNo = "S-" + SalesOrder + "-" + DateTime.Now.ToString("ddMMyy") + "-" + SalesToken;
-
                 dealerSaleProdDtlViewModel.DealerSale.OrderNo = OrderNo;
+
+                dealerSaleProdDtlViewModel.DealerSale.createDate = DateTime.Now;
+
                 _context.Add(dealerSaleProdDtlViewModel.DealerSale);
                 _context.SaveChanges();
 
-                int DealerSaleId = dealerSaleProdDtlViewModel.DealerSale.Id;
 
+                int DealerSaleId = dealerSaleProdDtlViewModel.DealerSale.Id;
                 foreach (var item in dealerSaleProdDtlViewModel.DealerSaleProductDetail)
                 {
                     item.DealerSaleId = DealerSaleId;
-
                     _context.Add(item);
                 }
-
-
                 _context.SaveChanges();
-
-
                 return RedirectToAction(nameof(Index));
             }
             return View();
         }
+
 
         // GET: DealerSales/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -174,7 +233,6 @@ namespace SellerPoint.Controllers
             {
                 return NotFound();
             }
-
             var dealerSale = await _context.DealerSale.FindAsync(id);
             if (dealerSale == null)
             {
@@ -182,6 +240,7 @@ namespace SellerPoint.Controllers
             }
             return View(dealerSale);
         }
+
 
         // POST: DealerSales/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -273,12 +332,23 @@ namespace SellerPoint.Controllers
             return Json(Product);
         }
 
+
+        public JsonResult GetOrders(string q)
+        {
+            string OrderDetails = q.ToUpper();
+            var Order = _context.DealerSale
+                .Where(a => a.OrderNo.ToUpper().Contains(OrderDetails))
+                .Select(a => new {id= a.Id, name= a.OrderNo});
+            return Json(Order);
+        }
+
+
         //[HttpGet]
         //[Route("Export")]
         public IActionResult Export()
         {
             string sWebRootFolder = _hostingEnvironment.WebRootPath;
-            string sFileName = @"DealerSales.csv";
+            string sFileName = @"DealerSales.xlsx";
             string fileName = Path.Combine(sWebRootFolder, sFileName);
             string URL = string.Format("{0}://{1}/{2}", Request.Scheme, Request.Host, sFileName);
             FileInfo file = new FileInfo(fileName);
@@ -292,87 +362,78 @@ namespace SellerPoint.Controllers
                 // add a new worksheet to the empty workbook
                 ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("Sheet1");
                 //First add the headers
-                worksheet.Cells[1, 1].Value = "Dealer";
-                worksheet.Cells[1, 2].Value = "Unit Price";
-                worksheet.Cells[1, 3].Value = "Discount";
-                worksheet.Cells[1, 4].Value = "Payable Total";
-                worksheet.Cells[1, 5].Value = "Due";
-                worksheet.Cells[1, 6].Value = "Order No";                
-
+                worksheet.Cells[1, 1].Value = "Created Date";
+                worksheet.Cells[1, 2].Value = "Order No";
+                worksheet.Cells[1, 3].Value = "Payable Total";
+                worksheet.Cells[1, 4].Value = "Due";
+                worksheet.Cells[1, 5].Value = "Dealer Name";
                 var DealerSalesList = _context.DealerSale.AsEnumerable()
-                                              .Join(_context.Dealer, ds=>ds.DealerId,d=>d.Id,(ds,d)=>new { ds,d})
-                                       .Select(s=>new { 
+                                              .Join(_context.Dealer, ds => ds.DealerId, d => d.Id, (ds, d) => new { ds, d })
+                                       .Select(s => new
+                                       {
+                                           s.ds.createDate
+                                           ,
+                                           s.ds.OrderNo
+                                           ,
+                                           s.ds.payableTotal
+                                           ,
+                                           s.ds.Due
+                                                                                      ,
                                            s.d.Name
-                                           ,s.ds.UnitPrice
-                                           ,s.ds.Discount
-                                           ,s.ds.payableTotal
-                                           ,s.ds.Due
-                                           ,s.ds.OrderNo                                            
                                        }).ToList();
-
-
                 //Add values
                 for (int i = 0; i < DealerSalesList.Count; i++)
                 {
-                    worksheet.Cells[i + 2, 1].Value = DealerSalesList[i].Name;
-                    worksheet.Cells[i + 2, 2].Value = DealerSalesList[i].UnitPrice;
-                    worksheet.Cells[i + 2, 3].Value = DealerSalesList[i].Discount;
-                    worksheet.Cells[i + 2, 4].Value = DealerSalesList[i].payableTotal;
-                    worksheet.Cells[i + 2, 5].Value = DealerSalesList[i].Due;
-                    worksheet.Cells[i + 2, 6].Value = DealerSalesList[i].OrderNo;
+                    worksheet.Cells[i + 2, 1].Value = DealerSalesList[i].createDate;
+                    worksheet.Cells[i + 2, 2].Value = DealerSalesList[i].OrderNo;
+                    worksheet.Cells[i + 2, 3].Value = DealerSalesList[i].payableTotal;
+                    worksheet.Cells[i + 2, 4].Value = DealerSalesList[i].Due;
+                    worksheet.Cells[i + 2, 5].Value = DealerSalesList[i].Name;
                 }
-
-
                 package.Save(); //Save the workbook.
             }
-
             //"https://www.talkingdotnet.com/import-export-excel-asp-net-core-2-razor-pages/"
             var result = PhysicalFile(fileName, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-
             Response.Headers["Content-Disposition"] = new ContentDispositionHeaderValue("attachment")
             {
                 FileName = file.Name
             }.ToString();
-
             return result;
         }
-
 
         public FileContentResult csv()
         {
             var DealerSalesList = _context.DealerSale.AsEnumerable()
-                                              .Join(_context.Dealer, ds=>ds.DealerId, d=>d.Id, (ds, d)=>new { ds,d
-    })
-                                       .Select(s=>new { 
+                                              .Join(_context.Dealer, ds => ds.DealerId, d => d.Id, (ds, d) => new { ds, d })
+                                       .Select(s => new
+                                       {
                                            s.d.Name
-                                           ,s.ds.UnitPrice
-                                           ,s.ds.Discount
-                                           ,s.ds.payableTotal
-                                           ,s.ds.Due
-                                           ,s.ds.OrderNo
-}).ToList();
-
-
+                                           ,
+                                           s.ds.UnitPrice
+                                           ,
+                                           s.ds.Discount
+                                           ,
+                                           s.ds.payableTotal
+                                           ,
+                                           s.ds.Due
+                                           ,
+                                           s.ds.OrderNo
+                                       }).ToList();
             StringBuilder sb = new StringBuilder();
             sb.Append("Dealer,Unit Price,Discount,Payable Total,Due,Order No");
             sb.Append("\r\n");
             for (int i = 0; i < DealerSalesList.Count; i++)
             {
                 sb.Append(DealerSalesList[i].Name);
-                sb.Append(","+DealerSalesList[i].UnitPrice.ToString());
+                sb.Append("," + DealerSalesList[i].UnitPrice.ToString());
                 sb.Append("," + DealerSalesList[i].Discount.ToString());
                 sb.Append("," + DealerSalesList[i].payableTotal.ToString());
                 sb.Append("," + DealerSalesList[i].Due.ToString());
                 sb.Append("," + DealerSalesList[i].OrderNo);
-
                 //Append new line character.
                 sb.Append("\r\n");
-
             }
-
-
             return File(Encoding.UTF8.GetBytes(sb.ToString()), "text/csv", "Grid.csv");
-
         }
 
 

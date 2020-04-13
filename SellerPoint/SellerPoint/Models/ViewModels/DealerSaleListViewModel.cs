@@ -9,20 +9,22 @@ namespace SellerPoint.Models.ViewModels
 {
     public class DealerSaleListViewModel
     {
-        [DisplayName("Search Order")]
-        public string SearchOrder { get; set; }
+        public int? OrderId { get; set; }
+
+        [DisplayName("Order")]
+        public string OrderName { get; set; }
 
         [DisplayName("Warehouse")]
-        public int WarehouseID { get; set; }
+        public int? WarehouseID { get; set; }
 
         [DataType(DataType.Date)]
         [DisplayName("From Date")]
-        public DateTime FromDate { get; set; }
+        public DateTime? FromDate { get; set; }
 
 
         [DataType(DataType.Date)]
         [DisplayName("To Date")]
-        public DateTime ToDate { get; set; }
+        public DateTime? ToDate { get; set; }
 
         public List<DealerSale> DealerSalesList { get; set; }
     }

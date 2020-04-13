@@ -67,6 +67,17 @@ namespace SellerPoint.Extensions
                 new Supplier { Id = 4, Name = "Saif", Address = "Islambag", Country = "Bangladesh", ContactPersonName = "01795818648" }
                 
                 );
+
+            modelBuilder.Entity<Dealer>().HasData(
+                new Dealer { Id = 1, Name = "Hasan"},
+                new Dealer { Id = 2, Name = "Saif"},
+                new Dealer { Id = 3, Name = "Masum"},
+                new Dealer { Id = 4, Name = "Rakib"},
+                new Dealer { Id = 5, Name = "Imran"},
+                new Dealer { Id = 6, Name = "Saad"},
+                new Dealer { Id = 7, Name = "Jewel"},
+                new Dealer { Id = 8, Name = "Saad"}
+                );
         }
     }
 }

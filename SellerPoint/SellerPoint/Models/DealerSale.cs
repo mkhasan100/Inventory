@@ -16,6 +16,10 @@ namespace SellerPoint.Models
 
         public string OrderNo { get; set; }
 
+        [DataType(DataType.Date)]
+        [DisplayName("Date")]
+        public DateTime createDate{ get; set; }
+
 
         [DisplayName("Dealer")]
         public int DealerId { get; set; }
