@@ -378,7 +378,7 @@ namespace SellerPoint.Controllers
                                            s.ds.payableTotal
                                            ,
                                            s.ds.Due
-                                                                                      ,
+                                           ,
                                            s.d.Name
                                        }).ToList();
                 //Add values

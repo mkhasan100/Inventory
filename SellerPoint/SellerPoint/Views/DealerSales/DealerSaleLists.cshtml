@@ -18,7 +18,7 @@
                 <label asp-for="OrderName" class="control-label"></label>
                 <input asp-for="OrderName" class="form-control" />
                 <input type="hidden" asp-for="OrderId" />
-              
+
             </div>
         </div>
         <div class="col-lg-3">
@@ -47,7 +47,7 @@
                         <button type="submit" class="btn btn-info pull-left" id="btnSearch">Search</button>
                     </span>
                 </div>
-                
+
             </div>
         </div>
     </div>
@@ -55,7 +55,7 @@
         <div class="panel-heading">
             <h4 id="shopping-cart">Details:</h4>
         </div>
-        <table id="table-edit" class="table table-bordered table-hover ">
+        <table id="tblDealerSaleList" class="table table-bordered table-hover ">
             <thead>
                 <tr>
                     <th>#</th>
@@ -96,10 +96,10 @@
         </table>
     </div>
 </form>
-<div class="form-group row pt-3">
-    <a href="/DealerSales/Csv" class="btn btn-info">Export CSV</a>
+<div class="form-group row pt-3 pl-3">
+    <a href="" type="submit" id="btnCSVExport" class="btn btn-outline-info" value="Export">Export To CSV</a>
     <div class="ml-2">
-        <a href="/DealerSales/Export" class="btn btn-info">Export Excel</a>
+        <a href="" type="submit" id="btnExcelExport" class="btn btn-outline-info" value="Export">Export To Excel</a>
         @*<button id="btnExportExcel" type="button" value="Export Excel" class="btn btn-info"></button>*@
     </div>
 </div>
@@ -109,29 +109,43 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
-<script type="text/javascript">
+    <script type="text/javascript">
     $(document).ready(function(){
-
+        //TokenInput Call
         $("#OrderName").tokenInput("@Url.Action("GetOrders", "DealerSales")",
                 {
                     theme: 'facebook',
                     tokeLimit: 1,
                     preventDuplicates: true
                 });
-
+        //SearchBy Value on TokenInput
         $("#token-input-OrderName").blur(function () {
             var selectedValues = $("#OrderName").tokenInput("get");
             console.log(selectedValues);
             $("#OrderId").val(selectedValues[0].id);
-
            // $("#btnSearch").click();
         })
+
+        //Table To Excel
+        $("#btnExcelExport").click(function () {
+                $("#tblDealerSaleList").table2excel({
+                    filename: "Table.xls"
+                });
+            });
+
+        //Table To CSV
+        $("#btnCSVExport").click(function () {
+            $("#tblDealerSaleList").table2csv({
+                filename: "Table.csv"
+            });
+        });
+
 
 
 
 
     });
 
-</script>
+    </script>
 
 }
