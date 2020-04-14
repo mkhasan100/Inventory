@@ -17,7 +17,7 @@
             <div class="form-group">
                 <label asp-for="OrderName" class="control-label"></label>
                 <input asp-for="OrderName" class="form-control" />
-                <input type="hidden" asp-for="OrderId" />
+                <input type="hidden" asp-for="OrderId" value="" />
 
             </div>
         </div>
@@ -25,7 +25,7 @@
             <div class="form-group">
                 <label asp-for="WarehouseID" class="control-label"></label>
                 @*<input asp-for="WarehouseID" class="form-control" />*@
-                @Html.DropDownListFor(model => model.WarehouseID, new SelectList(@ViewBag.DealerSaleList, "Id", "Name"), "Select Warehouse", new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.WarehouseID, new SelectList(@ViewBag.WarehouseList, "Id", "Name"), "Select Warehouse", new { @class = "form-control" })
                 <span asp-validation-for="WarehouseID" class="text-danger"></span>
             </div>
         </div>
@@ -77,8 +77,16 @@
                         <td></td>
                         <td>@Html.DisplayFor(modelItem => item.createDate)</td>
                         <td>@Html.DisplayFor(modelItem => item.OrderNo)</td>
-
-                        <td>Completed</td>
+                        <td>
+                            @if (item.payableTotal == item.Due)
+                            {
+                                <p>Completed</p>
+                            }
+                            else
+                            {
+                                <p>Due</p>
+                            }
+                        </td>
                         <td>@Html.DisplayFor(modelItem => item.payableTotal) (@Html.DisplayFor(modelItem => item.Due))</td>
                         <td>@Html.DisplayFor(modelItem => item.DealerName)</td>
                     </tr>
@@ -121,7 +129,7 @@
         //SearchBy Value on TokenInput
         $("#token-input-OrderName").blur(function () {
             var selectedValues = $("#OrderName").tokenInput("get");
-            console.log(selectedValues);
+            //console.log(selectedValues);
             $("#OrderId").val(selectedValues[0].id);
            // $("#btnSearch").click();
         })

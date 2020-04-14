@@ -81,33 +81,17 @@ namespace SellerPoint.Controllers
 
         public IActionResult DealerSaleLists()
         {
-            ViewBag.DealerSaleList = _context.Warehouse.ToList();
+            ViewBag.WarehouseList = _context.Warehouse.ToList();
             var DealerSaleListViewModel = new DealerSaleListViewModel();
-           // DealerSaleListViewModel.FromDate = DateTime.Now;
-           // DealerSaleListViewModel.ToDate = DateTime.Now;
-
-            var DealerSaleList = _context.DealerSale.AsEnumerable()
-                                        .Join(_context.Warehouse, ds => ds.WarehouseId, w => w.Id, (ds, w) => new { ds, w })
-                                        .Join(_context.Dealer, dsw => dsw.ds.DealerId, d => d.Id, (dsw, d) => new { dsw, d })
+            var DealerSaleList =        _context.DealerSale.AsEnumerable()
+                                        .Join(_context.Dealer, ds => ds.DealerId, d => d.Id, (ds, d) => new { ds, d })
                                         .Select(s => new DealerSale
                                         {
                                             DealerName = s.d.Name,
-                                            ProductName =
-                                            string.Join(", ", _context.DealerSaleProductDetails
-                                            .AsEnumerable()
-                                            .Join(_context.ProductDetail, dspd => dspd.ProductId, pd => pd.Id, (dspd, pd) => new { dspd, pd })
-                                            .Where(w => w.dspd.DealerSaleId == s.dsw.ds.Id)
-                                            .Select(s => s.pd.Name)),
-                                            UnitPrice = s.dsw.ds.UnitPrice,
-                                            DiscountPercent = s.dsw.ds.DiscountPercent,
-                                            Discount = s.dsw.ds.Discount,
-                                            payableTotal = s.dsw.ds.payableTotal,
-                                            Paid = s.dsw.ds.Paid,
-                                            Due = s.dsw.ds.Due,
-                                            WareHouseName = s.dsw.w.Name,
-                                            Remarks = s.dsw.ds.Remarks,
-                                            OrderNo = s.dsw.ds.OrderNo,
-                                            createDate = s.dsw.ds.createDate
+                                            OrderNo = s.ds.OrderNo,
+                                            createDate = s.ds.createDate,
+                                            payableTotal = s.ds.payableTotal,
+                                            Due = s.ds.Due
                                         }).ToList();
 
             DealerSaleListViewModel.DealerSalesList = DealerSaleList;
@@ -118,37 +102,28 @@ namespace SellerPoint.Controllers
         [HttpPost]
         public IActionResult DealerSaleLists(DealerSaleListViewModel DealerSaleListViewModel)
         {
+            ViewBag.WarehouseList = _context.Warehouse.ToList();
             int? orderId = DealerSaleListViewModel.OrderId ;
+            int? warehouseId = DealerSaleListViewModel.WarehouseID;
+            DateTime? fromDate = DealerSaleListViewModel.FromDate;
+            DateTime? toDate = DealerSaleListViewModel.ToDate;
+
             var DealerSaleList = _context.DealerSale.AsEnumerable()
-                                         .Join(_context.Warehouse, ds => ds.WarehouseId, w => w.Id, (ds, w) => new { ds, w })
-                                         .Join(_context.Dealer, dsw => dsw.ds.DealerId, d => d.Id, (dsw, d) => new { dsw, d })
+                                         .Join(_context.Dealer, ds => ds.DealerId, d => d.Id, (ds, d) => new { ds, d })
                                          .Select(s => new DealerSale
                                          {
-                                             Id = s.dsw.ds.Id,
-                                             DealerName = s.d.Name,
-                                             ProductName =
-                                             string.Join(", ", _context.DealerSaleProductDetails
-                                             .AsEnumerable()
-                                             .Join(_context.ProductDetail, dspd => dspd.ProductId, pd => pd.Id, (dspd, pd) => new { dspd, pd })
-                                             .Where(w => w.dspd.DealerSaleId == s.dsw.ds.Id)
-                                             .Select(s => s.pd.Name)),
-                                             UnitPrice = s.dsw.ds.UnitPrice,
-                                             DiscountPercent = s.dsw.ds.DiscountPercent,
-                                             Discount = s.dsw.ds.Discount,
-                                             payableTotal = s.dsw.ds.payableTotal,
-                                             Paid = s.dsw.ds.Paid,
-                                             Due = s.dsw.ds.Due,
-                                             WareHouseName = s.dsw.w.Name,
-                                             Remarks = s.dsw.ds.Remarks,
-                                             OrderNo= s.dsw.ds.OrderNo,
-                                             createDate = s.dsw.ds.createDate
-                                         }).Where(w=>w.Id == orderId ).ToList();
+                                             Id = s.ds.Id,
+                                             DealerName = s.d.Name,                                            
+                                             OrderNo= s.ds.OrderNo,
+                                             createDate = s.ds.createDate,
+                                             WarehouseId = s.ds.WarehouseId,
+                                             payableTotal = s.ds.payableTotal,
+                                             Due = s.ds.Due
+                                             
+                                         }).Where(w=> (orderId == null || w.Id==orderId) && (warehouseId ==null || w.WarehouseId==warehouseId) &&(fromDate == null || w.createDate.Date >=fromDate)&&(toDate == null || w.createDate.Date<=toDate)).ToList();
 
-            ViewBag.DealerSaleList = _context.Warehouse.ToList();
-
+            
             var DlrSaleListViewModel = new DealerSaleListViewModel();
-            //DlrSaleListViewModel.FromDate =;
-            //DlrSaleListViewModel.ToDate = DateTime.Now;
             DlrSaleListViewModel.DealerSalesList = DealerSaleList;
             return View(DlrSaleListViewModel);
         }
