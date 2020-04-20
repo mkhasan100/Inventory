@@ -1,0 +1,152 @@
+﻿@model SellerPoint.Models.ViewModels.PurchaseListViewModel
+
+@{
+    ViewData["Title"] = "PurchaseList";
+}
+
+
+<h4>Purchase List</h4>
+<hr />
+@*<div class="row">
+    <div class="col-md-4">*@
+<form asp-action="PurchaseList">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="form-group">
+                <label asp-for="Keyword" class="control-label"></label>
+                <input asp-for="Keyword" class="form-control" />
+                <input type="hidden" asp-for="Keyword" value="" />
+
+            </div>
+        </div>
+
+        <div class="col-lg-2">
+            <div class="form-group">
+                <label asp-for="FromDate" class="control-label"></label>
+                <input asp-for="FromDate" class="form-control" />
+                <span asp-validation-for="FromDate" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <div class="form-group">
+                <label asp-for="ToDate" class="control-label"></label>
+                <div class="input-group">
+                    <input asp-for="ToDate" class="form-control" />
+                    <span asp-validation-for="ToDate" class="text-danger">
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <div class="form-group">
+                <label asp-for="SupplierID" class="control-label"></label>
+                @*<input asp-for="WarehouseID" class="form-control" />*@
+                @Html.DropDownListFor(model => model.SupplierID, new SelectList(@ViewBag.SupplierList, "Id", "Name"), "Select Suppliers", new { @class = "form-control" })
+                <span asp-validation-for="SupplierID" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="form-group">
+                <label asp-for="WarehouseID" class="control-label"></label>
+                <div class="input-group">
+                    @*<input asp-for="WarehouseID" class="form-control" />*@
+                    @Html.DropDownListFor(model => model.WarehouseID, new SelectList(@ViewBag.WarehouseList, "Id", "Name"), "Select Warehouse", new { @class = "form-control" })
+                    <span asp-validation-for="WarehouseID" class="text-danger">
+                    </span>
+                    <span class="input-group-append">
+                        <button type="submit" class="btn btn-info pull-left" id="btnSearch">Search</button>
+                    </span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="panel biz-boxed">
+        <div class="panel-heading">
+            <h4 id="shopping-cart">Details:</h4>
+        </div>
+        <table id="table-edit" class="table table-bordered table-hover">
+            <thead>
+                <tr class="active">
+                    <th>#</th>
+                    <th ng-click="vm.toggleSort('Modified');vm.saveOrderByValue()">
+                        Purchase  Date <span class="glyphicon glyphicon-sort"></span>
+                    </th>
+                    <th ng-click="vm.toggleSort('orderNumber')">Memo<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>Supplier</th>
+                    <th>Modified</th>
+                    <th>Total (Due)</th>
+                    <th>Modified By</th>
+                    <th>Edit</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="ng-binding">#10</td>
+                    <td>Total:</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="ng-binding">372,522.00 (373,722.00)</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</form>
+<div class="form-group row pt-3 pl-3">
+    <a href="" type="submit" id="btnCSVExport" class="btn btn-outline-info" value="Export">Export To CSV</a>
+    <div class="ml-2">
+        <a href="" type="submit" id="btnExcelExport" class="btn btn-outline-info" value="Export">Export To Excel</a>
+        @*<button id="btnExportExcel" type="button" value="Export Excel" class="btn btn-info"></button>*@
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            //TokenInput Call
+            $("#Keyword").tokenInput("@Url.Action("GetKeyword", "Purchases")",
+                    {
+                        theme: 'facebook',
+                        tokeLimit: 1,
+                        preventDuplicates: true
+                    });
+            //SearchBy Value on TokenInput
+            $("#token-input-Keyword").blur(function () {
+                var selectedValues = $("#Keyword").tokenInput("get");
+                //console.log(selectedValues);
+                $("#KeywordId").val(selectedValues[0].id);
+               // $("#btnSearch").click();
+            })
+
+            //Table To Excel
+            $("#btnExcelExport").click(function () {
+                    $("#tblDealerSaleList").table2excel({
+                        filename: "Table.xls"
+                    });
+                });
+
+            //Table To CSV
+            $("#btnCSVExport").click(function () {
+                $("#tblDealerSaleList").table2csv({
+                    filename: "Table.csv"
+                });
+            });
+
+
+
+
+
+        });
+
+        </script>
+
+}

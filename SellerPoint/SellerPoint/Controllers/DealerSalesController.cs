@@ -33,6 +33,7 @@ namespace SellerPoint.Controllers
         // GET: DealerSales
         public IActionResult Index()
         {
+
             var DealerSaleList = _context.DealerSale.AsEnumerable()
                                          .Join(_context.Warehouse, ds => ds.WarehouseId, w => w.Id, (ds, w) => new { ds, w })
                                          .Join(_context.Dealer, dsw => dsw.ds.DealerId, d => d.Id, (dsw, d) => new { dsw, d })
@@ -40,8 +41,8 @@ namespace SellerPoint.Controllers
                                          {
                                              DealerName = s.d.Name,
                                              ProductName =
-                                             string.Join(", ", _context.DealerSaleProductDetails
-                                             .AsEnumerable()
+                                             string
+                                             .Join(", ", _context.DealerSaleProductDetails.AsEnumerable()
                                              .Join(_context.ProductDetail, dspd => dspd.ProductId, pd => pd.Id, (dspd, pd) => new { dspd, pd })
                                              .Where(w => w.dspd.DealerSaleId == s.dsw.ds.Id)
                                              .Select(s => s.pd.Name)),
@@ -59,7 +60,6 @@ namespace SellerPoint.Controllers
         }
 
 
-   
         // GET: DealerSales/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -181,7 +181,7 @@ namespace SellerPoint.Controllers
                 //var firstChar = ProductName.ToUpper().Substring(0, 3);
                 OrderNo = "S-" + SalesOrder + "-" + DateTime.Now.ToString("ddMMyy") + "-" + SalesToken;
                 dealerSaleProdDtlViewModel.DealerSale.OrderNo = OrderNo;
-
+                
                 dealerSaleProdDtlViewModel.DealerSale.createDate = DateTime.Now;
 
                 _context.Add(dealerSaleProdDtlViewModel.DealerSale);

@@ -27,7 +27,11 @@ namespace SellerPoint.Extensions
             modelBuilder.Entity<Warehouse>().HasData(
 
                 new Warehouse { Id = 1, Name = "Gulshan" },
-                new Warehouse { Id = 2, Name = "Badda" }
+                new Warehouse { Id = 2, Name = "Badda" },
+                new Warehouse { Id = 3, Name = "Banani" },
+                new Warehouse { Id = 4, Name = "Mohakhali" },
+                new Warehouse { Id = 5, Name = "Dhanmondi" },
+                new Warehouse { Id = 6, Name = "Mohammadpur" }
 
                 );
 

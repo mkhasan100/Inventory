@@ -13,17 +13,31 @@ namespace SellerPoint.Models
         [Key]
         public int Id { get; set; }
         [DisplayName ("Account Head")]
-        public int AccountHeadId { get; set; }
+        public int? AccountHeadId { get; set; }
+        [NotMapped]
+        public string AccountHeadName { get; set; }
         [DisplayName ("Warehouse")]
-        public int WarehouseId { get; set; }
+        public int? WarehouseId { get; set; }
+        [NotMapped]
+        public string WarehouseName { get; set; }
         [DisplayName("Wallets")]
-        public int WalletsId { get; set; }
+        public int? WalletsId { get; set; }
+        [NotMapped]
+        public string WalletsName { get; set; }
         [DisplayName("Suppliers")]
-        public int SupplierId { get; set; }
+        public int? SupplierId { get; set; }
+        [NotMapped]
+        public string SupplierName { get; set; }
+        [DisplayName("Product")]
+        public string ProductName { get; set; }
 
         [DataType(DataType.Date)]
         [DisplayName ("Purchase Order Date")]
         public DateTime PurchaseOrderDate { get; set; }
+       
+        [NotMapped]
+        
+        public string PurchaseOrderDateWithDay { get; set; }
         [DisplayName("Order Number")]
         public int OrderNumber { get; set; }
        
@@ -51,5 +65,6 @@ namespace SellerPoint.Models
         [DisplayName("Shipping Tracking Number")]
         public string ShippingTrackingNumber { get; set; }
         public string Remarks { get; set; }
+
     }
 }

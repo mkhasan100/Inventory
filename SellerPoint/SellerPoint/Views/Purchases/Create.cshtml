@@ -6,118 +6,433 @@
 <h4>New Purchase</h4>
 <hr />
 @*<div class="row">*@
-    @*<div class="col-md-4">*@
-    <form asp-action="Create">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <div class="form-group row">
-            <label asp-for="AccountHeadId" class="col-sm-2 form-control-label">Account Head</label>
-            <div class="col-sm-10">
-                @*<input asp-for="AccountHeadId" class="form-control" />*@
-                @Html.DropDownListFor(model => model.AccountHeadId, new SelectList(ViewBag.AccountHeadList, "Id", "Name"), "Select Account Head", new {@class="form-control" })
-                <span asp-validation-for="AccountHeadId" class="text-danger"></span>
-            </div>
-            </div>
-            <div class="form-group row">
-                <label asp-for="WarehouseId" class="col-sm-2 form-control-label">Warehouse</label>
-                <div class="col-sm-10">
-                    @*<input asp-for="WarehouseId" class="form-control" name="WarehouseId" placeholder="Enter Warehouse"></>*@
-                    @Html.DropDownListFor(model => model.WarehouseId, new SelectList(@ViewBag.WarehouseList, "Id", "Name"), "Select Warehouse", new { @class = "form-control" })
-                    <span asp-validation-for="WarehouseId" class="text-danger"></span>
+@*<div class="col-md-4">*@
+<form asp-action="Create">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group row">
+        <label asp-for="AccountHeadId" class="col-sm-2 form-control-label">Account Head</label>
+        <div class="col-sm-10">
+            @*<input asp-for="AccountHeadId" class="form-control" />*@
+            @Html.DropDownListFor(model => model.AccountHeadId, new SelectList(ViewBag.AccountHeadList, "Id", "Name"), "Select Account Head", new { @class = "form-control" })
+            <span asp-validation-for="AccountHeadId" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label asp-for="WarehouseId" class="col-sm-2 form-control-label">Warehouse</label>
+        <div class="col-sm-10">
+            @*<input asp-for="WarehouseId" class="form-control" name="WarehouseId" placeholder="Enter Warehouse"></>*@
+            @Html.DropDownListFor(model => model.WarehouseId, new SelectList(@ViewBag.WarehouseList, "Id", "Name"), "Select Warehouse", new { @class = "form-control" })
+            <span asp-validation-for="WarehouseId" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label asp-for="WalletsId" class="col-sm-2 form-control-label">Wallets</label>
+        <div class="col-sm-10">
+            @*<input asp-for="WalletsId" class="form-control" name="WalletsId" placeholder="Enter WalletsId"></>*@
+            @Html.DropDownListFor(model => model.WalletsId, new SelectList(@ViewBag.WalletList, "Id", "Title"), "Select Wallets", new { @class = "form-control" })
+            <span asp-validation-for="WalletsId" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label asp-for="SupplierId" class="col-sm-2 form-control-label">Supplier</label>
+        <div class="col-sm-10">
+            @*<input asp-for="SupplierId" class="form-control" name="SupplierId" placeholder="Enter Supplier Id"></>*@
+            @Html.DropDownListFor(model => model.SupplierId, new SelectList(@ViewBag.SupplierList, "Id", "Name"), "Select Supplier", new { @class = "form-control" })
+            <span asp-validation-for="SupplierId" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="ProductName" class="control-label"></label>
+        <div class="input-group">
+            <input asp-for="ProductName" class="form-control" placeholder="Search Your Product Here" />
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-info pull-left" id="btnSearch">Search Product</button>
+            </span>
+        </div>
+    </div>
+    <div class="panel biz-boxed">
+        <div class="panel-heading">
+            <h4 id="shopping-cart">Product List:</h4>
+        </div>
+        <div class="table-responsive">
+            <table id="tblProduct" class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>OnHand</th>
+                        <th style="display:none">Product Id</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="panel biz-boxed">
+        <div class="panel-heading">
+            <h4 id="shopping-cart">My Shopping Cart:</h4>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                <div class="table-responsive">
+                    <table id="cart-table" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Unit Price</th>
+                                @*<th></th>*@
+                                <th></th>
+                                <th>Quantity</th>
+                                <th></th>
+                                <th>Total</th>
+                                <th>Remarks</th>
+                                <th style="display:none">Product Id</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            <div class="form-group row">
-                <label asp-for="WalletsId" class="col-sm-2 form-control-label">Wallets</label>
-                <div class="col-sm-10">
-                    @*<input asp-for="WalletsId" class="form-control" name="WalletsId" placeholder="Enter WalletsId"></>*@
-                    @Html.DropDownListFor(model => model.WalletsId, new SelectList(@ViewBag.WalletList, "Id", "Title"), "Select Wallets", new { @class = "form-control" })
-                    <span asp-validation-for="WalletsId" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label asp-for="SupplierId" class="col-sm-2 form-control-label">Supplier</label>
-                <div class="col-sm-10">
-                    @*<input asp-for="SupplierId" class="form-control" name="SupplierId" placeholder="Enter Supplier Id"></>*@
-                    @Html.DropDownListFor(model => model.SupplierId, new SelectList(@ViewBag.SupplierList, "Id", "Name"), "Select Supplier", new { @class = "form-control" })
-                    <span asp-validation-for="SupplierId" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label asp-for="PurchaseOrderDate" class="col-sm-2 form-control-label">Purchase Order Date</label>
-                <div class="col-sm-10">
-                    <input asp-for="PurchaseOrderDate" class="form-control" name="PurchaseOrderDate" placeholder="Enter Purchase Order Date"></>
+        </div>
+    </div>
+
+
+    <div class="panel biz-boxed">
+        <div class="panel-heading">
+            <h4 id="shopping-cart"></h4>
+        </div>
+        <div class="form-group">
+            <label asp-for="PurchaseOrderDate" class=" form-control-label">Purchase Order Date:</label>
+            <div class="row">
+                <div class="col-sm-6">
+                    <input asp-for="PurchaseOrderDate" class="form-control" name="PurchaseOrderDate" value="@ViewBag.PurchaseOrderDate"></>
                     <span asp-validation-for="PurchaseOrderDate" class="text-danger"></span>
                 </div>
-            </div>
-            <div class="form-group row">
-                <label asp-for="OrderNumber" class="col-sm-2 form-control-label">Order Number</label>
-                <div class="col-sm-10">
-                    <input asp-for="OrderNumber" class="form-control" name="OrderNumber" placeholder="Enter Order Number"></>
-                    <span asp-validation-for="OrderNumber" class="text-danger"></span>
+                <div class="col-sm-6">
+                    <input asp-for="PurchaseOrderDateWithDay" class="form-control" readonly name="PurchaseOrderDateByDay" value="@ViewBag.PurchaseOrderDateWithDay"></>
+                    <span asp-validation-for="PurchaseOrderDateWithDay" class="text-danger"></span>
                 </div>
             </div>
-            <div class="form-group row">
-                <label asp-for="OrderReferenceNumber" class="col-sm-2 form-control-label">Order Reference Number</label>
-                <div class="col-sm-10">
-                    <input asp-for="OrderReferenceNumber" class="form-control" name="OrderReferenceNumber" placeholder="Enter Order Reference Number"></>
-                    <span asp-validation-for="OrderReferenceNumber" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label asp-for="ProductAmount" class="col-sm-2 form-control-label">Product Amount</label>
-                <div class="col-sm-10">
-                    <input asp-for="ProductAmount" class="form-control" name="ProductAmount" placeholder="Enter Product Amount"></>
-                    <span asp-validation-for="ProductAmount" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label asp-for="OtherAmount" class="col-sm-2 form-control-label">Other Amount</label>
-                <div class="col-sm-10">
-                    <input asp-for="OtherAmount" class="form-control" name="OtherAmount" placeholder="Enter Other Amount"></>
-                    <span asp-validation-for="OtherAmount" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label asp-for="Discount" class="col-sm-2 form-control-label">Discount</label>
-                <div class="col-sm-10">
-                    <input asp-for="Discount" class="form-control" name="Discount" placeholder="Enter Discount"></>
-                    <span asp-validation-for="Discount" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label asp-for="Total" class="col-sm-2 form-control-label">Total</label>
-                <div class="col-sm-10">
-                    <input asp-for="Total" class="form-control" name="Total" placeholder="Enter Total"></>
-                    <span asp-validation-for="Total" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label asp-for="ShippingProvider" class="col-sm-2 form-control-label">Shipping Provider</label>
-                <div class="col-sm-10">
-                    <input asp-for="ShippingProvider" class="form-control" name="ShippingProvider" placeholder="Enter Shipping Provider"></>
-                    <span asp-validation-for="ShippingProvider" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label asp-for="ShippingTrackingNumber" class="col-sm-2 form-control-label">Shipping Tracking Number</label>
-                <div class="col-sm-10">
-                    <input asp-for="ShippingTrackingNumber" class="form-control" name="ShippingTrackingNumber" placeholder="Enter Shipping Tracking Number"></>
-                    <span asp-validation-for="ShippingTrackingNumber" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label asp-for="Remarks" class="col-sm-2 form-control-label">Remarks</label>
-                <div class="col-sm-10">
-                    <input asp-for="Remarks" class="form-control" name="Remarks" placeholder="Enter Remarks"></>
-                    <span asp-validation-for="Remarks" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-info" />
-            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="OrderNumber" class=" form-control-label">Order Number</label>
+            <input asp-for="OrderNumber" class="form-control" name="OrderNumber"></>
+            <span asp-validation-for="OrderNumber" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="OrderReferenceNumber" class=" form-control-label">Order Reference Number</label>
+            <input asp-for="OrderReferenceNumber" class="form-control" name="OrderReferenceNumber"></>
+            <span asp-validation-for="OrderReferenceNumber" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="ProductAmount" class=" form-control-label">Product Amount</label>
+            <input asp-for="ProductAmount" class="form-control" readonly name="ProductAmount" value="0"></>
+            <span asp-validation-for="ProductAmount" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="OtherAmount" class=" form-control-label">Other Amount</label>
+            <input asp-for="OtherAmount" class="form-control" name="OtherAmount" value="0"></>
+            <span asp-validation-for="OtherAmount" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Discount" class=" form-control-label">Discount</label>
+            <input asp-for="Discount" class="form-control" name="Discount" value="0"></>
+            <span asp-validation-for="Discount" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Total" class=" form-control-label">Total</label>
+            <input asp-for="Total" class="form-control" readonly name="Total" value="0"></>
+            <span asp-validation-for="Total" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="ShippingProvider" class=" form-control-label">Shipping Provider</label>
+            <input asp-for="ShippingProvider" class="form-control" name="ShippingProvider"></>
+            <span asp-validation-for="ShippingProvider" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="ShippingTrackingNumber" class=" form-control-label">Shipping Tracking Number</label>
+            <input asp-for="ShippingTrackingNumber" class="form-control" name="ShippingTrackingNumber"></>
+            <span asp-validation-for="ShippingTrackingNumber" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Remarks" class=" form-control-label">Remarks</label>
+            <input asp-for="Remarks" class="form-control" name="Remarks"></>
+            <span asp-validation-for="Remarks" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group pt-3">
+        <input type="submit" value="Save Purchase" class="btn btn-info" />
+    </div>
 </form>
-   
+
 
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+
+
+
+            //Get Product from database
+            $("#btnSearch").click(function () {                                           //invock search button id
+                var productName = $("#ProductName").val();                                //get value in the button
+                //get data from controller by calling ajax
+                $.ajax({
+                    type: 'GET',
+                    url: '/Purchases/GetProducts?PurchaseProductDetail=' + productName,   //firstpart:'/controllerName/JasonName?ParemeterName=' btn variable
+                    contentType: 'json',
+                    success: function (DataFromDBTable) {
+                        var ProductSerial;
+                        $("#tblProduct > tbody").html("");                                //To show raw data in html table
+                        //loop for how much data have in the database!
+                        for (var i = 0; i < DataFromDBTable.length; i++) {
+                            ProductSerial = parseInt(i) + 1;                              // if more than 1 then 'parseInt(i) + 1'
+                            $("#tblProduct tbody").append(                                //using 'append' to add rows in the html table
+                                '<tr><td>' + ProductSerial.toString()
+                                + '</td><td>' + DataFromDBTable[i].name
+                                + '</td><td>' + DataFromDBTable[i].dealerPrice
+                                + '</td><td>5</td>'
+                                + '</td><td style="display:none">' + DataFromDBTable[i].Id
+                                + '</td><td><button type="button" class="addtocart btn btn-primary">Add to Cart</button></td></tr>');
+                        }
+                    }
+                })
+            });
+
+
+
+
+            //Press add to cart to table data
+            $("#tblProduct").on('click', '.addtocart', function (e) {
+                var i = 0;
+                var ProductSerialNo = 0;
+                var ProductName = '';
+                var UnitPrice = 0;
+                var Quantity = 1;
+                var Total = 0;
+                var productId = '';
+                Remarks = "";
+                $(this).closest('tr').find('td').each(function () {                       //to find closest table row and table data
+                    var textval = $(this).text();                                         //call table row and data
+                    //loop for finding specific column
+                    if (i == 0) {                                                         //if this is column 1
+                        ProductSerialNo = textval;                                        //then show ProductSerialNo
+                    }
+                    if (i == 1) {                                                         //if this is column 2
+                        ProductName = textval;                                            //then show product name
+                    }
+                    if (i == 2) {                                                         //if this is column 3
+                        UnitPrice = textval;                                              //then show Unitprice
+                        Total = UnitPrice;
+                    }
+                    if (i == 4) {
+                        productId = textval.trim();
+                    }
+                    i++;
+                });
+                var $table = $("#cart-table");
+                var $trLast = $table.find("tr:last");
+                var $trNew = $trLast.clone();
+                var firstInputName = $trNew.find(':input[type=text]:first').attr('name');
+
+                if (firstInputName === undefined) {
+                    $("#cart-table tbody").append(                                            //To show data in the table
+                        "<tr>"
+                        + "<td><input type='text'  name='DealerSaleProductDetail[0].ProductSerialNo'  style='border:none;background:#fff' value='" + ProductSerialNo + "' /></td>"
+                        + "<td><input type='text'  name='DealerSaleProductDetail[0].ProductName'  style='border:none;background:#fff' value='" + ProductName + "' /></td>"
+                        + "<td><input type='text' name='DealerSaleProductDetail[0].UnitPrice' id='UnitPrice' value='" + UnitPrice + "' class='form-control unit-price'></td>"
+                        + "<td><button id='btnMinusQty' class='btn-add-minus btn btn-danger  mdi mdi-minus' type='button' ></button ></td >"
+                        + "<td><input type='text' id='DealerSaleProductDetail[0].Quantity'  name='DealerSaleProductDetail[0].Quantity' value='" + Quantity + "'class='Qty-input form-control'/></td>"
+                        + "<td><button id='btnAddQty' class='btn-add-minus btn btn-danger  mdi mdi-plus' type='button' ></button ></td >"
+                        + "<td><input type='text'  name='DealerSaleProductDetail[0].Total'  style='border:none;background:#fff' value='" + Total + "' /></td>"
+                        + "<td><input type='text' name='ramarks' class='form-control'" + Remarks + "/></td>"
+                        + "<td style = 'display:none' > <input type='text' name='DealerSaleProductDetail[0].ProductId' style='border:none;background:#f1efef;' value='" + productId + "' /></td > "
+                        + "<td><a href='#' class='remove btn btn-danger' >Remove</a></td>"
+                        + "</tr > ");
+                }
+                else {
+
+                    var suffix = $trNew.find(':input[type=text]:first').attr('name').match(/\d+/);
+
+                    $trNew.find("td:last").html('<a href="#" class="remove btn btn-danger" >Remove</a>');
+
+                    $.each($trNew.find(':input[type=text]'), function (i, val) {
+                        // Replaced Name
+                        var oldN = $(this).attr('name');
+                        var newN = oldN.replace('[' + suffix + ']', '[' + (parseInt(suffix) + 1) + ']');
+
+                        $(this).attr('name', newN);
+
+                        if ($(this).attr('name').match('ProductSerialNo')) {
+                            $(this).attr('value', ProductSerialNo);
+                        };
+
+                        if ($(this).attr('name').match('ProductName')) {
+                            $(this).attr('value', ProductName);
+                        };
+
+                        if ($(this).attr('name').match('UnitPrice')) {
+                            $(this).attr('value', UnitPrice);
+                        };
+
+                        if ($(this).attr('name').match('Quantity')) {
+                            $(this).attr('value', "1");
+                        };
+
+                        if ($(this).attr('name').match('ProductId')) {
+                            $(this).attr('value', productId);
+                        };
+
+                        if ($(this).attr('name').match('Total')) {
+                            $(this).attr('value', UnitPrice.toString());
+                        };
+
+                        //If you have another Type then replace with default value
+                        $(this).removeClass("input-validation-error");
+                    });
+                    $trLast.after($trNew);
+                }
+
+                existingUnitPrice = $("#ProductAmount").val();
+                existingUnitPrice = parseInt(existingUnitPrice) + parseInt(Total);
+                $("#ProductAmount").val(existingUnitPrice);
+
+                existingUnitPrice = $("#Total").val();
+                existingUnitPrice = parseInt(existingUnitPrice) + parseInt(Total);
+                $("#Total").val(existingUnitPrice);
+
+
+                //Remove button
+                $(document).on('click', 'a.remove', function (e) {
+                    e.preventDefault();//To stay on that screen
+                    $(this).parent().parent().remove();
+                });
+            });
+
+
+
+
+            //To change total price by changing unit price
+            $("#cart-table").on("keyup", ".unit-price", function () {
+                var unitprice = $(this).val();
+                var quantity = $(this).closest('tr').find('input.Qty-input').val();
+                var i = 0;
+                $(this).closest('tr').find('td').each(function () {
+                    if (i == 6) {
+                       totalVal = parseInt(unitprice) * parseInt(quantity);
+                        $(this).text(totalVal);
+                    }
+                    i++;                    
+                });                
+            });
+            
+            
+
+
+            //Add or Minus Quantity
+            $("#cart-table").on("click", ".btn-add-minus", function () {                  //Set both button id on cart-table
+                var btnAddMinus = $(this);                                                //got that settings on btnaddminus
+                var input = btnAddMinus.closest('tr').find("input.Qty-input");            //find quantity to apply with button
+                var unitPrice = btnAddMinus.closest('tr').find("input.unit-price").val(); //find unitPrice to apply in 'Total' column with quantity
+                var oldQty = input.val();                                                 //to get quantity value
+                var newQty;
+                var buttonId = btnAddMinus.attr("Id")                                     //to confirm what button you are pressing
+                if (buttonId == "btnAddQty") {                                            //if you have pressed btnAddQty
+                    newQty = parseFloat(oldQty) + 1;                                      //its increasing by 1 thats call new qty
+                } else if (buttonId == "btnMinusQty") {                                   //if you have pressed btnMinusQty
+                    // Don't allow decrementing below zero
+                    if (oldQty > 0) {                                                     // and if its values more than 0
+                        newQty = parseFloat(oldQty) - 1;                                  //its decreasing by 1
+                    } else {                                                              //or
+                        newQty = oldQty;                                                  //its equal
+                    }
+                }
+                input.val(newQty);
+
+                var i = 0;
+                $(this).closest('tr').find('td').each(function () {
+                    if (i == 6) {
+                        total = parseInt(newQty) * parseInt(unitPrice);
+                        $(this).text(total);
+                    }
+                    i++;
+                });
+                ProductAmount = $("#ProductAmount").val();
+                ProductTotal = parseInt(ProductAmount) + (parseInt(newQty) - parseInt(oldQty)) * parseInt(unitPrice);
+                $("#ProductAmount").val(ProductTotal);
+
+                ProductTotal = $("#Total").val();
+                NewProductTotal = parseInt(ProductTotal) + (parseInt(newQty) - parseInt(oldQty)) * parseInt(unitPrice);
+                $("#Total").val(NewProductTotal);
+            });
+
+
+
+
+            //To show product amount and discount with calculation
+            $('#OtherAmount').keyup(function () {
+                SetTotal();
+            });
+            $('#Discount').keyup(function () {
+                SetTotal();
+            });
+            function SetTotal() {
+                var productAmount = $('#ProductAmount').val();
+                var otherAmount = $('#OtherAmount').val();
+                var discount = $('#Discount').val();
+                productAmount = productAmount == '' ? 0 : parseInt(productAmount);
+                otherAmount = otherAmount == '' ? 0 : parseInt(otherAmount);
+                discount = discount == '' ? 0 : parseInt(discount);
+                $('#Total').val(productAmount + otherAmount - discount);
+            }
+
+
+
+
+            //To get date with day from default dateFormate(Changing included)
+            $("#PurchaseOrderDate").blur(function () {                
+                var purchaseOrderDate = $("#PurchaseOrderDate").val();
+                var PurchaseOrderDateWithDay = new Date(purchaseOrderDate);
+                PurchaseOrderDateWithDay = PurchaseOrderDateWithDay.format("ddd mmm dd yyyy");
+                $("#PurchaseOrderDateWithDay").val(PurchaseOrderDateWithDay);
+            });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        });
+    </script>
 }

@@ -12,15 +12,11 @@
 <div class="form-group">
     <label asp-for="DealerSale.DealerName" class="control-label"></label>
     <input asp-for="DealerSale.DealerName" class="form-control" />
-   
     <span asp-validation-for="DealerSale.DealerName" class="text-danger"></span>
 </div>
-<table class="table">
-</table>
 <div class="form-group">
     <label asp-for="DealerSale.ProductName" class="control-label"></label>
     <div class="input-group">
-
         <input asp-for="DealerSale.ProductName" class="form-control" placeholder="Search Product Here" />
         <span class="input-group-btn">
             <button type="submit" class="btn btn-info pull-left" id="btnSearch">Search</button>
@@ -216,7 +212,7 @@
                         + "<td><input type='text'  name='DealerSaleProductDetail[0].UnitPrice'  style='border:none;background:#fff' class='unit_price' value='" + UnitPrice + "' /></td>"
                           //+ "<td><input type='text'  name='DealerSaleProductDetail[0].Quantity' value='" + quantity.toString() + "' class='quantity-input form-control'/></td>"
                         + "<td><button id='btnMinusQty' class= 'btn-add-minus btn btn-danger  mdi mdi-minus' type='button' ></button ></td >"
-                        
+
                         + "<td><input type='text' id='DealerSaleProductDetail[0].Quantity'  name='DealerSaleProductDetail[0].Quantity' value='1'  class='quantity-input form-control'/></td>"
                         + "<td><button id='btnAddQty' class='btn-add-minus btn btn-danger  mdi mdi-plus' type='button' ></button></td>"
                         + "<td><input type='text'  name='DealerSaleProductDetail[0].Total'  style='border:none;background:#fff' value='" + Total + "' /></td>"
@@ -238,14 +234,14 @@
                         // Replaced Name
                         var oldN = $(this).attr('name');
 
-                       
+
 
                         //alert(oldValue);
                         var newN = oldN.replace('[' + suffix + ']', '[' + (parseInt(suffix) + 1) + ']');
 
                         $(this).attr('name', newN);
 
-                     
+
                         if ($(this).attr('name').match('ProductName')) {
                             $(this).attr('value', ProductName);
                         };
@@ -254,7 +250,7 @@
                             $(this).attr('value', productId);
                         };
 
-                      
+
 
                          if ($(this).attr('name').match('Quantity')) {
                             $(this).attr('value', "1");
