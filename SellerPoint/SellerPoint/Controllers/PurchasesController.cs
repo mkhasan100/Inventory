@@ -113,7 +113,7 @@ namespace SellerPoint.Controllers
                                             SupplierId = pr.p.SupplierId,
                                             WarehouseId = pr.p.WarehouseId,
                                             SupplierName = pr.sp.Name
-                                        }).Where(p => (p.SupplierId == null || p.SupplierId == SupplierId) && (p.WarehouseId == null || p.WarehouseId == WarehouseId) && (fromDate == null || p.PurchaseOrderDate.Date >= fromDate) && (toDate == null || p.PurchaseOrderDate.Date <= toDate)).ToList();
+                                        }).Where(p => (SupplierId == null || p.SupplierId == SupplierId) && (WarehouseId == null || p.WarehouseId == WarehouseId) && (fromDate == null || p.PurchaseOrderDate.Date >= fromDate) && (toDate == null || p.PurchaseOrderDate.Date <= toDate)).ToList();
            
             var PRListViewModel = new PurchaseListViewModel();
             PRListViewModel.PurchasesList = PurcahseList;

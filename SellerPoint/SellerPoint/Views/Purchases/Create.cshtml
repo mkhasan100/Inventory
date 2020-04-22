@@ -224,10 +224,6 @@
                 Remarks = "";
                 $(this).closest('tr').find('td').each(function () {                       //to find closest table row and table data
                     var textval = $(this).text();                                         //call table row and data
-                    //loop for finding specific column
-                    if (i == 0) {                                                         //if this is column 1
-                        ProductSerialNo = textval;                                        //then show ProductSerialNo
-                    }
                     if (i == 1) {                                                         //if this is column 2
                         ProductName = textval;                                            //then show product name
                     }
@@ -244,11 +240,10 @@
                 var $trLast = $table.find("tr:last");
                 var $trNew = $trLast.clone();
                 var firstInputName = $trNew.find(':input[type=text]:first').attr('name');
-
                 if (firstInputName === undefined) {
                     $("#cart-table tbody").append(                                            //To show data in the table
                         "<tr>"
-                        + "<td><input type='text'  name='DealerSaleProductDetail[0].ProductSerialNo'  style='border:none;background:#fff' value='" + ProductSerialNo + "' /></td>"
+                        + "<td><input type='text'  name='DealerSaleProductDetail[0].ProductSerialNo'  style='border:none;background:#fff' value='1' /></td>"
                         + "<td><input type='text'  name='DealerSaleProductDetail[0].ProductName'  style='border:none;background:#fff' value='" + ProductName + "' /></td>"
                         + "<td><input type='text' name='DealerSaleProductDetail[0].UnitPrice' id='UnitPrice' value='" + UnitPrice + "' class='form-control unit-price'></td>"
                         + "<td><button id='btnMinusQty' class='btn-add-minus btn btn-danger  mdi mdi-minus' type='button' ></button ></td >"
@@ -260,56 +255,33 @@
                         + "<td><a href='#' class='remove btn btn-danger' >Remove</a></td>"
                         + "</tr > ");
                 }
-                else {
-
+                else { 
                     var suffix = $trNew.find(':input[type=text]:first').attr('name').match(/\d+/);
-
-                    $trNew.find("td:last").html('<a href="#" class="remove btn btn-danger" >Remove</a>');
-
-                    $.each($trNew.find(':input[type=text]'), function (i, val) {
-                        // Replaced Name
-                        var oldN = $(this).attr('name');
-                        var newN = oldN.replace('[' + suffix + ']', '[' + (parseInt(suffix) + 1) + ']');
-
-                        $(this).attr('name', newN);
-
-                        if ($(this).attr('name').match('ProductSerialNo')) {
-                            $(this).attr('value', ProductSerialNo);
-                        };
-
-                        if ($(this).attr('name').match('ProductName')) {
-                            $(this).attr('value', ProductName);
-                        };
-
-                        if ($(this).attr('name').match('UnitPrice')) {
-                            $(this).attr('value', UnitPrice);
-                        };
-
-                        if ($(this).attr('name').match('Quantity')) {
-                            $(this).attr('value', "1");
-                        };
-
-                        if ($(this).attr('name').match('ProductId')) {
-                            $(this).attr('value', productId);
-                        };
-
-                        if ($(this).attr('name').match('Total')) {
-                            $(this).attr('value', UnitPrice.toString());
-                        };
-
-                        //If you have another Type then replace with default value
-                        $(this).removeClass("input-validation-error");
-                    });
-                    $trLast.after($trNew);
+                    var serial = $trNew.find(':input[type=text]:first').attr('value');
+                    suffix = parseInt(suffix) + 1;
+                    serial = parseInt(serial) + 1;
+                    $("#cart-table tbody").append(                                            //To show data in the table
+                        "<tr>"
+                        + "<td><input type='text'  name='DealerSaleProductDetail[" + suffix + "].ProductSerialNo'  style='border:none;background:#fff' value='" + serial + "' /></td>"
+                        + "<td><input type='text'  name='DealerSaleProductDetail[" + suffix + "].ProductName'  style='border:none;background:#fff' value='" + ProductName + "' /></td>"
+                        + "<td><input type='text' name='DealerSaleProductDetail[" + suffix + "].UnitPrice' id='UnitPrice' value='" + UnitPrice + "' class='form-control unit-price'></td>"
+                        + "<td><button id='btnMinusQty' class='btn-add-minus btn btn-danger  mdi mdi-minus' type='button' ></button ></td >"
+                        + "<td><input type='text' id='DealerSaleProductDetail[" + suffix + "].Quantity'  name='DealerSaleProductDetail[" + suffix + "].Quantity' value='" + Quantity + "'class='Qty-input form-control'/></td>"
+                        + "<td><button id='btnAddQty' class='btn-add-minus btn btn-danger  mdi mdi-plus' type='button' ></button ></td >"
+                        + "<td><input type='text'  name='DealerSaleProductDetail[" + suffix + "].Total'  style='border:none;background:#fff' value='" + Total + "' /></td>"
+                        + "<td><input type='text' name='ramarks' class='form-control'" + Remarks + "/></td>"
+                        + "<td style = 'display:none' > <input type='text' name='DealerSaleProductDetail[" + suffix + "].ProductId' style='border:none;background:#f1efef;' value='" + productId + "' /></td > "
+                        + "<td><a href='#' class='remove btn btn-danger' >Remove</a></td>"
+                        + "</tr > ");        
                 }
 
-                existingUnitPrice = $("#ProductAmount").val();
-                existingUnitPrice = parseInt(existingUnitPrice) + parseInt(Total);
-                $("#ProductAmount").val(existingUnitPrice);
+                var existingProductAmount = $("#ProductAmount").val();
+                existingProductAmount = parseInt(existingProductAmount) + parseInt(Total);
+                $("#ProductAmount").val(existingProductAmount);
 
-                existingUnitPrice = $("#Total").val();
-                existingUnitPrice = parseInt(existingUnitPrice) + parseInt(Total);
-                $("#Total").val(existingUnitPrice);
+                var existingTotal = $("#Total").val();
+                existingTotal = parseInt(existingTotal) + parseInt(Total);
+                $("#Total").val(existingTotal);
 
 
                 //Remove button
@@ -331,6 +303,7 @@
                     if (i == 6) {
                        totalVal = parseInt(unitprice) * parseInt(quantity);
                         $(this).text(totalVal);
+
                     }
                     i++;                    
                 });                
