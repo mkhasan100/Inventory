@@ -30,41 +30,29 @@ namespace SellerPoint.Models
         public string SupplierName { get; set; }
         [DisplayName("Product")]
         public string ProductName { get; set; }
-
         [DataType(DataType.Date)]
         [DisplayName ("Purchase Order Date")]
-        public DateTime PurchaseOrderDate { get; set; }
-       
-        [NotMapped]
-        
+        public DateTime PurchaseOrderDate { get; set; }       
+        [NotMapped]        
         public string PurchaseOrderDateWithDay { get; set; }
         [DisplayName("Order Number")]
-        public int OrderNumber { get; set; }
-       
+        public int OrderNumber { get; set; }       
         [DisplayName("Order Reference Number")]
         public int OrderReferenceNumber { get; set; }
-
-
         [DisplayName("Product Amount")]
         [Column(TypeName = "decimal(18,2)")]
         public Decimal ProductAmount { get; set; }
-
         [DisplayName("Other Amount")]
         [Column(TypeName = "decimal(18,2)")]
         public Decimal OtherAmount { get; set; }
-
         [Column(TypeName = "decimal(18,2)")]
         public Decimal Discount { get; set; }
-
         [Column(TypeName = "decimal(18,2)")]
         public Decimal Total { get; set; }
-
-
         [DisplayName("Shipping Provider")]
         public string ShippingProvider { get; set; }
         [DisplayName("Shipping Tracking Number")]
         public string ShippingTrackingNumber { get; set; }
         public string Remarks { get; set; }
-
     }
 }

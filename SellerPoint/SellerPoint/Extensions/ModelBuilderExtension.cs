@@ -43,7 +43,11 @@ namespace SellerPoint.Extensions
 
 
             modelBuilder.Entity<ProductCategory>().HasData(
-                new ProductCategory { Id = 1, GroupId = 1, Name = "Samsung" }
+                new ProductCategory { Id = 1, GroupId = 1, Name = "Samsung" },
+                new ProductCategory { Id = 2, GroupId = 1, Name = "Symphony" },
+                new ProductCategory { Id = 3, GroupId = 1, Name = "Walton" },
+                new ProductCategory { Id = 4, GroupId = 1, Name = "HTC" },
+                new ProductCategory { Id = 5, GroupId = 1, Name = "Motorolla" }
 
                 );
 

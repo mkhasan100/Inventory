@@ -20,6 +20,7 @@ namespace SellerPoint.Controllers
             _context = context;
         }
 
+
         // GET: Purchases
         public IActionResult Index()
         {
@@ -51,6 +52,7 @@ namespace SellerPoint.Controllers
             //return View(_context.Purchase.ToList());
         }
 
+
         // GET: Purchases/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -69,14 +71,55 @@ namespace SellerPoint.Controllers
             return View(purchase);
         }
 
-        public IActionResult PurchaseList(PurchaseListViewModel purchaseListViewModel)
+
+        [HttpGet]
+        public IActionResult PurchaseLists()
         {
             ViewBag.WareHouseList = _context.Warehouse.ToList();
             ViewBag.SupplierList = _context.Supplier.ToList();
 
-            return View();
+            var PurchaseListViewModel = new PurchaseListViewModel();
+            var PurcahseList = _context.Purchase.AsEnumerable()
+                                        .Join(_context.Supplier, p => p.SupplierId, sp => sp.Id, (p, sp) => new { p, sp })
+                                        .Select(pr => new Purchase
+                                        {
+                                            PurchaseOrderDate = pr.p.PurchaseOrderDate,
+                                            OrderNumber = pr.p.OrderNumber,
+                                            SupplierName = pr.sp.Name
+                                        }).ToList();
+
+            PurchaseListViewModel.PurchasesList = PurcahseList;
+            return View(PurchaseListViewModel);
         }
 
+
+        [HttpPost]
+        public IActionResult PurchaseLists(PurchaseListViewModel purchaseListViewModel)
+        {
+            ViewBag.WareHouseList = _context.Warehouse.ToList();
+            ViewBag.SupplierList = _context.Supplier.ToList();
+            
+            int? SupplierId = purchaseListViewModel.SupplierID;
+            int? WarehouseId = purchaseListViewModel.WarehouseID;
+            DateTime? fromDate = purchaseListViewModel.FromDate;
+            DateTime? toDate = purchaseListViewModel.ToDate;
+            var PurchaseListViewModel = new PurchaseListViewModel();
+            var PurcahseList = _context.Purchase.AsEnumerable()
+                                        .Join(_context.Supplier, p => p.SupplierId, sp => sp.Id, (p, sp) => new { p, sp })
+                                        .Select(pr => new Purchase
+                                        {
+                                            PurchaseOrderDate = pr.p.PurchaseOrderDate,
+                                            OrderNumber = pr.p.OrderNumber,
+                                            SupplierId = pr.p.SupplierId,
+                                            WarehouseId = pr.p.WarehouseId,
+                                            SupplierName = pr.sp.Name
+                                        }).Where(p => (p.SupplierId == null || p.SupplierId == SupplierId) && (p.WarehouseId == null || p.WarehouseId == WarehouseId) && (fromDate == null || p.PurchaseOrderDate.Date >= fromDate) && (toDate == null || p.PurchaseOrderDate.Date <= toDate)).ToList();
+           
+            var PRListViewModel = new PurchaseListViewModel();
+            PRListViewModel.PurchasesList = PurcahseList;
+            return View(PRListViewModel);
+
+        }
 
 
         // GET: Purchases/Create
@@ -93,7 +136,6 @@ namespace SellerPoint.Controllers
         }
 
 
-
         // POST: Purchases/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -103,6 +145,8 @@ namespace SellerPoint.Controllers
         {
             if (ModelState.IsValid)
             {
+                
+
                 _context.Add(purchase);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -110,6 +154,7 @@ namespace SellerPoint.Controllers
             }
             return View(purchase);
         }
+
 
         // GET: Purchases/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -126,6 +171,7 @@ namespace SellerPoint.Controllers
             }
             return View(purchase);
         }
+
 
         // POST: Purchases/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -162,6 +208,7 @@ namespace SellerPoint.Controllers
             return View(purchase);
         }
 
+
         // GET: Purchases/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -179,6 +226,7 @@ namespace SellerPoint.Controllers
 
             return View(purchase);
         }
+
 
         // POST: Purchases/Delete/5
         [HttpPost, ActionName("Delete")]

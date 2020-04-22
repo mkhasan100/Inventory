@@ -30,10 +30,10 @@ namespace SellerPoint.Controllers
             _hostingEnvironment = hostingEnvironment;
         }
 
+
         // GET: DealerSales
         public IActionResult Index()
         {
-
             var DealerSaleList = _context.DealerSale.AsEnumerable()
                                          .Join(_context.Warehouse, ds => ds.WarehouseId, w => w.Id, (ds, w) => new { ds, w })
                                          .Join(_context.Dealer, dsw => dsw.ds.DealerId, d => d.Id, (dsw, d) => new { dsw, d })
@@ -83,7 +83,7 @@ namespace SellerPoint.Controllers
         {
             ViewBag.WarehouseList = _context.Warehouse.ToList();
             var DealerSaleListViewModel = new DealerSaleListViewModel();
-            var DealerSaleList =        _context.DealerSale.AsEnumerable()
+            var DealerSaleList = _context.DealerSale.AsEnumerable()
                                         .Join(_context.Dealer, ds => ds.DealerId, d => d.Id, (ds, d) => new { ds, d })
                                         .Select(s => new DealerSale
                                         {
@@ -103,7 +103,7 @@ namespace SellerPoint.Controllers
         public IActionResult DealerSaleLists(DealerSaleListViewModel DealerSaleListViewModel)
         {
             ViewBag.WarehouseList = _context.Warehouse.ToList();
-            int? orderId = DealerSaleListViewModel.OrderId ;
+            int? orderId = DealerSaleListViewModel.OrderId;
             int? warehouseId = DealerSaleListViewModel.WarehouseID;
             DateTime? fromDate = DealerSaleListViewModel.FromDate;
             DateTime? toDate = DealerSaleListViewModel.ToDate;
@@ -113,16 +113,15 @@ namespace SellerPoint.Controllers
                                          .Select(s => new DealerSale
                                          {
                                              Id = s.ds.Id,
-                                             DealerName = s.d.Name,                                            
-                                             OrderNo= s.ds.OrderNo,
+                                             DealerName = s.d.Name,
+                                             OrderNo = s.ds.OrderNo,
                                              createDate = s.ds.createDate,
                                              WarehouseId = s.ds.WarehouseId,
                                              payableTotal = s.ds.payableTotal,
                                              Due = s.ds.Due
-                                             
-                                         }).Where(w=> (orderId == null || w.Id==orderId) && (warehouseId ==null || w.WarehouseId==warehouseId) &&(fromDate == null || w.createDate.Date >=fromDate)&&(toDate == null || w.createDate.Date<=toDate)).ToList();
 
-            
+                                         }).Where(w => (orderId == null || w.Id == orderId) && (warehouseId == null || w.WarehouseId == warehouseId) && (fromDate == null || w.createDate.Date >= fromDate) && (toDate == null || w.createDate.Date <= toDate)).ToList();
+
             var DlrSaleListViewModel = new DealerSaleListViewModel();
             DlrSaleListViewModel.DealerSalesList = DealerSaleList;
             return View(DlrSaleListViewModel);
@@ -149,7 +148,7 @@ namespace SellerPoint.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(DealerSaleProdDtlViewModel dealerSaleProdDtlViewModel)
+        public IActionResult Create(DealerSaleProdDtlViewModel dealerSaleProdDtlViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -177,11 +176,9 @@ namespace SellerPoint.Controllers
                 SalesOrder = SalesOrder.PadLeft(8 - SalesOrder.Length, '0');
                 SalesToken = Convert.ToString(Convert.ToInt16(SalesToken) + 1);
                 SalesToken = SalesToken.PadLeft(10 - SalesToken.Length, '0');
-                //string ProductName = "Symphony";
-                //var firstChar = ProductName.ToUpper().Substring(0, 3);
                 OrderNo = "S-" + SalesOrder + "-" + DateTime.Now.ToString("ddMMyy") + "-" + SalesToken;
                 dealerSaleProdDtlViewModel.DealerSale.OrderNo = OrderNo;
-                
+
                 dealerSaleProdDtlViewModel.DealerSale.createDate = DateTime.Now;
 
                 _context.Add(dealerSaleProdDtlViewModel.DealerSale);
@@ -313,11 +310,9 @@ namespace SellerPoint.Controllers
             string OrderDetails = q.ToUpper();
             var Order = _context.DealerSale
                 .Where(a => a.OrderNo.ToUpper().Contains(OrderDetails))
-                .Select(a => new {id= a.Id, name= a.OrderNo});
+                .Select(a => new { id = a.Id, name = a.OrderNo });
             return Json(Order);
         }
-
-               
 
 
     }

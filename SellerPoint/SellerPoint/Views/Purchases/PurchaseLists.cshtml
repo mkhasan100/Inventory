@@ -1,7 +1,7 @@
 ﻿@model SellerPoint.Models.ViewModels.PurchaseListViewModel
 
 @{
-    ViewData["Title"] = "PurchaseList";
+    ViewData["Title"] = "PurchaseLists";
 }
 
 
@@ -9,7 +9,7 @@
 <hr />
 @*<div class="row">
     <div class="col-md-4">*@
-<form asp-action="PurchaseList">
+<form asp-action="PurchaseLists">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
     <div class="row">
@@ -67,14 +67,12 @@
         <div class="panel-heading">
             <h4 id="shopping-cart">Details:</h4>
         </div>
-        <table id="table-edit" class="table table-bordered table-hover">
+        <table id="tblPurchaseList" class="table table-bordered table-hover">
             <thead>
                 <tr class="active">
                     <th>#</th>
-                    <th ng-click="vm.toggleSort('Modified');vm.saveOrderByValue()">
-                        Purchase  Date <span class="glyphicon glyphicon-sort"></span>
-                    </th>
-                    <th ng-click="vm.toggleSort('orderNumber')">Memo<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>Purchase  Date</th>
+                    <th>Memo</th>
                     <th>Supplier</th>
                     <th>Modified</th>
                     <th>Total (Due)</th>
@@ -83,13 +81,27 @@
                 </tr>
             </thead>
             <tbody>
+                @foreach (var item in Model.PurchasesList)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                        <td>@Html.DisplayFor(modelItem => item.PurchaseOrderDate)</td>
+                        <td>@Html.DisplayFor(modelItem => item.OrderNumber)</td>
+                        <td>@Html.DisplayFor(modelItem => item.SupplierName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.PurchaseOrderDate)</td>
+                        <td></td>
+                        <td>@Html.DisplayFor(modelItem => item.SupplierName)</td>
+                        <td><a href="/Purchases/Create" type="submit" id="edit" class="btn btn-info" value="Edit">Edit</a></td>
+                    </tr>
+                }
                 <tr>
-                    <td class="ng-binding">#10</td>
+                    <td>#10</td>
                     <td>Total:</td>
                     <td></td>
+
                     <td></td>
                     <td></td>
-                    <td class="ng-binding">372,522.00 (373,722.00)</td>
+                    <td>372,522.00 (373,722.00)</td>
                     <td></td>
                     <td></td>
                 </tr>
@@ -129,14 +141,14 @@
 
             //Table To Excel
             $("#btnExcelExport").click(function () {
-                    $("#tblDealerSaleList").table2excel({
+                $("#tblPurchaseList").table2excel({
                         filename: "Table.xls"
                     });
                 });
 
             //Table To CSV
             $("#btnCSVExport").click(function () {
-                $("#tblDealerSaleList").table2csv({
+                $("#tblPurchaseList").table2csv({
                     filename: "Table.csv"
                 });
             });

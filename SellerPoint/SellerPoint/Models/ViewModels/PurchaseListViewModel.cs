@@ -9,7 +9,7 @@ namespace SellerPoint.Models.ViewModels
 {
     public class PurchaseListViewModel
     {
-        public int KeywordId { get; set; }
+        public int? KeywordId { get; set; }
         public string Keyword { get; set; }
         [DataType(DataType.Date)]
         [DisplayName ("From Date")]
@@ -21,6 +21,6 @@ namespace SellerPoint.Models.ViewModels
         public int? SupplierID { get; set; }
         [DisplayName("Warehouse")]
         public int? WarehouseID { get; set; }
-        public List<Purchase> PurchaseList { get; set; }
+        public List<Purchase> PurchasesList { get; set; }
     }
 }
