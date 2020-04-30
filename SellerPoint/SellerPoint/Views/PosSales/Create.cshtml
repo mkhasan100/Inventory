@@ -4,199 +4,388 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
-<h4>PosSale</h4>
+<h4>Pos Sale</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="WarehouseId" class="control-label"></label>
-                <input asp-for="WarehouseId" class="form-control" />
+@*<div class="row">
+    <div class="col-md-4">*@
+<form asp-action="Create">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="panel biz-boxed">
+        <div class="form-group row">
+            <label asp-for="WarehouseId" class="col-sm-2 form-control-label">Warehouse</label>
+            <div class="col-sm-10">
+                <input asp-for="WarehouseId" class="form-control" name="WarehouseId" ></>
                 <span asp-validation-for="WarehouseId" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="productId" class="control-label"></label>
-                <input asp-for="productId" class="form-control" />
-                <span asp-validation-for="productId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label class="control-label"></label>
+            <div class="input-group">
+                <input asp-for="productId" class="form-control" placeholder="Search Your Product Here" />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-info pull-left" id="btnSearch">Search</button>
+                </span>
             </div>
+        </div>
+        <div class="form-group">
+            <div class="table-responsive">
+                <div class="panel-heading">
+                    <h4 id="shopping-cart">Search Result:</h4>
+                </div>
+                <table id="table-edit" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Serial</th>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>OnHand</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="panel biz-boxed">
+        <div class="panel-heading">
+            <h4 id="shopping-cart">My Shopping Cart:</h4>
+        </div>
+        <div class="panel-body">
             <div class="form-group">
-                <label asp-for="TotalAmount" class="control-label"></label>
-                <input asp-for="TotalAmount" class="form-control" />
+                <div class="table-responsive">
+                    <table id="cart-table" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Serial</th>
+                                <th>Name</th>
+                                <th>Unit Price</th>
+                                <th></th>
+                                <th></th>
+                                <th>Quantity</th>
+                                <th></th>
+                                <th>Total</th>
+                                <th>Sale Type</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- p in vm.model.saleDetails track by $index -->
+                            <tr>
+                                <td>Total</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td class="ng-binding">0</td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel biz-boxed">
+        <div class="panel-heading">
+            <h4 id="shopping-cart">Payments:</h4>
+        </div>
+        <div class="form-group row">
+            <label asp-for="TotalAmount" class="col-sm-2 form-control-label">Total Amount</label>
+            <div class="col-sm-10">
+                <input asp-for="TotalAmount" class="form-control" readonly name="TotalAmount" value="0"></>
                 <span asp-validation-for="TotalAmount" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="DiscountPercentage" class="control-label"></label>
-                <input asp-for="DiscountPercentage" class="form-control" />
+        </div>
+        <div class="form-group row">
+            <label asp-for="DiscountPercentage" class="col-sm-2 form-control-label">Discount Percentage</label>
+            <div class="col-sm-10">
+                <input asp-for="DiscountPercentage" class="form-control" name="DiscountPercentage"></>
                 <span asp-validation-for="DiscountPercentage" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="DiscountAmount" class="control-label"></label>
-                <input asp-for="DiscountAmount" class="form-control" />
+        </div>
+        <div class="form-group row">
+            <label asp-for="DiscountAmount" class="col-sm-2 form-control-label">Discount Amount</label>
+            <div class="col-sm-10">
+                <input asp-for="DiscountAmount" class="form-control" name="DiscountAmount" value="0"></>
                 <span asp-validation-for="DiscountAmount" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="PayableTotal1" class="control-label"></label>
-                <input asp-for="PayableTotal1" class="form-control" />
+        </div>
+        <div class="form-group row">
+            <label asp-for="PayableTotal1" class="col-sm-2 form-control-label">Payable Total</label>
+            <div class="col-sm-10">
+                <input asp-for="PayableTotal1" class="form-control" readonly name="PayableTotal1"></>
                 <span asp-validation-for="PayableTotal1" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="TransactionMedium" class="control-label"></label>
-                <input asp-for="TransactionMedium" class="form-control" />
+        </div>
+        <div class="form-group row">
+            <label asp-for="TransactionMedium" class="col-sm-2 form-control-label">TransactionMedium</label>
+            <div class="col-sm-10">
+                <input asp-for="TransactionMedium" class="form-control" name="TransactionMedium"></>
                 <span asp-validation-for="TransactionMedium" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Wallets" class="control-label"></label>
-                <input asp-for="Wallets" class="form-control" />
+        </div>
+        <div class="form-group row">
+            <label asp-for="Wallets" class="col-sm-2 form-control-label">Wallets</label>
+            <div class="col-sm-10">
+                <input asp-for="Wallets" class="form-control" name="Wallets"></>
                 <span asp-validation-for="Wallets" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="PayingAmount" class="control-label"></label>
-                <input asp-for="PayingAmount" class="form-control" />
+        </div>
+        <div class="form-group row">
+            <label asp-for="PayingAmount" class="col-sm-2 form-control-label">Paying Amount</label>
+            <div class="col-sm-10">
+                <input asp-for="PayingAmount" class="form-control" name="PayingAmount"></>
                 <span asp-validation-for="PayingAmount" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="TransactionNumber" class="control-label"></label>
-                <input asp-for="TransactionNumber" class="form-control" />
+        </div>
+        <div class="form-group row">
+            <label asp-for="TransactionNumber" class="col-sm-2 form-control-label">Transaction Number</label>
+            <div class="col-sm-10">
+                <input asp-for="TransactionNumber" class="form-control" name="TransactionNumber"></>
                 <span asp-validation-for="TransactionNumber" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Remarks" class="control-label"></label>
-                <input asp-for="Remarks" class="form-control" />
+        </div>
+        <div class="form-group row">
+            <label asp-for="Remarks" class="col-sm-2 form-control-label">Remarks</label>
+            <div class="col-sm-10">
+                <input asp-for="Remarks" class="form-control" name="Remarks"></>
                 <span asp-validation-for="Remarks" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="CustomerInfo" class="control-label"></label>
-                <input asp-for="CustomerInfo" class="form-control" />
-                <span asp-validation-for="CustomerInfo" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Add" class="btn btn-success" />
+        </div>
+        <div class="form-group">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th width="1">#</th>
+                            <th>Tr. Medium</th>
+                            <th>Tr. Wallet</th>
+                            <th>Tr. Number</th>
+                            <th>Amount</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- p in vm.model.transactions track by $index -->
+                        <tr>
+                            <td>Total</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="ng-binding">0</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="panel biz-boxed">
+        <div class="panel-heading">
+            <h4 id="shopping-cart">Customer Information:</h4>
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+                <label class="control-label"></label>
+                <input asp-for="CustomerInfo" class="form-control" placeholder="Enter your keyword" />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-info pull-left" id="btnSearch">Search</button>
+                </span>
             </div>
-            <div class="form-group">
-                <label asp-for="Phone" class="control-label"></label>
-                <input asp-for="Phone" class="form-control" />
-                <span asp-validation-for="Phone" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <div class="table-responsive">
+                <table id="table-edit" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Serial</th>
+                            <th>Name</th>
+                            <th>Phone</th>
+                            <th>Total Due</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- c in vm.customers track by $index -->
+                    </tbody>
+                </table>
             </div>
-            <div class="form-group">
-                <label asp-for="StreetAddress1" class="control-label"></label>
-                <input asp-for="StreetAddress1" class="form-control" />
-                <span asp-validation-for="StreetAddress1" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Addresses" class="control-label"></label>
-                <input asp-for="Addresses" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Name" class="control-label"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Phone" class="control-label"></label>
+            <input asp-for="Phone" class="form-control" />
+            <span asp-validation-for="Phone" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label">Street Address</label>            
+                <textarea class="form-control" rows="4" id="StreetAddress1" name="StreetAddress1"></textarea>            
+        </div>
+        <div class="form-group row">
+            <label asp-for="Addresses" class="col-sm-2 form-control-label">Addresses</label>
+            <div class="col-sm-10">
+                <input asp-for="Addresses" class="form-control" name="Addresses"></>
                 <span asp-validation-for="Addresses" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="AddressesName" class="control-label"></label>
-                <input asp-for="AddressesName" class="form-control" />
+        </div>
+        <div class="form-group row">
+            <label asp-for="AddressesName" class="col-sm-2 form-control-label">Addresses Name</label>
+            <div class="col-sm-10">
+                <input asp-for="AddressesName" class="form-control" name="AddressesName"></>
                 <span asp-validation-for="AddressesName" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="ContactName" class="control-label"></label>
-                <input asp-for="ContactName" class="form-control" />
+        </div>
+        <div class="form-group row">
+            <label asp-for="ContactName" class="col-sm-2 form-control-label">Contact Name</label>
+            <div class="col-sm-10">
+                <input asp-for="ContactName" class="form-control" name="ContactName"></>
                 <span asp-validation-for="ContactName" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="ContactPhone" class="control-label"></label>
-                <input asp-for="ContactPhone" class="form-control" />
+        </div>
+        <div class="form-group row">
+            <label asp-for="ContactPhone" class="col-sm-2 form-control-label">Contact Phone</label>
+            <div class="col-sm-10">
+                <input asp-for="ContactPhone" class="form-control" name="ContactPhone"></>
                 <span asp-validation-for="ContactPhone" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="StreetAddress2" class="control-label"></label>
-                <input asp-for="StreetAddress2" class="form-control" />
-                <span asp-validation-for="StreetAddress2" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 form-control-label">Street Address</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" rows="4" id="StreetAddress2" name="StreetAddress2"></textarea>
             </div>
-            <div class="form-group">
-                <label asp-for="District" class="control-label"></label>
-                <input asp-for="District" class="form-control" />
+        </div>
+        <div class="form-group row">
+            <label asp-for="District" class="col-sm-2 form-control-label">District</label>
+            <div class="col-sm-10">
+                <input asp-for="District" class="form-control" name="District"></>
                 <span asp-validation-for="District" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Thana" class="control-label"></label>
-                <input asp-for="Thana" class="form-control" />
+        </div>
+        <div class="form-group row">
+            <label asp-for="Thana" class="col-sm-2 form-control-label">Thana</label>
+            <div class="col-sm-10">
+                <input asp-for="Thana" class="form-control" name="Thana"></>
                 <span asp-validation-for="Thana" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Area" class="control-label"></label>
-                <input asp-for="Area" class="form-control" />
+        </div>
+        <div class="form-group row">
+            <label asp-for="Area" class="col-sm-2 form-control-label">Area</label>
+            <div class="col-sm-10">
+                <input asp-for="Area" class="form-control" name="Area"></>
                 <span asp-validation-for="Area" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Postcode" class="control-label"></label>
-                <input asp-for="Postcode" class="form-control" />
+        </div>
+        <div class="form-group row">
+            <label asp-for="Postcode" class="col-sm-2 form-control-label">Postcode</label>
+            <div class="col-sm-10">
+                <input asp-for="Postcode" class="form-control" name="Postcode"></>
                 <span asp-validation-for="Postcode" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Country" class="control-label"></label>
-                <input asp-for="Country" class="form-control" />
+        </div>
+        <div class="form-group row">
+            <label asp-for="Country" class="col-sm-2 form-control-label">Country</label>
+            <div class="col-sm-10">
+                <input asp-for="Country" class="form-control" name="Country"></>
                 <span asp-validation-for="Country" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="SpecialNote" class="control-label"></label>
-                <input asp-for="SpecialNote" class="form-control" />
+        </div>
+        <div class="form-group row">
+            <label asp-for="SpecialNote" class="col-sm-2 form-control-label">Special Note</label>
+            <div class="col-sm-10">
+                <input asp-for="SpecialNote" class="form-control" name="SpecialNote"></>
                 <span asp-validation-for="SpecialNote" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="SaleTotal" class="control-label"></label>
-                <input asp-for="SaleTotal" class="form-control" />
+        </div>
+    </div>
+    <div class="panel biz-boxed">
+        <div class="panel-heading">
+            <h4 id="shopping-cart">Summary of the sale:</h4>
+        </div>
+        <div class="form-group row">
+            <label asp-for="SaleTotal" class="col-sm-2 form-control-label">Sale Total</label>
+            <div class="col-sm-10">
+                <input asp-for="SaleTotal" class="form-control" readonly name="SaleTotal" value="0"></>
                 <span asp-validation-for="SaleTotal" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Discount" class="control-label"></label>
-                <input asp-for="Discount" class="form-control" />
+        </div>
+        <div class="form-group row">
+            <label asp-for="Discount" class="col-sm-2 form-control-label">Discount</label>
+            <div class="col-sm-10">
+                <input asp-for="Discount" class="form-control" name="Discount" value="0"></>
                 <span asp-validation-for="Discount" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="PayableTotal2" class="control-label"></label>
-                <input asp-for="PayableTotal2" class="form-control" />
+        </div>
+        <div class="form-group row">
+            <label asp-for="PayableTotal2" class="col-sm-2 form-control-label">Payable Total</label>
+            <div class="col-sm-10">
+                <input asp-for="PayableTotal2" class="form-control" readonly name="PayableTotal2"></>
                 <span asp-validation-for="PayableTotal2" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Paid" class="control-label"></label>
-                <input asp-for="Paid" class="form-control" />
+        </div>
+        <div class="form-group row">
+            <label asp-for="Paid" class="col-sm-2 form-control-label">Paid</label>
+            <div class="col-sm-10">
+                <input asp-for="Paid" class="form-control" name="Paid" value="0"></>
                 <span asp-validation-for="Paid" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Due" class="control-label"></label>
-                <input asp-for="Due" class="form-control" />
+        </div>
+        <div class="form-group row">
+            <label asp-for="Due" class="col-sm-2 form-control-label">Due</label>
+            <div class="col-sm-10">
+                <input asp-for="Due" class="form-control" name="Due" readonly value="0"></>
                 <span asp-validation-for="Due" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="GivenAmount" class="control-label"></label>
-                <input asp-for="GivenAmount" class="form-control" />
+        </div>
+        <div class="form-group row">
+            <label asp-for="GivenAmount" class="col-sm-2 form-control-label">Given Amount</label>
+            <div class="col-sm-10">
+                <input asp-for="GivenAmount" class="form-control" name="GivenAmount" value="0"></>
                 <span asp-validation-for="GivenAmount" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="ChangeAmount" class="control-label"></label>
-                <input asp-for="ChangeAmount" class="form-control" />
+        </div>
+        <div class="form-group row">
+            <label asp-for="ChangeAmount" class="col-sm-2 form-control-label">Change Amount</label>
+            <div class="col-sm-10">
+                <input asp-for="ChangeAmount" class="form-control" readonly name="ChangeAmount" value="0"></>
                 <span asp-validation-for="ChangeAmount" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Remark" class="control-label"></label>
-                <input asp-for="Remark" class="form-control" />
+        </div>
+        <div class="form-group row">
+            <label asp-for="Remark" class="col-sm-2 form-control-label">Remarks</label>
+            <div class="col-sm-10">
+                <input asp-for="Remark" class="form-control" name="Remark"></>
                 <span asp-validation-for="Remark" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="OrderReferenceNumber" class="control-label"></label>
-                <input asp-for="OrderReferenceNumber" class="form-control" />
+        </div>
+        <div class="form-group row">
+            <label asp-for="OrderReferenceNumber" class="col-sm-2 form-control-label">Order Reference Number</label>
+            <div class="col-sm-10">
+                <input asp-for="OrderReferenceNumber" class="form-control" name="OrderReferenceNumber"></>
                 <span asp-validation-for="OrderReferenceNumber" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+    <div class="form-group row pt-3 pl-3">
+        <a href="" type="submit" id="Save" class="btn btn-outline-info" value="Save">Save</a>
+        <div class="ml-2">
+            <a href="" type="submit" id="Print" class="btn btn-outline-info" value="Print">Print</a>
+        </div>
+        <div class="ml-2">
+            <a href="" type="submit" id="Reset" class="btn btn-outline-info" value="Reset">Reset</a>
+        </div>
+    </div>
+</form>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
