@@ -83,8 +83,7 @@ namespace SellerPoint.Extensions
                 new Dealer { Id = 4, Name = "Rakib"},
                 new Dealer { Id = 5, Name = "Imran"},
                 new Dealer { Id = 6, Name = "Saad"},
-                new Dealer { Id = 7, Name = "Jewel"},
-                new Dealer { Id = 8, Name = "Saad"}
+                new Dealer { Id = 7, Name = "Jewel"}
                 );
         }
     }
